@@ -33,7 +33,7 @@ POLICY
 }
 
 resource "local_file" "index_html_aws" {
-    content     = templatefile("${path.module}/index.html.tmpl", {orgname = var.orgname, what_to_say = replace(var.what_to_say, " ", "%20")})
+    content     = templatefile("${path.module}/../skins/${var.skin}.html.tmpl", {orgname = var.orgname, what_to_say = replace(var.what_to_say, " ", "%20")})
     filename = "${path.module}/index.html"
 }
 

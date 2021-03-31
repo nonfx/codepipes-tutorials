@@ -16,5 +16,15 @@ resource "random_string" "random" {
   min_lower = 8
 }
 
-variable "orgname" {}
-variable "what_to_say" {}
+variable "orgname" {
+  type    = string
+  default = "CloudCover"
+}
+variable "what_to_say" {
+  type    = string
+  default = "Hello world!"
+}
+variable "skin" {
+  type    = string
+  default = "cldcvr"
+}
