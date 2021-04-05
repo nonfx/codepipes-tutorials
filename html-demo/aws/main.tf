@@ -26,5 +26,5 @@ variable "what_to_say" {
 }
 variable "skin" {
   type    = string
-  default = "cldcvr"
+  default = "cat"
 }
