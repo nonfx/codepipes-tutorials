@@ -22,7 +22,7 @@ variable "orgname" {
 }
 variable "what_to_say" {
   type    = string
-  default = "Hello world!"
+  default = "Hello world"
 }
 variable "skin" {
   type    = string
