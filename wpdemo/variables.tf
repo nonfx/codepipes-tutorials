@@ -5,7 +5,7 @@ variable "web_number" {
 #variable "web_number2" {}
 variable "web_ami" {
   type = string
-  default = "ami-a4dc46db"
+  default = "ami-01410f0e8f8b1acca"
 }
 variable "web_instance_type" {
   type = string
