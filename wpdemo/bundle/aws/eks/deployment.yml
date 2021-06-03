@@ -27,8 +27,11 @@ deployment:
       cluster: "${terraform.cluster_name.value}"
       region: "${terraform.cluster_region.value}"
       roleArn: "${terraform.eks_arn.value}"
-      PG_HOST: "${terraform.rds_instance_address.value}"
-      REDIS_HOST: "${terraform.redis_hostname.value}"
+      WORDPRESS_DB_HOST: "${terraform.rds_instance_address.value}"
+      WORDPRESS_DB_USER: "dbuser"
+      WORDPRESS_DB_PASSWORD: "dbpassword"
+      WORDPRESS_DB_NAME: "db1"
+      WORDPRESS_DEBUG: "1"
     summary:
       - name: Service URL
         command: sleep 10 ; echo http://`kubectl get ingress -n wordpress-app -o=jsonpath={.items[*].status.loadBalancer.ingress[*].hostname}`
