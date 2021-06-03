@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "dbsubnet" {
 #provision the database
 resource "aws_db_instance" "wpdb" {
   identifier = "wpdb-${random_string.node.id}"
-  instance_class = "db.m4.large"
+  instance_class = "db.t3.micro"
   allocated_storage = 50
   engine = "mysql"
   name = "wordpress"
