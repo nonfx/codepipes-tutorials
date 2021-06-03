@@ -80,7 +80,7 @@ resource "aws_instance" "bastion" {
 */
 
 resource "aws_security_group" "web-sec" {
-  name = "webserver-secgroup"
+  name = "webserver-secgroup-${random_string.node.id}"
   vpc_id = "${aws_vpc.app_vpc.id}"
 
   # Internal HTTP access from anywhere
@@ -111,7 +111,7 @@ resource "aws_security_group" "web-sec" {
 
 # allow all egress traffic (needed for server to download packages)
 resource "aws_security_group" "allout" {
-  name = "allout-secgroup"
+  name = "allout-secgroup-${random_string.node.id}"
   vpc_id = "${aws_vpc.app_vpc.id}"
 
   egress {

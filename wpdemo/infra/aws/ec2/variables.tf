@@ -3,9 +3,10 @@ variable "web_number" {
   default = "1"
 }
 #variable "web_number2" {}
+#This is the Bitnami Public AMI for Wordpress for us-east-1
 variable "web_ami" {
   type = string
-  default = "ami-01410f0e8f8b1acca"
+  default = "ami-040526d6f5a0cb7da"
 }
 variable "web_instance_type" {
   type = string

@@ -4,6 +4,15 @@
 # 1 VPC, 1 NLB, 1 IGW, EIP's for NAT GW and associated security groups
 
 
+#Create Random ID
+resource "random_string" "node" {
+  length           = 4
+  special          = false
+  upper            = false
+  lower            = true
+}
+
+
 # Declare AZ data
 #provision app vpc
 resource "aws_vpc" "app_vpc" {
@@ -11,7 +20,7 @@ resource "aws_vpc" "app_vpc" {
   assign_generated_ipv6_cidr_block = false
   enable_dns_support = true
   tags = {
-    Name = "WP Solution VPC"
+    Name = "WP Solution VPC-${random_string.node.id}"
   }
 }
 
