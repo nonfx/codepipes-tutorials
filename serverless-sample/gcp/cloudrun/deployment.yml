@@ -1,0 +1,28 @@
+schema_version: v0.0.1
+
+environment:
+  import: ./env.yml
+
+application:
+  import: ./app.yml
+
+deployment:
+  name: CloudRunDeployment
+  description: Service Deployment
+  deploymentConfig:
+    artifact:
+      id: DB44BC98-D18E-49BB-BD7C-B2E3E64FD002
+    provisioner: gcp
+    template:
+      moduleRefId: gcp:gcp:cloud-run@1
+      inputs:
+        region:  "us-central1"
+        allowUnauthenticated:  true
+    env:
+      storage: "some-bucket-addr"
+      REDIS_HOST: "10.0.0.9"
+    summary:
+      - name: Service URL
+        command: echo "rainbows"
+
+

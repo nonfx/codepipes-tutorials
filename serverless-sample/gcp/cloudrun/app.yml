@@ -1,0 +1,18 @@
+  
+schema_version: v0.0.1
+
+application:
+  name: cloud-run-sample
+  description: Sample cloud run application details
+  appConfig:
+    version: 1
+  artifacts:
+    - name: Cloud_Run_Sample_Container_Image
+      id: DB44BC98-D18E-49BB-BD7C-B2E3E64FD002
+      containerImage:
+        provider: custom_registry
+        repo: us-docker.pkg.dev/cloudrun/container/hello
+        reference: latest
+  creds:
+    - credsType_aws
+    - credsType_github
