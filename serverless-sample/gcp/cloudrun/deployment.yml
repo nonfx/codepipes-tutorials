@@ -14,7 +14,7 @@ deployment:
       id: DB44BC98-D18E-49BB-BD7C-B2E3E64FD002
     provisioner: gcp
     template:
-      moduleRefId: gcp:gcp:cloud-run@1
+      moduleRefId: gcp:cloud-run@1
       inputs:
         region:  "us-central1"
         allowUnauthenticated:  true
