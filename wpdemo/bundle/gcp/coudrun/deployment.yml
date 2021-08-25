@@ -22,10 +22,7 @@ deployment:
     env:
       WORDPRESS_DB_HOST: "${terraform.instance_ip_address.value}"
       WORDPRESS_DB_USER: "wpdemo"
-      WORDPRESS_DB_PASSWORD: "f8zing4sxzpN1rDk"
+      WORDPRESS_DB_PASSWORD: "f8zing4sxzpN1rDk" #predefine on project
       WORDPRESS_DB_NAME: "wpdb"
       WORDPRESS_DEBUG: "1"
       port: 80
-    summary:
-      - name: Service URL
-        command: sleep 10 ; gcloud run services describe wpdemo --platform managed --region us-central1 --format 'value(status.url)'

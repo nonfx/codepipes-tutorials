@@ -1,7 +1,7 @@
 schema_version: v0.0.1
 
 application:
-  name: wpdemo
+  name: wpdemo-1
   description: Sample cloud run application details
   appConfig:
     version: 1
