@@ -1,7 +1,7 @@
 schema_version: v0.0.1
 
 application:
-  name: cloud-run-wepdemo
+  name: wpdemo
   description: Sample cloud run application details
   appConfig:
     version: 1
@@ -13,5 +13,5 @@ application:
         repo: wordpress
         reference: latest
   creds:
-    - credsType_aws
+    - credsType_gcp
     - credsType_github
