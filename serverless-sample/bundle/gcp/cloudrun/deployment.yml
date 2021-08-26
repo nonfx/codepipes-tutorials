@@ -11,7 +11,7 @@ deployment:
   description: Service Deployment
   deploymentConfig:
     artifact:
-      id: DB44BC98-D18E-49BB-BD7C-B2E3E64FD002
+      id: 1DBE36B3-6C8C-4ED8-A57E-69C4D9D1C249
     provisioner: gcp
     template:
       moduleRefId: gcp:cloud-run@1
@@ -19,10 +19,9 @@ deployment:
         region:  "us-central1"
         allowUnauthenticated:  true
     env:
-      storage: "some-bucket-addr"
-      REDIS_HOST: "10.0.0.9"
+      BUCKET: "${terraform.gcp_bucket.value}"
+      PROJECT_ID: "vanguard-test-deploy"
+      IMAGE_PATH: "test.gif"
     summary:
       - name: Service URL
-        command: echo "rainbows"
-
-
+        command: echo "gcloud run services describe cloud-run-sample --platform managed --region us-central1 --format 'value(status.url)'
