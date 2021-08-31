@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = "hello-vang-${random_string.random.result}-${replace(lower(var.what_to_say)," ","-")}"
+  bucket = "codepipes-html-demo-${random_string.random.result}"
   acl    = "public-read"
 
   force_destroy = true
