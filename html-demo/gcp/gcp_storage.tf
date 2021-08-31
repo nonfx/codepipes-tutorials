@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "website_bucket" {
   provider = google-beta
-  name = "hello-vang-${random_string.random.result}-${replace(lower(var.what_to_say)," ","-")}"
+  name = "codepipes-html-demo-${random_string.random.result}"
   force_destroy = true
   project = var.GOOGLE_PROJECT
 
