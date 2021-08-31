@@ -1,0 +1,25 @@
+schema_version: v0.0.1
+
+environment:
+  import: ./env.yml
+
+application:
+  import: ./app.yml
+
+deployment:
+  name: AppRunnerDeployment
+  description: Service Deployment
+  deploymentConfig:
+    artifact:
+      id: ADCC5476-953A-45BA-A2DB-647BCFEF222C
+    provisioner: aws
+    template:
+      moduleRefId: aws:basic-app-runner@1
+      inputs:
+        region:  "us-east-1"
+        port: 8080
+    env:
+      BUCKET: "${terraform.aws_bucket.value}"
+      REGION: "us-east-1"
+      IMAGE_PATH: "test.gif"
+    summary:

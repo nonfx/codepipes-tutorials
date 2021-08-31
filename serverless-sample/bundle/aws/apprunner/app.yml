@@ -1,0 +1,18 @@
+  
+schema_version: v0.0.1
+
+application:
+  name: cloud-run-sample
+  description: Sample cloud run application
+  appConfig:
+    version: 1
+  artifacts:
+    - name: App_Runner_Sample_Container_Image
+      id: ADCC5476-953A-45BA-A2DB-647BCFEF222C
+      containerImage:
+        provider: custom_registry
+        repo: 543332486884.dkr.ecr.us-east-1.amazonaws.com/runner-demo
+        reference: latest
+  creds:
+    - credsType_aws
+    - credsType_github
