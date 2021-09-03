@@ -20,7 +20,7 @@ deployment:
         allowUnauthenticated:  true
     env:
       BUCKET: "${terraform.gcp_bucket.value}"
-      PROJECT_ID: "vanguard-test-deploy"
+      PROJECT_ID: "vanguard-qa"
       IMAGE_PATH: "test.gif"
     summary:
       - name: Service URL
