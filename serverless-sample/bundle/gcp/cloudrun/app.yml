@@ -8,7 +8,7 @@ application:
     version: 1
   artifacts:
     - name: Cloud_Run_Sample_Container_Image
-      id: 1DBE36B3-6C8C-4ED8-A57E-69C4D9D1C249
+      id: 5B98F69A-D349-4739-9652-1894B3110BBC
       containerImage:
         provider: custom_registry
         repo: gcr.io/vanguard-qa/cloudrun-server:latest
