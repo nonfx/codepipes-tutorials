@@ -11,7 +11,7 @@ deployment:
   description: Service Deployment
   deploymentConfig:
     artifact:
-      id: 5B98F69A-D349-4739-9652-1894B3110BBC
+      id: 93ECBC40-B510-405D-8106-1C56A16F5531
     provisioner: gcp
     template:
       moduleRefId: gcp:cloud-run@1
