@@ -11,7 +11,7 @@ deployment:
   description: Service Deployment
   deploymentConfig:
     artifact:
-      id: 93ECBC40-B510-405D-8106-1C56A16F5531
+      id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
     provisioner: gcp
     template:
       moduleRefId: gcp:cloud-run@1
@@ -20,5 +20,5 @@ deployment:
         allowUnauthenticated:  true
     env:
       BUCKET: "${terraform.gcp_bucket.value}"
-      PROJECT_ID: "vanguard-test-deploy"
+      PROJECT_ID: "vanguard-qa"
       IMAGE_PATH: "test.gif"
