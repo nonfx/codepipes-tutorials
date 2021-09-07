@@ -20,5 +20,5 @@ deployment:
         allowUnauthenticated:  true
     env:
       BUCKET: "${terraform.gcp_bucket.value}"
-      PROJECT_ID: "vanguard-qa"
+      PROJECT_ID: "vanguard-test-deploy"
       IMAGE_PATH: "test.gif"
