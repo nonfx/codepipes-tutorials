@@ -11,7 +11,7 @@ application:
       id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
       containerImage:
         provider: custom_registry
-        repo: gcr.io/vanguard-qa/cloudrun-server:latest
+        repo: gcr.io/vanguard-qa/cloudrun-server
         reference: latest
   creds:
     - credsType_gcp
