@@ -21,7 +21,7 @@ resource "aws_iam_role" "ecr_role" {
    {
      "Action": "sts:AssumeRole",
      "Principal": {
-       "Service": "tasks.apprunner.amazonaws.com"
+       "Service": "build.apprunner.amazonaws.com"
      },
      "Effect": "Allow",
      "Sid": ""
