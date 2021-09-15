@@ -11,14 +11,15 @@ deployment:
   description: Service Deployment
   deploymentConfig:
     artifact:
-      id: 8529451B-76E0-4686-9C37-B27561425CB8
+      id: 5B9AB086-222C-4CB4-BE8B-6B4F7ECE2223
     provisioner: aws
     template:
       moduleRefId: aws:app-runner@1
       inputs:
         region:  "us-east-1"
         port: 8080
-        role: "${terraform.aws_role.value}"
+        ecr_role: "${terraform.aws_ecr_role.value}"
+        instance_role: "${terraform.aws_instance_role.value}"
     env:
       BUCKET: "${terraform.aws_bucket.value}"
       REGION: "us-east-1"
