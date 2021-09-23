@@ -12,7 +12,6 @@ deployment:
   deploymentConfig:
     artifact:
       id: 3e9f0abf-c768-499d-8c46-577777222dc
-    provisioner: aws
     template:
       moduleRefId: aws:basic-eks-regional@1
       inputs:
