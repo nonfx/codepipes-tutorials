@@ -1,0 +1,13 @@
+schema_version: v1.0.0
+environment:
+    name: serverless_demo
+    revision:
+        type: branch
+        identifier: cloudrun-demo
+        repo: https://github.com/cldcvr/codepipes-tutorials
+        dir: serverless-sample/infra/gcp
+        driver: github
+    variables:
+        - key: GOOGLE_PROJECT
+          value: vanguard-test-deploy
+          type: tf_var

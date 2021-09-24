@@ -1,0 +1,12 @@
+schema_version: v1.0.0
+application:
+    name: serverless
+    description: A simple serverless app
+    appConfig:
+        version: "1.14"
+    artifacts:
+        - id: 634708f4-45fd-4838-9698-1a4d64d89d8c
+          name: sless
+          containerImage:
+            repo: gcr.io/vanguard-test-deploy/cloudrun-server
+            reference: latest

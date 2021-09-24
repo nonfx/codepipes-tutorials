@@ -1,0 +1,6 @@
+schema_version: v1.0.0
+project:
+    name: serverless_test
+    description: Serverless Testing project
+deployments:
+    - import: deployment-slessDeploy.yaml

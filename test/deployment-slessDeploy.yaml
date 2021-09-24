@@ -1,0 +1,21 @@
+schema_version: v1.0.0
+deployment:
+    name: slessDeploy
+    deploymentConfig:
+        artifact:
+            id: 634708f4-45fd-4838-9698-1a4d64d89d8c
+            containerImage:
+                reference: latest
+        template:
+            moduleRefId: gcp:cloud-run@1
+            inputs:
+                allowUnauthenticated: true
+                region: us-east1
+        env:
+            BUCKET: ${terraform.gcp_bucket.value}
+            IMAGE_PATH: test.gif
+            PROJECT_ID: vanguard-test-deploy
+application:
+    import: app-serverless.yaml
+environment:
+    import: environment-serverless_demo.yaml
