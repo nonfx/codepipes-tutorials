@@ -13,3 +13,5 @@
 
 # bundles
 *.plan
+.builds
+.DS_Store
