@@ -1,6 +1,9 @@
-
 build:	
 	CGO_ENABLED=0 GOOS=linux go build -v -installsuffix nocgo -o .builds/binary-gcp main.go
 upload:	
-	docker build -t gcr.io/<project-name>/cloudrun-server:latest .
-	docker push gcr.io/<project-name>/cloudrun-server:latest
+	docker build -t $(GCR_REPO):$(tag) .
+	docker push $(GCR_REPO):$(tag)
+clean:
+	rm -rf .builds
+	docker rmi $(GCR_REPO):$(tag)
+	gcloud container images delete $(GCR_REPO):$(tag) --quiet
