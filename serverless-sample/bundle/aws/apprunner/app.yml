@@ -7,10 +7,10 @@ application:
     version: 1
   artifacts:
     - name: App_Runner_Sample_Container_Image
-      id: 5B9AB086-222C-4CB4-BE8B-6B4F7ECE2223
+      id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
       containerImage:
         provider: custom_registry
-        repo: 543332486884.dkr.ecr.us-east-1.amazonaws.com/runner-demo:latest
+        repo: public.ecr.aws/p0k3r4s4/runner-demo
         reference: latest
   creds:
     - credsType_aws
