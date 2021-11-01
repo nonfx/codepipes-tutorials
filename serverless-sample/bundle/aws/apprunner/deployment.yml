@@ -21,6 +21,6 @@ deployment:
         ecr_role: "${terraform.aws_ecr_role.value}"
         instance_role: "${terraform.aws_instance_role.value}"
     env:
-      CPI_BUCKET: "${terraform.aws_bucket.value}"
-      CPI_REGION: "us-east-1"
-      CPI_IMAGE_PATH: "test.gif"
+      BUCKET: "${terraform.aws_bucket.value}"
+      REGION: "us-east-1"
+      IMAGE_PATH: "test.gif"
