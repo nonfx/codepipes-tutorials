@@ -6,7 +6,7 @@ application:
   appConfig:
     version: 1
   artifacts:
-    - name: App_Runner_Sample_Container_Image
+    - name: AppRunnerSampleContainerImage
       id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
       containerImage:
         provider: custom_registry
