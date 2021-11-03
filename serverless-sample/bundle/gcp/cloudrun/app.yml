@@ -1,0 +1,18 @@
+  
+schema_version: v0.0.1
+
+application:
+  name: cloud-run
+  description: Sample cloud run application
+  appConfig:
+    version: 1
+  artifacts:
+    - name: Cloud_Run_Sample_Container_Image
+      id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
+      containerImage:
+        provider: custom_registry
+        repo: gcr.io/vanguard-test-deploy/cloudrun-server
+        reference: latest
+  creds:
+    - credsType_gcp
+    - credsType_github

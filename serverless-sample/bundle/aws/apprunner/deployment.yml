@@ -1,0 +1,26 @@
+schema_version: v0.0.1
+
+environment:
+  import: ./env.yml
+
+application:
+  import: ./app.yml
+
+deployment:
+  name: AppRunnerDeployment
+  description: Service Deployment
+  deploymentConfig:
+    artifact:
+      id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
+    provisioner: aws
+    template:
+      moduleRefId: aws:app-runner@1
+      inputs:
+        region:  "us-east-1"
+        port: 8080
+        ecr_role: "${terraform.aws_ecr_role.value}"
+        instance_role: "${terraform.aws_instance_role.value}"
+    env:
+      BUCKET: "${terraform.aws_bucket.value}"
+      REGION: "us-east-1"
+      IMAGE_PATH: "test.gif"

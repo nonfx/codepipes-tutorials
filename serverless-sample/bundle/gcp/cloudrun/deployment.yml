@@ -1,0 +1,24 @@
+schema_version: v0.0.1
+
+environment:
+  import: ./env.yml
+
+application:
+  import: ./app.yml
+
+deployment:
+  name: CloudRunDeployment
+  description: Service Deployment
+  deploymentConfig:
+    artifact:
+      id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
+    provisioner: gcp
+    template:
+      moduleRefId: gcp:cloud-run@1
+      inputs:
+        region:  "us-central1"
+        allowUnauthenticated:  true
+    env:
+      BUCKET: "${terraform.gcp_bucket.value}"
+      PROJECT_ID: "vanguard-test-deploy"
+      IMAGE_PATH: "test.gif"

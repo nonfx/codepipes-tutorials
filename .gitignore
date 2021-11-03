@@ -9,3 +9,9 @@
 *.tfvars
 *.exe
 *.terraform.lock.hcl
+
+
+# bundles
+*.plan
+.builds
+.DS_Store
