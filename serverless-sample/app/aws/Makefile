@@ -1,7 +1,12 @@
-
+ifndef ECR_REPO
+    $(error ECR_REPO is undefined)
+endif
+ifndef tag
+    tag=latest
+endif
 build:	
 	CGO_ENABLED=0 GOOS=linux go build -v -installsuffix nocgo -o .builds/binary-aws main.go
-upload:	
+upload: build
 	docker build -t $(ECR_REPO):$(tag) .
 	docker push $(ECR_REPO):$(tag)
 clean:
