@@ -1,5 +1,6 @@
 resource "google_storage_bucket" "storage_bucket" {
   provider = google-beta
+  location = var.BUCKET_LOCATION
   name = "cloud-run-${random_string.random.result}"
   force_destroy = true
   project = var.GOOGLE_PROJECT
