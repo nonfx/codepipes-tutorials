@@ -70,7 +70,7 @@ resource "google_container_node_pool" "this" {
     }
 
     workload_metadata_config {
-      node_metadata = "GKE_METADATA_SERVER"
+      mode = "GKE_METADATA"
     }
   }
 
