@@ -81,15 +81,6 @@ resource "google_container_cluster" "this" {
     }
   }
 
-  master_auth {
-    username = var.basic_auth_username
-    password = var.basic_auth_password
-
-    client_certificate_config {
-      issue_client_certificate = var.issue_client_certificate
-    }
-  }
-
   # dynamic "master_authorized_networks_config" {
   #   for_each = local.master_authorized_networks_config
   #   content {
@@ -144,6 +135,6 @@ resource "google_container_cluster" "this" {
   }
 
   workload_identity_config {
-    identity_namespace = "${var.project}.svc.id.goog"
+    workload_pool = "${var.project}.svc.id.goog"
   }
 }

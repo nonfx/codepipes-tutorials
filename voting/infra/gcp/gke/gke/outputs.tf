@@ -10,7 +10,7 @@ output "endpoint" {
 
 output "instance_group_urls" {
   description = "List of instance group URLs which have been assigned to the cluster."
-  value       = google_container_cluster.this.instance_group_urls
+  value       = google_container_cluster.this.node_pool[0].instance_group_urls
 }
 
 output "ca_certificate" {
