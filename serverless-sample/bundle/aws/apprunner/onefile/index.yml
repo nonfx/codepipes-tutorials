@@ -1,0 +1,52 @@
+schema_version: v0.0.1
+
+deployments:
+  deployment:
+    name: AppRunnerDeployment
+    description: Service Deployment
+    deploymentConfig:
+      artifact:
+        id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
+      provisioner: aws
+      template:
+        moduleRefId: aws:app-runner@1
+        inputs:
+          region:  "us-east-1"
+          port: 8080
+          ecr_role: "${terraform.aws_ecr_role.value}"
+          instance_role: "${terraform.aws_instance_role.value}"
+      env:
+        BUCKET: "${terraform.aws_bucket.value}"
+        REGION: "us-east-1"
+        IMAGE_PATH: "test.gif"
+
+environment:
+  name: production
+  description: App runner sample app infra on AWS
+  revision:
+    driver: github
+    repo: https://github.com/cldcvr/codepipes-tutorials
+    dir: serverless-sample/infra/aws
+    identifier: cloudrun-demo
+    type: branch
+  variables:
+  policySet: Unrestricted
+  creds:
+    - credsType_aws
+    - credsType_github
+
+application:
+  name: app-runner
+  description: Sample app runner demo application
+  appConfig:
+    version: 1
+  artifacts:
+    - name: AppRunnerSampleContainerImage
+      id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
+      containerImage:
+        provider: custom_registry
+        repo: public.ecr.aws/p0k3r4s4/runner-demo
+        reference: latest
+  creds:
+    - credsType_aws
+    - credsType_github
