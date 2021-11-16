@@ -1,7 +1,6 @@
 schema_version: v0.0.1
 
 deployments:
-  deployment:
     name: AppRunnerDeployment
     description: Service Deployment
     deploymentConfig:
