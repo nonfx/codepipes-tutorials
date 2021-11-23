@@ -1,5 +1,6 @@
 resource "google_storage_bucket" "website_bucket" {
   provider = google-beta
+  location = "US"
   name = "codepipes-html-demo-${random_string.random.result}"
   force_destroy = true
   project = var.GOOGLE_PROJECT
