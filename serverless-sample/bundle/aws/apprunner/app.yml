@@ -13,5 +13,5 @@ application:
         repo: public.ecr.aws/p0k3r4s4/runner-demo
         reference: latest
   creds:
-    - credsType_aws
-    - credsType_github
+    - cloud
+    - git
