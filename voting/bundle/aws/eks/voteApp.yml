@@ -13,5 +13,5 @@ application:
         repo: cldcvr/codepipes-example-vote
         reference: latest
   creds:
-    - credsType_aws
-    - credsType_github
+    - cloud
+    - git

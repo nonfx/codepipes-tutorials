@@ -14,5 +14,5 @@ application:
         repo: vanguard-test-deploy/cloudrun-server
         reference: latest
   creds:
-    - credsType_gcp
-    - credsType_github
+    - cloud
+    - git

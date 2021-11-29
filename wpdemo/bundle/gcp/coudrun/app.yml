@@ -13,5 +13,5 @@ application:
         repo: wordpress
         reference: latest
   creds:
-    - credsType_gcp
-    - credsType_github
+    - cloud
+    - git

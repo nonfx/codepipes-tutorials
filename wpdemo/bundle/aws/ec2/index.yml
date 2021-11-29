@@ -18,5 +18,5 @@ environment:
       value: ami-0c5caf3e270e5d6ab
   policySet: Unrestricted
   creds:
-    - credsType_aws
-    - credsType_github
+    - cloud
+    - git
