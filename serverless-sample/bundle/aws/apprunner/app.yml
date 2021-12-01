@@ -9,8 +9,8 @@ application:
     - name: AppRunnerSampleContainerImage
       id: 4FE1056C-E64F-46A3-8CA3-312AA19DE732
       containerImage:
-        provider: custom_registry
-        repo: public.ecr.aws/p0k3r4s4/runner-demo
+        provider: public_elastic_container_registry
+        repo: p0k3r4s4/runner-demo
         reference: latest
   creds:
     - credsType_aws
