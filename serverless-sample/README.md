@@ -10,7 +10,7 @@ In order to deploy a full-stack application this app demonstrates a backend serv
 All components mentioned below have AWS and GCP both use cases.
 *Currently only cloud native container repositories is supported.
 
-### Infrasture-as-code 
+### Infrastructure-as-code 
 `Location: Infra Folder`
 This folder contains terraform code to 
 - Create a storage bucket
