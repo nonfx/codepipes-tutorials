@@ -9,7 +9,7 @@ application:
     - name: Voting_Result_Container_Image
       id: 3e9f0abf-c768-499d-8c46-23455622dc
       containerImage:
-        provider: custom_registry
+        provider: dockerhub_container_registry
         repo: cldcvr/codepipes-example-result
         reference: latest
   creds:
