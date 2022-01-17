@@ -9,7 +9,7 @@ application:
     - name: Worker_Container_Image
       id: 3e9f0abf-c768-499d-8c46-52455622dc
       containerImage:
-        provider: custom_registry
+        provider: dockerhub_container_registry
         repo: cldcvr/codepipes-example-worker
         reference: latest
   creds:
