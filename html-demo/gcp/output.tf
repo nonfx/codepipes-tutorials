@@ -1,3 +1,3 @@
 output "gcp_url" {
-  value = "http://storage.cloud.google.com/${google_storage_bucket.website_bucket.name}/index.html"
+  value = "${random_string.random.result}-${var.orgname}-${var.what_to_say}"
 }
