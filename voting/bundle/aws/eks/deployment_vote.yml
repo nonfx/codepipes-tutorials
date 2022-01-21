@@ -15,18 +15,15 @@ deployment:
     template:
       moduleRefId: aws:basic-eks-regional@1
       inputs:
-        cluster: "$cluster"
-        region:  "$region"
-        roleArn:  "$roleArn"
+        cluster: "${terraform.cluster_name.value}"
+        region:  "${terraform.cluster_region.value}"
+        roleArn:  "${terraform.eks_arn.value}"
         ports:
           -  name: "vote"
              containerPort: 80
-             protocol": "TCP"
+             protocol: "TCP"
              healthCheck: "/health"
     env:
-      cluster: "${terraform.cluster_name.value}"
-      region: "${terraform.cluster_region.value}"
-      roleArn: "${terraform.eks_arn.value}"
       PG_HOST: "${terraform.rds_instance_address.value}"
       REDIS_HOST: "${terraform.redis_hostname.value}"
     summary:
