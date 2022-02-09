@@ -1,11 +1,4 @@
-terraform {
-  required_providers {
-    helm = {
-      source = "hashicorp/helm"
-      version = "2.1.2"
-    }
-  }
-}
+
 
 module "container-insights" {
   source       = "Young-ook/eks/aws//modules/container-insights"

@@ -17,7 +17,7 @@ resource "google_service_networking_connection" "private_service_access" {
 
 resource "google_compute_firewall" "services-firewall" {
   project = var.GOOGLE_PROJECT
-  name    = "demo-firewal-${var.network}"
+  name    = "demo-firewall-${var.network}"
   network = module.vpc.network.self_link
   allow {
     protocol = "tcp"

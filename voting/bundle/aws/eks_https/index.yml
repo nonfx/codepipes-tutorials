@@ -1,0 +1,9 @@
+schema_version: v0.0.1
+
+project:
+  name: VotingProject
+
+deployments:
+  - import: ./deployment_vote.yml
+  - import: ./deployment_worker.yml
+  - import: ./deployment_result.yml
