@@ -39,17 +39,16 @@ Terraform inputs and outputs are :
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `"us-east-2"` | no |
-| <a name="input_certificate_enabled"></a> [certificate\_enabled](#input\_certificate\_enabled) | n/a | `bool` | `false` | no |
-| <a name="input_cluster-name"></a> [cluster-name](#input\_cluster-name) | n/a | `string` | `"codepipes-demo"` | no |
-| <a name="input_cluster_ipv4_cidr"></a> [cluster\_ipv4\_cidr](#input\_cluster\_ipv4\_cidr) | The IP address range of the kubernetes pods in this cluster. Default is an automatically assigned CIDR. | `string` | `"10.0.0.0/16"` | no |
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | n/a | `string` | `null` | no |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `"us-east-2"` | yes |
+| <a name="input_certificate_enabled"></a> [certificate\_enabled](#input\_certificate\_enabled) | n/a | `bool` | `false` | yes |
+| <a name="input_cluster-name"></a> [cluster-name](#input\_cluster-name) | n/a | `string` | `"codepipes-demo"` | yes |
+| <a name="input_cluster_ipv4_cidr"></a> [cluster\_ipv4\_cidr](#input\_cluster\_ipv4\_cidr) | The IP address range of the kubernetes pods in this cluster. Default is an automatically assigned CIDR. | `string` | `"10.0.0.0/16"` | yes |
+| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | n/a | `string` | `null` | yes |
 | <a name="input_map_additional_iam_roles"></a> [map\_additional\_iam\_roles](#input\_map\_additional\_iam\_roles) | Additional IAM roles to add to `config-map-aws-auth` ConfigMap | <pre>list(object({<br>    rolearn  = string<br>    username = string<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_node-group-name"></a> [node-group-name](#input\_node-group-name) | n/a | `string` | `"codepipes-cdn-node-group"` | no |
-| <a name="input_role-eks-demo-node"></a> [role-eks-demo-node](#input\_role-eks-demo-node) | n/a | `string` | `"codepipes-cdn-eks-demo-node"` | no |
-| <a name="input_vpc-eks-tag-name"></a> [vpc-eks-tag-name](#input\_vpc-eks-tag-name) | n/a | `string` | `"codepipes-cdn-eks-demo-tag-name"` | no |
-| <a name="input_wait_for_cluster_cmd"></a> [wait\_for\_cluster\_cmd](#input\_wait\_for\_cluster\_cmd) | Custom local-exec command to execute for determining if the eks cluster is healthy. Cluster endpoint will be available as an environment variable called ENDPOINT | `string` | `" apk add curl; for i in `seq 1 60`; do curl -k $ENDPOINT/healthz >/dev/null && exit 0 || true; sleep 5; done; echo TIMEOUT && exit 1"` | no |
-| <a name="input_wait_for_cluster_interpreter"></a> [wait\_for\_cluster\_interpreter](#input\_wait\_for\_cluster\_interpreter) | Custom local-exec command line interpreter for the command to determining if the eks cluster is healthy. | `list(string)` | <pre>[<br>  "/bin/sh",<br>  "-c"<br>]</pre> | no |
+| <a name="input_node-group-name"></a> [node-group-name](#input\_node-group-name) | n/a | `string` | `"codepipes-cdn-node-group"` | yes |
+| <a name="input_role-eks-demo-node"></a> [role-eks-demo-node](#input\_role-eks-demo-node) | n/a | `string` | `"codepipes-cdn-eks-demo-node"` | yes |
+| <a name="input_vpc-eks-tag-name"></a> [vpc-eks-tag-name](#input\_vpc-eks-tag-name) | n/a | `string` | `"codepipes-cdn-eks-demo-tag-name"` | yes |
+
 
 ## Outputs
 
