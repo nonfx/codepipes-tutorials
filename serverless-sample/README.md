@@ -23,9 +23,9 @@ A fiber server which exposes two endpoints:
 - `GET /`: Baseurl which returns a html page packaged with the gif uploaded in infra deployment, it uses server-side rendering to serve html.
 - `GET /gif`: Return the gif from cloud storage (s3/gcs)
 
-Makefile: 
+### Makefile 
 * Use build command to build binary.
-* Use upload command to create and upload docker container to choice of your container repository, set `$GCR_REPO/$ECR_REPO` and `tag` variables before running the commands.
+* Use upload command to create and upload docker container to choice of your container repository, set `$GCR_REPO/$ECR_REPO/$ACR_REPO` and `tag` variables before running the commands.
 * eg:  `GCR_REPO=gcr.io/<project-id>/<app-name> tag=latest make upload`
 
 To uplod ECR containers: https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
@@ -33,6 +33,10 @@ To uplod ECR containers: https://docs.aws.amazon.com/AmazonECR/latest/userguide/
 *Keeping in mind you might have to login first, so do checkout your aws console's ECR repository for login commands.
 
 To upload GCR containers: https://cloud.google.com/container-registry/docs/pushing-and-pulling
+
+* In case of azure follow this document to first login to azure and then login to acr
+
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli?tabs=azure-cli
 
 ### Codepipes
 `Location: Bundles Folder`
