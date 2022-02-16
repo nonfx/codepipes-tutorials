@@ -17,17 +17,14 @@ locals {
 
 
 provider "kubernetes" {
-    host                   = data.null_data_source.cluster.outputs["cluster_endpoint"]
+    host                   = local.cluster_endpoint
     cluster_ca_certificate = base64decode(aws_eks_cluster.demo.certificate_authority.0.data)
     token                  = data.aws_eks_cluster_auth.cluster_auth.token
 }
 
-data "null_data_source" "cluster" {
-   inputs = {
+locals {
      cluster_endpoint = aws_eks_cluster.demo.endpoint
-   }
 }
-
 
 resource "kubernetes_config_map" "aws_auth" {
   depends_on = [aws_eks_cluster.demo]

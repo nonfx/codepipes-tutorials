@@ -137,7 +137,10 @@ resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
                 "elasticloadbalancing:DescribeTargetGroups",
                 "elasticloadbalancing:DescribeTargetGroupAttributes",
                 "elasticloadbalancing:DescribeTargetHealth",
-                "elasticloadbalancing:DescribeTags"
+                "elasticloadbalancing:DescribeTags",
+                "route53:ListHostedZones",
+                "route53:ListResourceRecordSets",
+                "route53:ChangeResourceRecordSets"
             ],
             "Resource": "*"
         },
@@ -323,6 +326,9 @@ resource "aws_iam_role_policy_attachment" "node-AWSLoadBalancerControllerIAMPoli
   policy_arn = aws_iam_policy.AWSLoadBalancerControllerIAMPolicy.arn
   role       = aws_iam_role.node.name
 }
+
+
+
 
 resource "aws_iam_policy" "AWSVisualEditorPolicy" {
   name        = "AWSVisualEditorPolicy-${random_string.role.id}"

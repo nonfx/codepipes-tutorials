@@ -9,10 +9,14 @@
 resource "aws_vpc" "demo" {
   cidr_block = var.cluster_ipv4_cidr
   enable_dns_hostnames   = true
-  tags = map(
-    "Name", "${var.cluster-name}-${random_string.cluster.id}",
-    "kubernetes.io/cluster/${var.cluster-name}-${random_string.cluster.id}", "shared",
-  )
+  tags = tomap({
+    "Name" = "${var.cluster-name}-${random_string.cluster.id}",
+    "kubernetes.io/cluster/${var.cluster-name}-${random_string.cluster.id}" = "shared",
+  })
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.demo.id
 }
 
 resource "aws_subnet" "demo" {
@@ -24,11 +28,11 @@ resource "aws_subnet" "demo" {
   map_public_ip_on_launch = true
   vpc_id                  = aws_vpc.demo.id
 
-  tags = map(
-    "Name", "${var.cluster-name}-${random_string.cluster.id}",
-    "kubernetes.io/cluster/${var.cluster-name}-${random_string.cluster.id}", "shared",
-    "kubernetes.io/role/elb","1",
-  )
+  tags = tomap({
+    "Name" = "${var.cluster-name}-${random_string.cluster.id}",
+    "kubernetes.io/cluster/${var.cluster-name}-${random_string.cluster.id}" = "shared",
+    "kubernetes.io/role/elb" = "1",
+  })
 }
 
 resource "aws_subnet" "dbsubnet" {
@@ -79,3 +83,4 @@ resource "aws_route_table_association" "demo" {
   subnet_id      = aws_subnet.demo.*.id[count.index]
   route_table_id = aws_route_table.demo.id
 }
+

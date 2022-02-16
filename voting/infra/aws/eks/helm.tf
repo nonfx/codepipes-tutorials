@@ -1,15 +1,6 @@
-terraform {
-  required_providers {
-    helm = {
-      source = "hashicorp/helm"
-      version = "2.1.2"
-    }
-  }
-}
-
 module "container-insights" {
   source       = "Young-ook/eks/aws//modules/container-insights"
-  version      = "1.4.13"
+  version      = "1.6.0"
   cluster_name = aws_eks_cluster.demo.name
   oidc         = zipmap(
     ["url", "arn"],

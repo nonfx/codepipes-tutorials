@@ -1,6 +1,6 @@
 variable "aws_region" {
   default = "us-east-2"
-   type    = string
+  type    = string
 }
 
 variable "cluster-name" {
@@ -29,8 +29,6 @@ variable "cluster_ipv4_cidr" {
   type    = string
 }
 
-
-
 variable "map_additional_iam_roles" {
   description = "Additional IAM roles to add to `config-map-aws-auth` ConfigMap"
 
@@ -53,4 +51,26 @@ variable "wait_for_cluster_interpreter" {
   description = "Custom local-exec command line interpreter for the command to determining if the eks cluster is healthy."
   type        = list(string)
   default     = ["/bin/sh", "-c"]
+}
+
+variable "domain_name" {
+  type    = string
+  default = null
+}
+
+variable "certificate_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "enable_db_deletion_protection" {
+  description = "Enable RDS database deletion protection when creating the instance"
+  type        = bool
+  default     = false
+}
+
+variable "alb_access_bucket_enabled" {
+  description = "Enable ALB Access Bucket"
+  type        = bool
+  default     = false
 }

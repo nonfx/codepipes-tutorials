@@ -1,0 +1,18 @@
+schema_version: v0.0.1
+
+application:
+  name: voting-worker
+  description: Standalone worker for voting
+  appConfig:
+    version: 1
+  artifacts:
+    - name: Worker_Container_Image
+      id: 3e9f0abf-c768-499d-8c46-52455622dc
+      containerImage:
+        provider: dockerhub_container_registry
+        host: index.docker.io
+        repo: cldcvr/codepipes-example-worker
+        reference: latest
+  creds:
+    - cloud
+    - git

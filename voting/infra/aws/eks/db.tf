@@ -8,6 +8,7 @@ resource "aws_db_subnet_group" "database" {
 }
 
 resource "aws_db_instance" "default" {
+  identifier        = "db-demo-${random_string.cluster.id}"
   depends_on        = [aws_security_group.dbsg]
   storage_type      = "gp2"
   #DB Network
@@ -25,13 +26,19 @@ resource "aws_db_instance" "default" {
   name                 = "postgres"
   username             = "postgres"
   password             = "postgres"
+  iam_database_authentication_enabled = true
   #Setting this true so that there will be no problem while destroying the Infrastructure as it won't create snapshot
   skip_final_snapshot  = true
+  #Backup and protection
+  backup_retention_period = 1
+  storage_encrypted       = true
+  deletion_protection     = var.enable_db_deletion_protection
+  enabled_cloudwatch_logs_exports = ["postgresql"]
 }
 
 resource "aws_security_group" "dbsg" {
   depends_on =[aws_subnet.dbsubnet]
-  name        = "db"
+  name        = "db-${random_string.role.id}"
   description = "security group for db"
   vpc_id      = aws_vpc.demo.id
 
