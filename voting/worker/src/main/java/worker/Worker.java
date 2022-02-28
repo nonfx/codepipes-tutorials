@@ -5,6 +5,8 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 import java.sql.*;
 import org.json.JSONObject;
 
+class EmptyClass {}
+
 class Worker {
   public static void main(String[] args) {
     String redisHost = "redis";
