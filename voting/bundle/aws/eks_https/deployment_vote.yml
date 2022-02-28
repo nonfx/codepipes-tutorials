@@ -21,7 +21,7 @@ deployment:
         ports:
           -  name: "vote"
              containerPort: 80
-             protocol": "TCP"
+             protocol: "TCP"
              healthCheck: "/health"
         ingress:
           - domain: codepipes.tk
