@@ -84,13 +84,17 @@ class Worker {
   static Connection connectToDB(String host) throws SQLException {
     Connection conn = null;
     String pgPassword = "postgres";
+    String pgUsername = "postgres";
     try {
+      pgUsername = System.getenv("PG_USERNAME");
       pgPassword = System.getenv("PG_PASSWORD");
     } catch (Exception e) {
       pgPassword = "postgres";
+      pgUsername = "postgres";
     }
     if (pgPassword == null) {
       pgPassword = "postgres";
+      pgUsername = "postgres";
     }
 
     try {
@@ -99,7 +103,7 @@ class Worker {
 
       while (conn == null) {
         try {
-          conn = DriverManager.getConnection(url, "postgres", pgPassword);
+          conn = DriverManager.getConnection(url, pgUsername, pgPassword);
         } catch (SQLException e) {
           System.err.println("Waiting for db");
           sleep(1000);

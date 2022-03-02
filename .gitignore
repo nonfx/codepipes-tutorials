@@ -15,3 +15,5 @@
 *.plan
 .builds
 .DS_Store
+
+voting/db-data/*
