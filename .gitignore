@@ -17,3 +17,8 @@
 .DS_Store
 
 voting/db-data/*
+voting/worker/target/*
+voting/worker/.vscode/
+voting/worker/.classpath
+voting/worker/.project
+voting/worker/.setting
