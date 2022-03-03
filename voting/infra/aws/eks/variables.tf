@@ -1,6 +1,6 @@
 variable "aws_region" {
   default = "us-east-2"
-   type    = string
+  type    = string
 }
 
 variable "cluster-name" {
@@ -53,4 +53,14 @@ variable "wait_for_cluster_interpreter" {
   description = "Custom local-exec command line interpreter for the command to determining if the eks cluster is healthy."
   type        = list(string)
   default     = ["/bin/sh", "-c"]
+}
+
+variable "domain_name" {
+  type    = string
+  default = null
+}
+
+variable "certificate_enabled" {
+  type    = bool
+  default = false
 }
