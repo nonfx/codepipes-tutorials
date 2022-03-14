@@ -1,0 +1,21 @@
+schema_version: v1.0.0
+application:
+    name: worker-app
+    description: .net app to constantly monitor the voting status
+    appConfig:
+        version: "1.14"
+    artifacts:
+        - id: 19e25567-8f9b-497f-acf4-ca084f5ddcaf
+          name: Github
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials
+            dir: voting/worker
+            driver: github
+        - id: 41354878-e7a4-414c-83b5-e11ef239f084
+          name: worker-container
+          containerImage:
+            provider: dockerhub_container_registry
+            repo: pranayc/voting-worker
+            reference: latest

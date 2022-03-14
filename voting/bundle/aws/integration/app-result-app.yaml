@@ -1,0 +1,21 @@
+schema_version: v1.0.0
+application:
+    name: result-app
+    description: nodejs app to show voting results
+    appConfig:
+        version: "1.14"
+    artifacts:
+        - id: 52fdea9a-22ed-4fa6-ac3a-5f5ac696682d
+          name: Github
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials
+            dir: voting/result
+            driver: github
+        - id: cb190285-a4e6-4e88-aa9f-7f8f6b215318
+          name: result-container
+          containerImage:
+            provider: dockerhub_container_registry
+            repo: pranayc/voting-result
+            reference: latest

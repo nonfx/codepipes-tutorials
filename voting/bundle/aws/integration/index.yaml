@@ -1,0 +1,12 @@
+schema_version: v1.0.0
+project:
+    name: voting
+    description: simplifying voting
+integrations:
+    - import: integration-worker.yaml
+    - import: integration-vote.yaml
+    - import: integration-result.yaml
+applications:
+    - import: app-vote-app.yaml
+    - import: app-result-app.yaml
+    - import: app-worker-app.yaml

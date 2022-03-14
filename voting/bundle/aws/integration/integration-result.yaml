@@ -1,0 +1,17 @@
+schema_version: v1.0.0
+integration:
+    name: result
+    description: build,test and scan result
+    inputAppArtifact:
+        id: 52fdea9a-22ed-4fa6-ac3a-5f5ac696682d
+    outputAppArtifact:
+        id: cb190285-a4e6-4e88-aa9f-7f8f6b215318
+    config:
+        buildPlatform: aws
+        vars:
+            key2: 3b08c87b-b0b6-4047-b048-6c8345aacd5f
+    pipeline:
+        - moduleRefId: aws:git-clone@1
+        - moduleRefId: aws:docker-build-n-push@1
+application:
+    import: app-result-app.yaml

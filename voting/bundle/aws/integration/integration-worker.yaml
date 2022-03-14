@@ -1,0 +1,17 @@
+schema_version: v1.0.0
+integration:
+    name: worker
+    description: build,test and scan worker
+    inputAppArtifact:
+        id: 19e25567-8f9b-497f-acf4-ca084f5ddcaf
+    outputAppArtifact:
+        id: 41354878-e7a4-414c-83b5-e11ef239f084
+    config:
+        buildPlatform: aws
+        vars:
+            key2: 3b08c87b-b0b6-4047-b048-6c8345aacd5f
+    pipeline:
+        - moduleRefId: aws:git-clone@1
+        - moduleRefId: aws:docker-build-n-push@1
+application:
+    import: app-worker-app.yaml

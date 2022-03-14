@@ -1,0 +1,17 @@
+schema_version: v1.0.0
+integration:
+    name: vote
+    description: build,test and scan vote
+    inputAppArtifact:
+        id: a1fb5e19-a735-4db2-bd8b-f6cd17ce6294
+    outputAppArtifact:
+        id: 5eb9551b-d05c-4824-87dc-9623f97a8b2e
+    config:
+        buildPlatform: aws
+        vars:
+            key2: 3b08c87b-b0b6-4047-b048-6c8345aacd5f
+    pipeline:
+        - moduleRefId: aws:git-clone@1
+        - moduleRefId: aws:docker-build-n-push@1
+application:
+    import: app-vote-app.yaml

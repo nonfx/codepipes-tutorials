@@ -1,0 +1,21 @@
+schema_version: v1.0.0
+application:
+    name: vote-app
+    description: python app to take vote
+    appConfig:
+        version: "1.14"
+    artifacts:
+        - id: a1fb5e19-a735-4db2-bd8b-f6cd17ce6294
+          name: Github
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials
+            dir: voting/vote
+            driver: github
+        - id: 5eb9551b-d05c-4824-87dc-9623f97a8b2e
+          name: vote-container
+          containerImage:
+            provider: dockerhub_container_registry
+            repo: pranayc/voting-vote
+            reference: latest
