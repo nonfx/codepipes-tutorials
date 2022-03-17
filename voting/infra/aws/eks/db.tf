@@ -19,7 +19,7 @@ resource "aws_db_instance" "default" {
   allocated_storage    = 10
   #Type, version of DB and Instance Class to use
   engine               = "postgres"
-  engine_version       = "11.11"
+  engine_version       = "11"
   instance_class       = "db.t3.micro"
   #Credentials
   name                 = "postgres"
@@ -27,6 +27,7 @@ resource "aws_db_instance" "default" {
   password             = "postgres"
   #Setting this true so that there will be no problem while destroying the Infrastructure as it won't create snapshot
   skip_final_snapshot  = true
+  auto_minor_version_upgrade = true
 }
 
 resource "aws_security_group" "dbsg" {
