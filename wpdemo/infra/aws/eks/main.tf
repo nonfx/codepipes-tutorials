@@ -3,7 +3,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "devteam-qa-product"
+  #profile = "devteam-qa-product"
   region = var.aws_region
 }
 
