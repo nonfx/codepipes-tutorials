@@ -11,7 +11,7 @@ application:
       containerImage:
         provider: dockerhub_container_registry
         host: index.docker.io
-        repo: wordpress
+        repo: library/wordpress
         reference: latest
   creds:
     - cloud
