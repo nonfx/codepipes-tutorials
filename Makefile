@@ -2,7 +2,7 @@ SHELL:=/bin/bash
 
 ifeq (${TEST_VERSION},)
 	## This means master of our suite
-	export TEST_VERSION = d007a0d506a52535c8cd20c0905fa1700f26bcdf
+	export TEST_VERSION = a4ff07f717eb443318c401936ed51078297f87f0
 endif
 
 ifeq (${TEST_ENV},)
@@ -42,7 +42,7 @@ test-docker-public-bundle:
 	--mount type=bind,source=${PWD}/report,target=/tmp/report \
 	--env-file .env.tests \
 	--env GIT_TOKEN=$$GIT_TOKEN \
-	-i --rm cldcvr/vanguard-api-automation:d007a0d506a52535c8cd20c0905fa1700f26bcdf ./publicbundle -defaultOrg -timeout 600000s -testSuiteName='"API Result Public Bundles(codepipes-tutorial)"' -test.run='"${TEST_REGEX}"' --tags='"publicbundle"' -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -gitRef='"${TEST_AZURE_BUILD_BRANCH}"' -azureBuildUrl='"${TEST_AZURE_BUILD_URL}"' -credindex=0 | tee -a ${PWD}/report/APIResultPublicBundle.log
+	-i --rm cldcvr/vanguard-api-automation:a4ff07f717eb443318c401936ed51078297f87f0 ./publicbundle -defaultOrg -timeout 600000s -testSuiteName='"API Result Public Bundles(codepipes-tutorial)"' -test.run='"${TEST_REGEX}"' --tags='"publicbundle"' -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -gitRef='"${TEST_AZURE_BUILD_BRANCH}"' -azureBuildUrl='"${TEST_AZURE_BUILD_URL}"' -credindex=0 | tee -a ${PWD}/report/APIResultPublicBundle.log
 
 test-docker-cleanup:
 	mkdir -p report || true
@@ -52,4 +52,4 @@ test-docker-cleanup:
 	--mount type=bind,source=${PWD}/report,target=/tmp/report \
 	--env-file .env.tests \
 	--env GIT_TOKEN=$$GIT_TOKEN \
-	-i --rm cldcvr/vanguard-api-automation:d007a0d506a52535c8cd20c0905fa1700f26bcdf ./cleanup -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -timeout 600000s -cleanAll="${TEST_CLEANUP_ALL}"
+	-i --rm cldcvr/vanguard-api-automation:a4ff07f717eb443318c401936ed51078297f87f0 ./cleanup -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -timeout 600000s -cleanAll="${TEST_CLEANUP_ALL}"
