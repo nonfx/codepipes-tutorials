@@ -9,7 +9,8 @@ application:
     - name: wordpress_container_image
       id: 1435bc98-bea6-11eb-8529-0242ac130003
       containerImage:
-        provider: custom_registry
+        provider: dockerhub_container_registry
+        host: index.docker.io
         repo: wordpress
         reference: latest
   creds:
