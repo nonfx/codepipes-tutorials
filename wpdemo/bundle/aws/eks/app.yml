@@ -10,7 +10,6 @@ application:
       id: 1435bc98-bea6-11eb-8529-0242ac130003
       containerImage:
         provider: dockerhub_container_registry
-        host: index.docker.io
         repo: library/wordpress
         reference: latest
   creds:
