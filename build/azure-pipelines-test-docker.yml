@@ -16,11 +16,11 @@ parameters:
 - name: TEST_USER
   displayName: TEST_USER
   type: string
-  default: default
+  default: rajat.sharma+publicbundle@cldcvr.com
 - name: TEST_PASSWORD
   displayName: TEST_PASSWORD
   type: string
-  default: default
+  default: password@123
 - name: TEST_REGEX
   displayName: TEST_REGEX
   type: string
