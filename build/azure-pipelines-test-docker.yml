@@ -161,7 +161,7 @@ stages:
                 go env -w GO111MODULE=on
                 go env -w GOPRIVATE=github.com/cldcvr/*
                 git config --global url."https://$GIT_TOKEN@github.com/cldcvr".insteadOf "https://github.com/cldcvr"
-                TEST_VERSION=$(TEST_VERSION_STAGING) TEST_ENV=${{ parameters.TEST_ENV }} TEST_USER=${{ parameters.TEST_USER }} TEST_PASSWORD=${{ parameters.TEST_PASSWORD }} TEST_CLEANUP_ALL=true make test-docker-cleanup
+                TEST_VERSION=$(TEST_VERSION_STAGING) TEST_ENV=${{ parameters.TEST_ENV }} TEST_USER=${{ parameters.TEST_USER }} TEST_PASSWORD=${{ parameters.TEST_PASSWORD }} TEST_CLEANUP_ALL=false make test-docker-cleanup
               env:
                 PM_GIT_TOKEN: $(PM_GIT_TOKEN)
                 GIT_TOKEN: $(GIT_TOKEN)
