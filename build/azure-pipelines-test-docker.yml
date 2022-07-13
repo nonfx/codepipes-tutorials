@@ -1,6 +1,9 @@
 name: $(Build.DefinitionName)_${{ replace(replace(variables['Build.SourceBranch'],'refs/heads/',''),'/','_') }}_$(Date:yyyyMMdd)$(Rev:.r)
 trigger: none
-pr: none
+pr:
+  branches:
+    include:
+      - main
 
 parameters:
 - name: TEST_ENV
@@ -38,13 +41,13 @@ pool:
 
 stages:
   - stage: Test
-    displayName: Run Tests
+    displayName: Run Public Bundle Tests
     variables:
       - group: Api-Automation-Docker-Env
       - group: Common-Dev
     jobs:
     - job: Run_Tests
-      displayName: Run Test
+      displayName: Run Public Bundle Tests
       timeoutInMinutes: 600
       steps:
         - checkout: self
@@ -97,7 +100,7 @@ stages:
           env:
             PM_GIT_TOKEN: $(PM_GIT_TOKEN)
             GIT_TOKEN: $(GIT_TOKEN)
-          displayName: Run Regression Tests On ${{ parameters.TEST_ENV }}
+          displayName: Run Public Bundle Tests On ${{ parameters.TEST_ENV }}
         - task: PublishBuildArtifacts@1
           condition: always()
           inputs:
