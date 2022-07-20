@@ -1,5 +1,5 @@
 'use strict';
-
+//Func endpoint for world
 module.exports.world = async (event) => {
   return {
     statusCode: 200,
