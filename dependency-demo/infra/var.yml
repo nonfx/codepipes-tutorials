@@ -1,0 +1,5 @@
+environment:
+  insensitive:
+    use_github_tag: true
+  sensitive:
+    name: "kanak"

@@ -1,0 +1,9 @@
+- name: GCS
+  description: "Google cloud storage to store objects"
+  inputs:
+    names : "bucket name suffixes"
+    location: "The GCS location"
+  outputs:
+    bucket:	"Bucket resource (for single use)"
+    buckets:	"Bucket resources as list"
+    name:	"Bucket name"
