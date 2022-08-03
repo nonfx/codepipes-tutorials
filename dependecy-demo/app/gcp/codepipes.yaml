@@ -1,0 +1,9 @@
+GCS:
+  dependencyName: GCS
+  inputs:
+    location: us-central1
+    names: "[borat]"
+  outputs:
+    bucket: BUCKET
+    buckets: BUCKETS
+    name: name

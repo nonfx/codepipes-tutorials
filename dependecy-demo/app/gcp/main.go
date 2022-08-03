@@ -47,32 +47,32 @@ func getStorageFile(c *fiber.Ctx) error {
 	client, err := GetGCSClient(clientCtx)
 	if err != nil {
 		log.Printf("Couldn't get client, %v", err)
+		return fiber.NewError(fiber.StatusServiceUnavailable, "Storage bucket not configured")
 	}
 	reader, err := client.Bucket(GCSBucket).UserProject(ProjectID).Object(filePath).NewReader(clientCtx)
 	if err != nil {
 		log.Printf("Couldn't get bucket, %v", err)
+		return fiber.NewError(fiber.StatusServiceUnavailable, "Storage bucket not configured")
 	}
 	defer reader.Close()
 	content, err := ioutil.ReadAll(reader)
 	if err != nil {
 		log.Printf("Couldn't get file, %v", err)
+		return fiber.NewError(fiber.StatusServiceUnavailable, "could not parse the image")
 	}
 	return c.Status(200).Send(content)
 }
 
 // GetGCSClient gets singleton object for Google Storage
 // Set ENV variable export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
-func GetGCSClient(ctx context.Context) (*storage.Client, error) {
-	var clientErr error
+func GetGCSClient(ctx context.Context) (storageClient *storage.Client, clientErr error) {
+	var err error
 	once.Do(func() {
-		storageClient, err := storage.NewClient(ctx)
+		storageClient, err = storage.NewClient(ctx)
 		if err != nil {
-			clientErr = fmt.Errorf("Failed to create GCS client ERROR:%s", err.Error())
-		} else {
-			client = &storageConnection{
-				Client: storageClient,
-			}
+			clientErr = fmt.Errorf("failed to create gcs client:%s", err.Error())
 		}
+
 	})
-	return client.Client, clientErr
+	return storageClient, nil
 }
