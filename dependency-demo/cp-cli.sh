@@ -11,7 +11,7 @@ codepipes dependency load dependecy-demo/infra/dependecy.yaml
 
 codepipes component create --title storage --module terraform-google-modules/cloud-storage/google -v 3.2.0 --tf-var prefix=cc --tf-var  location=us-central1 --tf-var project_id=pranay-test-dev --tf-var names=
 
-codepipes dependency resolver create  -i names:names -i location:location -o bucket:bucket -o  buckets:buckets -o name:name --provider d8c04791-ca52-4bc3-9b3a-1b94a4207bf0 --dep 4ad7fe28-a7af-4696-bcbc-e397b3e8ee84
+codepipes dependency resolver create  -i names:names -i location:location -o bucket:bucket -o  buckets:buckets -o bucketName:name -o bucketNames:names --provider d8c04791-ca52-4bc3-9b3a-1b94a4207bf0 --dep 4ad7fe28-a7af-4696-bcbc-e397b3e8ee84
 
 
 # Dev

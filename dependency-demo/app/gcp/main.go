@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"sync"
 
 	"cloud.google.com/go/storage"
@@ -14,14 +15,53 @@ import (
 	"github.com/gofiber/template/html"
 )
 
-type storageConnection struct {
-	Client *storage.Client
-}
-
 var (
-	client *storageConnection
-	once   sync.Once
+	bucketHandle *storage.BucketHandle
+	gifFilePath  = os.Getenv("IMAGE_PATH")
+	once         sync.Once
 )
+
+func init() {
+	ctx := context.Background()
+	GCSClient, err := GetGCSClient(ctx)
+	if err != nil {
+		log.Printf("Couldn't get storage client, %v", err)
+		os.Exit(0)
+	}
+
+	bucketStr := os.Getenv("BUCKET_NAME")
+	bucketStr = strings.TrimLeft(bucketStr, "[")
+	bucketStr = strings.TrimRight(bucketStr, "]")
+	fmt.Printf("BUCKET %s", bucketStr)
+
+	ProjectID := os.Getenv("PROJECT_ID")
+	bucketHandle = GCSClient.Bucket(bucketStr).UserProject(ProjectID)
+	fmt.Printf("bucket handle acquired with %s %s", bucketStr, ProjectID)
+	// Load initial data
+	// storage image upload
+	wc := bucketHandle.Object(gifFilePath).NewWriter(ctx)
+	wc.ContentType = "image/gif"
+	boratGIF, err := os.Open(gifFilePath)
+	if err != nil {
+		log.Printf("Couldn't open borat gif file, %v", err)
+		os.Exit(0)
+	}
+	boratGIFBytes, err := ioutil.ReadAll(boratGIF)
+	if err != nil {
+		log.Printf("Couldn't read buffered data, %v", err)
+		os.Exit(0)
+	}
+	if _, err := wc.Write(boratGIFBytes); err != nil {
+		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucketStr, gifFilePath, err)
+		return
+	}
+
+	if err := wc.Close(); err != nil {
+		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucketStr, gifFilePath, err)
+		return
+	}
+
+}
 
 func main() {
 	engine := html.New("./views", ".html")
@@ -40,16 +80,8 @@ func main() {
 }
 
 func getStorageFile(c *fiber.Ctx) error {
-	GCSBucket := os.Getenv("BUCKET")
-	ProjectID := os.Getenv("PROJECT_ID")
-	filePath := os.Getenv("IMAGE_PATH")
 	clientCtx := c.Context()
-	client, err := GetGCSClient(clientCtx)
-	if err != nil {
-		log.Printf("Couldn't get client, %v", err)
-		return fiber.NewError(fiber.StatusServiceUnavailable, "Storage bucket not configured")
-	}
-	reader, err := client.Bucket(GCSBucket).UserProject(ProjectID).Object(filePath).NewReader(clientCtx)
+	reader, err := bucketHandle.Object(gifFilePath).NewReader(clientCtx)
 	if err != nil {
 		log.Printf("Couldn't get bucket, %v", err)
 		return fiber.NewError(fiber.StatusServiceUnavailable, "Storage bucket not configured")

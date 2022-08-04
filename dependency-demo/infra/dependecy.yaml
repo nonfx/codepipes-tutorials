@@ -4,6 +4,7 @@
     names : "bucket name suffixes"
     location: "The GCS location"
   outputs:
+    bucketName:	"Bucket name"
+    bucketNames: "Bucket names"
     bucket:	"Bucket resource (for single use)"
     buckets:	"Bucket resources as list"
-    name:	"Bucket name"

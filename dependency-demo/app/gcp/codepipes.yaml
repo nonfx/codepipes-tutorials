@@ -2,8 +2,9 @@ GCS:
   dependencyName: GCS
   inputs:
     location: us-central1
-    names: "[borat]"
+    names: "[\"borat\"]"
   outputs:
     bucket: BUCKET
     buckets: BUCKETS
-    name: name
+    bucketNames: BUCKET_NAMES
+    bucketName: BUCKET_NAME

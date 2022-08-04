@@ -1,4 +1,4 @@
-module github.com/cldcvr/cloudrun-storage-demo
+module github.com/cldcvr/codepipes-tutorials/dependency-demo
 
 go 1.16
 
