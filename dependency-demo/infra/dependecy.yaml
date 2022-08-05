@@ -8,3 +8,15 @@
     bucketNames: "Bucket names"
     bucket:	"Bucket resource (for single use)"
     buckets:	"Bucket resources as list"
+- name: Memorystore
+  description: "Google hosted redis server"
+  inputs:
+    name: "The ID of the instance or a fully qualified identifier for the instance"
+    region: "The GCP region to use"
+  outputs:
+    auth_string: "AUTH String set on the instance. This field will only be populated if auth_enabled is true"
+    current_location_id:  "The current zone where the Redis endpoint is placed"
+    host: "The IP address of the instance"
+    id: "The memorystore instance ID."
+    port: "The port number of the exposed Redis endpoint"
+    region: "The region the instance lives in"

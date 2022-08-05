@@ -1,5 +1,12 @@
-FROM alpine
+FROM golang:alpine AS builder
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-ADD views/index.html /views/index.html
-ADD .builds/binary-gcp  /binary-gcp 
-ENTRYPOINT ["./binary-gcp"]
+WORKDIR /build
+ADD go.mod .
+COPY . .
+RUN go build -o borat main.go
+FROM alpine
+WORKDIR /build
+ADD views/index.html  /build/views/index.html
+ADD test.gif  /build/test.gif
+COPY --from=builder /build/borat /build/borat
+ENTRYPOINT ["./borat"]

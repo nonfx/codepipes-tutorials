@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -15,15 +16,60 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-type storageConnection struct {
-	Client *storage.Client
-}
-
 var (
-	client    *storageConnection
-	once      sync.Once
-	redisPool *redis.Pool
+	bucketHandle *storage.BucketHandle
+	redisPool    *redis.Pool
+
+	gifFilePath = os.Getenv("IMAGE_PATH")
+	once        sync.Once
 )
+
+func init() {
+	ctx := context.Background()
+	GCSClient, err := GetGCSClient(ctx)
+	if err != nil {
+		log.Printf("Couldn't get storage client, %v", err)
+		os.Exit(0)
+	}
+	redisPool = getCacheClient()
+	bucketStr := os.Getenv("BUCKET_NAME")
+	var bucks []string
+	err = json.Unmarshal([]byte(bucketStr), &bucks)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%v", bucks[0])
+
+	ProjectID := os.Getenv("PROJECT_ID")
+	bucketHandle = GCSClient.Bucket(bucks[0]).UserProject(ProjectID)
+	fmt.Printf("bucket handle acquired with %s %s", bucks[0], ProjectID)
+	// Load initial data
+	// storage image upload
+	wc := bucketHandle.Object(gifFilePath).NewWriter(ctx)
+	wc.ContentType = "image/gif"
+	boratGIF, err := os.Open(gifFilePath)
+	if err != nil {
+		log.Printf("Couldn't open borat gif file, %v", err)
+		os.Exit(0)
+	}
+
+	boratGIFBytes, err := ioutil.ReadAll(boratGIF)
+	if err != nil {
+		log.Printf("Couldn't read buffered data, %v", err)
+		os.Exit(0)
+	}
+
+	if _, err := wc.Write(boratGIFBytes); err != nil {
+		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucks[0], gifFilePath, err)
+		return
+	}
+
+	if err := wc.Close(); err != nil {
+		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucks[0], gifFilePath, err)
+		return
+	}
+	fmt.Printf("Borat gif uploaded")
+}
 
 func main() {
 	engine := html.New("./views", ".html")
@@ -32,91 +78,70 @@ func main() {
 	})
 	app.Use(logger.New())
 	app.Get("/", func(c *fiber.Ctx) error {
+		// increment visitor count
+		vc := incrementVisitorCount()
 		// Render index template
 		return c.Render("index", fiber.Map{
-			"path": "/gif",
+			"path":        "/gif",
+			"vistorCount": vc,
 		})
 	})
 	app.Get("/gif", getStorageFile)
+	app.Get("/cache", getStorageFile)
 	app.Listen(fmt.Sprintf(":%d", 8080))
 }
 
 func getStorageFile(c *fiber.Ctx) error {
-	GCSBucket := os.Getenv("BUCKET")
-	ProjectID := os.Getenv("PROJECT_ID")
-	filePath := os.Getenv("IMAGE_PATH")
 	clientCtx := c.Context()
-	client, err := GetGCSClient(clientCtx)
-	if err != nil {
-		log.Printf("Couldn't get client, %v", err)
-	}
-	reader, err := client.Bucket(GCSBucket).UserProject(ProjectID).Object(filePath).NewReader(clientCtx)
+	reader, err := bucketHandle.Object(gifFilePath).NewReader(clientCtx)
 	if err != nil {
 		log.Printf("Couldn't get bucket, %v", err)
+		return fiber.NewError(fiber.StatusServiceUnavailable, "Storage bucket not configured")
 	}
 	defer reader.Close()
 	content, err := ioutil.ReadAll(reader)
 	if err != nil {
 		log.Printf("Couldn't get file, %v", err)
+		return fiber.NewError(fiber.StatusServiceUnavailable, "could not parse the image")
 	}
-	return c.Status(200).Send(content)
-}
-
-func getVisitorNumber(c *fiber.Ctx) error {
-	incrementHandler()
 	return c.Status(200).Send(content)
 }
 
 // GetGCSClient gets singleton object for Google Storage
 // Set ENV variable export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
-func GetGCSClient(ctx context.Context) (*storage.Client, error) {
-	var clientErr error
+func GetGCSClient(ctx context.Context) (storageClient *storage.Client, clientErr error) {
+	var err error
 	once.Do(func() {
-		storageClient, err := storage.NewClient(ctx)
+		storageClient, err = storage.NewClient(ctx)
 		if err != nil {
-			clientErr = fmt.Errorf("Failed to create GCS client ERROR:%s", err.Error())
-		} else {
-			client = &storageConnection{
-				Client: storageClient,
-			}
+			clientErr = fmt.Errorf("failed to create gcs client:%s", err.Error())
 		}
+
 	})
-	return client.Client, clientErr
+	return storageClient, nil
 }
 
-func getConnection() (*redis.Pool, error) {
+func getCacheClient() *redis.Pool {
 	redisHost := os.Getenv("REDISHOST")
 	redisPort := os.Getenv("REDISPORT")
 	redisAddr := fmt.Sprintf("%s:%s", redisHost, redisPort)
 
 	const maxConnections = 10
-	redisPool = &redis.Pool{
+	return &redis.Pool{
 		MaxIdle: maxConnections,
 		Dial:    func() (redis.Conn, error) { return redis.Dial("tcp", redisAddr) },
 	}
-	return redisPool, nil
 }
 
-func incrementHandler() error {
+func incrementVisitorCount() int {
 	conn := redisPool.Get()
 	defer conn.Close()
 
 	counter, err := redis.Int(conn.Do("INCR", "visits"))
 	if err != nil {
-
-		return err
+		log.Printf("Error incrementing visitor counter %v", err)
+		return 0
 	}
-	return nil
-}
-
-func getCounter() error {
-	conn := redisPool.Get()
-	defer conn.Close()
-
-	counter, err := redis.Int(conn.Do("INCR", "visits"))
-	if err != nil {
-
-		return err
-	}
-	return nil
+	fmt.Printf("Visitor number: %d", counter)
+	return counter
 }

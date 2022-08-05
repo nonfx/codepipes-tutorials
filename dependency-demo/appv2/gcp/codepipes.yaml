@@ -1,0 +1,23 @@
+GCS:
+    dependencyName: GCS
+    inputs:
+      location: us-central1
+      names: "[\"borat\"]"
+    outputs:
+      bucket: BUCKET
+      buckets: BUCKETS
+      bucketNames: BUCKET_NAMES
+      bucketName: BUCKET_NAME
+Memorystore:
+  dependencyName: Memorystore
+  inputs:
+    name: borat-redis 
+    region: us-central1
+  outputs:
+    auth_string: auth_string
+    current_location_id: current_location_id
+    host: REDISHOST
+    id: id
+    port: REDISPORT
+    region: region
+
