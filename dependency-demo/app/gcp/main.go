@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 	"sync"
 
 	"cloud.google.com/go/storage"
@@ -30,13 +30,16 @@ func init() {
 	}
 
 	bucketStr := os.Getenv("BUCKET_NAME")
-	bucketStr = strings.TrimLeft(bucketStr, "[")
-	bucketStr = strings.TrimRight(bucketStr, "]")
-	fmt.Printf("BUCKET %s", bucketStr)
+	var bucks []string
+	err = json.Unmarshal([]byte(bucketStr), &bucks)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%v", bucks[0])
 
 	ProjectID := os.Getenv("PROJECT_ID")
-	bucketHandle = GCSClient.Bucket(bucketStr).UserProject(ProjectID)
-	fmt.Printf("bucket handle acquired with %s %s", bucketStr, ProjectID)
+	bucketHandle = GCSClient.Bucket(bucks[0]).UserProject(ProjectID)
+	fmt.Printf("bucket handle acquired with %s %s", bucks[0], ProjectID)
 	// Load initial data
 	// storage image upload
 	wc := bucketHandle.Object(gifFilePath).NewWriter(ctx)
@@ -46,21 +49,23 @@ func init() {
 		log.Printf("Couldn't open borat gif file, %v", err)
 		os.Exit(0)
 	}
+
 	boratGIFBytes, err := ioutil.ReadAll(boratGIF)
 	if err != nil {
 		log.Printf("Couldn't read buffered data, %v", err)
 		os.Exit(0)
 	}
+
 	if _, err := wc.Write(boratGIFBytes); err != nil {
-		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucketStr, gifFilePath, err)
+		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucks[0], gifFilePath, err)
 		return
 	}
 
 	if err := wc.Close(); err != nil {
-		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucketStr, gifFilePath, err)
+		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucks[0], gifFilePath, err)
 		return
 	}
-
+	fmt.Printf("Borat gif uploaded")
 }
 
 func main() {

@@ -1,10 +1,11 @@
 GCS:
-  dependencyName: GCS
-  inputs:
-    location: us-central1
-    names: "[\"borat\"]"
-  outputs:
-    bucket: BUCKET
-    buckets: BUCKETS
-    bucketNames: BUCKET_NAMES
-    bucketName: BUCKET_NAME
+    dependencyName: GCS
+    inputs:
+      location: us-central1
+      names: "[\"borat\"]"
+    outputs:
+      bucket: BUCKET
+      buckets: BUCKETS
+      bucketNames: BUCKET_NAMES
+      bucketName: BUCKET_NAME
+  

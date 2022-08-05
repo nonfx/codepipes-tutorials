@@ -7,5 +7,6 @@ RUN go build -o borat main.go
 FROM alpine
 WORKDIR /build
 ADD views/index.html  /build/views/index.html
+ADD test.gif  /build/test.gif
 COPY --from=builder /build/borat /build/borat
 ENTRYPOINT ["./borat"]
