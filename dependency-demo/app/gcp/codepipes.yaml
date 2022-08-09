@@ -3,6 +3,7 @@ GCS:
     inputs:
       location: us-central1
       names: "[\"borat\"]"
+      force_destroy: "{\"borat\":true}"
     outputs:
       bucket: BUCKET
       buckets: BUCKETS

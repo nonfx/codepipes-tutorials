@@ -3,6 +3,7 @@
   inputs:
     names : "bucket name suffixes"
     location: "The GCS location"
+    force_destroy: "Optional map of lowercase unprefixed name => boolean, defaults to false."
   outputs:
     bucketName:	"Bucket name"
     bucketNames: "Bucket names"
@@ -13,8 +14,8 @@
   inputs:
     name: "The ID of the instance or a fully qualified identifier for the instance"
     region: "The GCP region to use"
+    memory_size_gb: "size of the memorystore instance in gb"
   outputs:
-    auth_string: "AUTH String set on the instance. This field will only be populated if auth_enabled is true"
     current_location_id:  "The current zone where the Redis endpoint is placed"
     host: "The IP address of the instance"
     id: "The memorystore instance ID."
