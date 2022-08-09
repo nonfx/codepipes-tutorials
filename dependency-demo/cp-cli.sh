@@ -9,7 +9,7 @@ codepipes environment template apply d9e085ac-e26f-41dd-8d93-68ba4833cb74 -c 8d0
 
 codepipes dependency load dependency-demo/infra/dependency.yaml 
 
-codepipes component create --title GCSFinal --module terraform-google-modules/cloud-storage/google -v 3.2.0 --tf-var prefix=cc --tf-var force_destroy={\"borat\":true} --tf-var  location=us-central1 --tf-var project_id=pranay-test-dev --tf-var names=
+codepipes component create --title GCS --module terraform-google-modules/cloud-storage/google -v 3.2.0 --tf-var prefix=cc --tf-var force_destroy={\"borat\":true} --tf-var  location=us-central1 --tf-var project_id=pranay-test-dev --tf-var names=
 
 codepipes dependency resolver create  -i names:names -i location:location -i force_destroy:force_destroy -o bucket:bucket -o  buckets:buckets -o bucketName:name -o bucketNames:names --provider 03d0ac3d-b299-44ae-8426-5c4c06e8ea5a --dep 7ab4411d-819a-403f-adb0-3b3ffcfe9ae8
 
@@ -42,5 +42,4 @@ codepipes component create --title googleRedis --module terraform-google-modules
 
 codepipes dependency resolver create  -i name:name -i region:region -i memory_size_gb:memory_size_gb -o port:port -o host:host -o id:id -o region:region -o current_location_id:current_location_id --provider 4ea112b3-45c1-444a-b4ac-9e554d59120b --dep b1ff6f97-99f0-4b04-a89a-4fcb3d0bea8b
 
-cpi dep resolver delete  98795285-193b-4a74-b760-b397f39627a5 --dep b1ff6f97-99f0-4b04-a89a-4fcb3d0bea8b
-
+cpi dep resolver delete 98795285-193b-4a74-b760-b397f39627a5 --dep b1ff6f97-99f0-4b04-a89a-4fcb3d0bea8b
