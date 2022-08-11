@@ -5,7 +5,7 @@ codepipes classification create -n stage
 
 codepipes environment template create -d "empty terraform" -n baseTF -r https://github.com/cldcvr/codepipes-tutorials --dir /dependency-demo/infra  -v branch:pranay/VAN-2729 --tfversion 1.2.5
 
-codepipes environment template apply d9e085ac-e26f-41dd-8d93-68ba4833cb74 -c 8d088011-e43a-42b5-8148-fee15291010d
+codepipes environment template apply b8befd0a-96ec-4eb0-97a8-7252ca497da3 -c 2848f624-d2b7-4500-aeee-372230f17c99
 
 codepipes dependency load dependency-demo/infra/dependency.yaml 
 
@@ -38,8 +38,19 @@ codepipes app dependencies load  dependency-demo/app/gcp/codepipes.yaml
 
 APP2
 
-codepipes component create --title googleRedis --module terraform-google-modules/memorystore/google -v 4.4.1 --tf-var name= --tf-var memory_size_gb= --tf-var redis_version= --tf-var  region=us-central1 --tf-var project=pranay-test-dev --tf-var auth_string:s=
+codepipes app create --name boratv2
+codepipes app artifact add git -r https://github.com/cldcvr/codepipes-tutorials --dir dependency-demo/appv2/gcp  -v branch:pranay/VAN-2729
+codepipes app artifact add contimage --name boratv2-container --host gcr.io --repo gcr.io/pranay-test-dev/boratv2 --type gcr --ref latest
+cpi integration create --name docker-ci -d "Build and push" -p gcp -i 6b65f358-c59e-48ff-9872-a8bd1f8d9d62 -o 795d98b7-e4a4-4dde-a39b-c161aed7f47d -m dependency-demo/infra/borat-int.yml -f dependency-demo/infra/var.yml 
+codepipes app dependencies load  dependency-demo/appv2/gcp/codepipes.yaml
 
-codepipes dependency resolver create  -i name:name -i region:region -i memory_size_gb:memory_size_gb -o port:port -o host:host -o id:id -o region:region -o current_location_id:current_location_id --provider 4ea112b3-45c1-444a-b4ac-9e554d59120b --dep b1ff6f97-99f0-4b04-a89a-4fcb3d0bea8b
+
+codepipes component create --title memorystore --module terraform-google-modules/memorystore/google -v 4.4.1 --tf-var name= --tf-var memory_size_gb= --tf-var redis_version= --tf-var  region=us-central1 --tf-var project=pranay-test-dev
+
+codepipes dependency resolver create  -i name:name -i region:region -i memory_size_gb:memory_size_gb -o port:port -o host:host -o id:id -o region:region -o current_location_id:current_location_id --provider 84f35bf0-6d8d-4754-be3f-18f4a2c6507d --dep e1abd6ab-cfb2-4457-bbc1-7ea0f6194a90
 
 cpi dep resolver delete 98795285-193b-4a74-b760-b397f39627a5 --dep b1ff6f97-99f0-4b04-a89a-4fcb3d0bea8b
+
+
+
+codepipes environment template create -d "network terraform" -n networkTF -r https://github.com/cldcvr/codepipes-tutorials --dir /dependency-demo/networkTemplate -v branch:pranay/VAN-2729 --tfversion 1.2.5

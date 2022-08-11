@@ -3,6 +3,7 @@ GCS:
     inputs:
       location: us-central1
       names: "[\"borat\"]"
+      force_destroy: "{\"borat\":true}"
     outputs:
       bucket: BUCKET
       buckets: BUCKETS
@@ -20,5 +21,4 @@ Memorystore:
     id: id
     port: REDISPORT
     region: region
-    auth_string: "(memorystore_auth_string)"
 
