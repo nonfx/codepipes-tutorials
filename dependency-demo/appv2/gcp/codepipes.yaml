@@ -14,11 +14,7 @@ Memorystore:
   inputs:
     name: borat-redis 
     region: us-central1
-    memory_size_gb: 1
   outputs:
-    current_location_id: current_location_id
     host: REDISHOST
-    id: id
     port: REDISPORT
-    region: region
 

@@ -14,10 +14,7 @@
   inputs:
     name: "The ID of the instance or a fully qualified identifier for the instance"
     region: "The GCP region to use"
-    memory_size_gb: "size of the memorystore instance in gb"
   outputs:
-    current_location_id:  "The current zone where the Redis endpoint is placed"
     host: "The IP address of the instance"
-    id: "The memorystore instance ID."
     port: "The port number of the exposed Redis endpoint"
-    region: "The region the instance lives in"
+
