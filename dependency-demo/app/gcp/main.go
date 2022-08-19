@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -30,16 +29,10 @@ func init() {
 	}
 
 	bucketStr := os.Getenv("BUCKET_NAME")
-	var bucks []string
-	err = json.Unmarshal([]byte(bucketStr), &bucks)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v", bucks[0])
 
 	ProjectID := os.Getenv("PROJECT_ID")
-	bucketHandle = GCSClient.Bucket(bucks[0]).UserProject(ProjectID)
-	fmt.Printf("bucket handle acquired with %s %s", bucks[0], ProjectID)
+	bucketHandle = GCSClient.Bucket(bucketStr).UserProject(ProjectID)
+	fmt.Printf("bucket handle acquired with %s %s", bucketStr, ProjectID)
 	// Load initial data
 	// storage image upload
 	wc := bucketHandle.Object(gifFilePath).NewWriter(ctx)
@@ -57,12 +50,12 @@ func init() {
 	}
 
 	if _, err := wc.Write(boratGIFBytes); err != nil {
-		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucks[0], gifFilePath, err)
+		log.Printf("createFile: unable to write data to bucket %q, file %q: %v", bucketStr, gifFilePath, err)
 		return
 	}
 
 	if err := wc.Close(); err != nil {
-		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucks[0], gifFilePath, err)
+		log.Printf("createFile: unable to close bucket %q, file %q: %v", bucketStr, gifFilePath, err)
 		return
 	}
 	fmt.Printf("Borat gif uploaded")
