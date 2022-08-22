@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 project:
-    name: my-proj
+    name: lego
 deployments:
     - import: deployment-my-depl.yaml
 integrations:

@@ -1,10 +1,10 @@
 schema_version: v1.0.0
 environment:
-    name: my-env
+    name: stage
     revision:
         type: branch
         identifier: pranay/VAN-2729
         repo: https://github.com/cldcvr/codepipes-tutorials
-        dir: /dependency-demo/networkTemplate
+        dir: dependency-demo/borat-gcs-redis/infra
         driver: github
     tfVersion: 1.2.5

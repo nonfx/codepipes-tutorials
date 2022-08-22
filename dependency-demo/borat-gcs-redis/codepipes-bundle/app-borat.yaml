@@ -10,7 +10,7 @@ application:
             type: branch
             identifier: pranay/VAN-2729
             repo: https://github.com/cldcvr/codepipes-tutorials
-            dir: dependency-demo/appv2/gcp
+            dir: dependency-demo/borat-gcs-redis/go-src
             driver: github
         - id: e62dc1cf-ba35-4eef-833e-64f5de36a314
           name: image
