@@ -124,7 +124,7 @@ func getCacheClient() *redis.Pool {
 	return &redis.Pool{
 		MaxIdle: maxConnections,
 		Dial: func() (redis.Conn, error) {
-			return redis.Dial("tcp", redisAddr, redis.DialUseTLS(true))
+			return redis.Dial("tcp", redisAddr)
 		},
 	}
 
