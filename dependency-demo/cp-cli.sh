@@ -9,9 +9,51 @@ codepipes environment template apply b8befd0a-96ec-4eb0-97a8-7252ca497da3 -c 284
 
 codepipes dependency load dependency-demo/infra/dependency.yaml 
 
-codepipes component create --title GCS --module terraform-google-modules/cloud-storage/google -v 3.2.0 --tf-var prefix=cc --tf-var force_destroy={\"borat\":true} --tf-var  location=us-central1 --tf-var project_id=pranay-test-dev --tf-var names=
+codepipes component create \
+    --title GCS \
+    --module terraform-google-modules/cloud-storage/google -v 3.2.0 \
+    --tf-var prefix=cc \
+    --tf-var force_destroy={\"borat\":true} \
+    --tf-var location=us-central1 \
+    --tf-var names="" \
+    --tf-var project_id="\"\${var.GOOGLE_PROJECT}\""
 
-codepipes dependency resolver create  -i names:names -i location:location -i force_destroy:force_destroy -o bucket:bucket -o  buckets:buckets -o bucketName:name -o bucketNames:names --provider 8d43eb0b-fa6b-406e-9935-0dbed9326273 --dep 4ad7fe28-a7af-4696-bcbc-e397b3e8ee84
+codepipes component create \
+    --title MemoryStore2 \
+    --module terraform-google-modules/memorystore/google -v 4.4.1 \
+    --tf-var region=us-central1 \
+    --tf-var name="" \
+    --tf-var transit_encryption_mode=DISABLED \
+    --tf-var project="\"\${var.GOOGLE_PROJECT}\""
+
+codepipes dependency resolver create \
+    -i names:names \
+    -i location:location \
+    -i force_destroy:force_destroy \
+    -o bucket:bucket \
+    -o buckets:buckets \
+    -o bucketName:name \
+    -o bucketNames:names \
+    --provider a33dac36-1cc6-4314-8ac9-79596a3f587b \
+    --dep dd18d284-6a64-475b-a3bd-4f0ee221bed1
+
+codepipes dependency resolver create  \
+    -i name:name \
+    -i region:region  \
+    -o port:port \
+    -o host:host \
+    --provider 1374bc92-30c2-43ca-9a06-c536553fdaa0 \
+    --dep e275cca3-da22-4b58-9d2d-9ab8dd97b41f
+
+cpi creds create gcp -f ~/cpi/creds/gcp-pranay-test-dev.json --name pranay-test-dev -p pranay-test-dev
+cpi creds assignto project 08c5633b-6048-44f5-ba1e-f5ae30fe0681 -c b69c524d-5e01-413e-97ca-527b15b9769d -s cloud -s docker
+
+cpi integration create --name ci -d "Build and push" -p gcp -i 7c2e43e7-6e33-488e-b8dc-13494d2f5ed9 -o e62dc1cf-ba35-4eef-833e-64f5de36a314 -m dependency-demo/infra/borat-int.yml -f dependency-demo/infra/var.yml
+
+cpi deployment create -a e62dc1cf-ba35-4eef-833e-64f5de36a314 --name my-depl -t gcp:cloud-run@1 --inputfile test_cloudrunval.yaml -e IMAGE_PATH=test.gif --app 9effd3fc-e0b9-4c78-aa99-706dee3ede03
+
+cpi integration run
+cpi env deploy
 
 codepipes dependency resolver get d4374cc9-357d-4d97-92b3-5fb1a8569a5a --dep 7ab4411d-819a-403f-adb0-3b3ffcfe9ae8
 
@@ -41,7 +83,7 @@ APP2
 codepipes app create --name boratv2
 codepipes app artifact add git -r https://github.com/cldcvr/codepipes-tutorials --dir dependency-demo/appv2/gcp  -v branch:pranay/VAN-2729
 codepipes app artifact add contimage --name boratv2-container --host gcr.io --repo gcr.io/pranay-test-dev/boratv2 --type gcr --ref latest
-cpi integration create --name docker-ci -d "Build and push" -p gcp -i 6afcb6e2-8d7d-41b8-8087-f6e703af8036 -o 6a1495ab-a78a-4a6d-9f16-d27c4322bc4e -m dependency-demo/infra/borat-int.yml -f dependency-demo/infra/var.yml 
+cpi integration create --name ci -d "Build and push" -p gcp -i 7c2e43e7-6e33-488e-b8dc-13494d2f5ed9 -o e62dc1cf-ba35-4eef-833e-64f5de36a314 -m dependency-demo/infra/borat-int.yml -f dependency-demo/infra/var.yml 
 codepipes app dependencies load  dependency-demo/appv2/gcp/codepipes.yaml
 
 

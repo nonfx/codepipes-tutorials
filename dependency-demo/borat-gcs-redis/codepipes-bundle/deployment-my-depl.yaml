@@ -1,0 +1,28 @@
+schema_version: v1.0.0
+deployment:
+    name: my-depl
+    deploymentConfig:
+        artifact:
+            id: e62dc1cf-ba35-4eef-833e-64f5de36a314
+            containerImage:
+                reference: latest
+        template:
+            moduleRefId: gcp:cloud-run@1
+            inputs:
+                allowUnauthenticated: true
+                containerPort: 8080
+                domain: ""
+                region: us-central1
+                vpcConnector: vpc-con
+        env:
+            BUCKET: '{"cors":[], "default_event_based_hold":false, "encryption":[], "force_destroy":true, "id":"cc-us-central1-borat", "labels":{"name":"cc-us-central1-borat"}, "lifecycle_rule":[], "location":"US-CENTRAL1", "logging":[], "name":"cc-us-central1-borat", "project":"pranay-test-dev", "requester_pays":false, "retention_policy":[], "self_link":"https://www.googleapis.com/storage/v1/b/cc-us-central1-borat", "storage_class":"STANDARD", "timeouts":null, "uniform_bucket_level_access":true, "url":"gs://cc-us-central1-borat", "versioning":[{"enabled":false}], "website":[]}'
+            BUCKET_NAME: cc-us-central1-borat
+            BUCKET_NAMES: '{"borat":"cc-us-central1-borat"}'
+            BUCKETS: '[{"cors":[], "default_event_based_hold":false, "encryption":[], "force_destroy":true, "id":"cc-us-central1-borat", "labels":{"name":"cc-us-central1-borat"}, "lifecycle_rule":[], "location":"US-CENTRAL1", "logging":[], "name":"cc-us-central1-borat", "project":"pranay-test-dev", "requester_pays":false, "retention_policy":[], "self_link":"https://www.googleapis.com/storage/v1/b/cc-us-central1-borat", "storage_class":"STANDARD", "timeouts":null, "uniform_bucket_level_access":true, "url":"gs://cc-us-central1-borat", "versioning":[{"enabled":false}], "website":[]}]'
+            IMAGE_PATH: test.gif
+            REDISHOST: 10.195.104.132
+            REDISPORT: "6378"
+application:
+    import: app-borat.yaml
+environment:
+    import: environment-my-env.yaml
