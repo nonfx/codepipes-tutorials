@@ -118,7 +118,7 @@ func getCacheClient() *redis.Pool {
 	redisHost := os.Getenv("REDISHOST")
 	redisPort := os.Getenv("REDISPORT")
 	redisAddr := fmt.Sprintf("%s:%s", redisHost, redisPort)
-
+	fmt.Printf("redisAddr %s", redisAddr)
 	const maxConnections = 10
 	return &redis.Pool{
 		MaxIdle: maxConnections,
