@@ -120,10 +120,14 @@ func getCacheClient() *redis.Pool {
 	redisAddr := fmt.Sprintf("%s:%s", redisHost, redisPort)
 	fmt.Printf("redisAddr %s", redisAddr)
 	const maxConnections = 10
+
 	return &redis.Pool{
 		MaxIdle: maxConnections,
-		Dial:    func() (redis.Conn, error) { return redis.Dial("tcp", redisAddr) },
+		Dial: func() (redis.Conn, error) {
+			return redis.Dial("tcp", redisAddr, redis.DialUseTLS(true))
+		},
 	}
+
 }
 
 func incrementVisitorCount() int {
