@@ -1,7 +1,6 @@
 GCS:
     dependencyName: GCS
     inputs:
-      location: us-central1
       names: "[\"borat\"]"
       force_destroy: "{\"borat\":true}"
     outputs:
@@ -13,7 +12,6 @@ Memorystore:
   dependencyName: Memorystore
   inputs:
     name: borat-redis 
-    region: us-central1
   outputs:
     host: REDISHOST
     port: REDISPORT

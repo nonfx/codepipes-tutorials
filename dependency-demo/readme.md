@@ -69,7 +69,7 @@ codepipes component create \
   --title GCS \
   --module terraform-google-modules/cloud-storage/google -v 3.2.0 \
   --tf-var prefix=cc \
-  --tf-var force_destroy={\"borat\":true} \
+  --tf-var force_destroy="" \
   --tf-var location=us-central1 \
   --tf-var names="" \
   --tf-var project_id="\"\${var.GOOGLE_PROJECT}\""
