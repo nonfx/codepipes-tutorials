@@ -22,3 +22,6 @@ voting/worker/.vscode/
 voting/worker/.classpath
 voting/worker/.project
 voting/worker/.setting
+
+#  editor
+.vscode
