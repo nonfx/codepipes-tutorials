@@ -1,9 +1,9 @@
 schema_version: v1.0.0
 environment:
-    name: stage
+    name: development
     revision:
         type: branch
-        identifier: pranay/VAN-2729
+        identifier: main
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: dependency-demo/borat-gcs-redis/infra
         driver: github

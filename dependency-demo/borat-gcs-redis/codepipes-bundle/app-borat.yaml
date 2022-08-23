@@ -8,7 +8,7 @@ application:
           name: Git Code Repo
           gitCode:
             type: branch
-            identifier: pranay/VAN-2729
+            identifier: main
             repo: https://github.com/cldcvr/codepipes-tutorials
             dir: dependency-demo/borat-gcs-redis/go-src
             driver: github

@@ -1,6 +1,0 @@
-inputs:
-  allowUnauthenticated: true
-  containerPort: 8080
-  domain: ""
-  region: "us-central1"
-  vpcConnector: ${terraform.connector_name}
