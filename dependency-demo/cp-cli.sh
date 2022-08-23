@@ -7,7 +7,7 @@ codepipes environment template create -d "empty terraform" -n baseTF -r https://
 
 codepipes environment template apply b8befd0a-96ec-4eb0-97a8-7252ca497da3 -c 2848f624-d2b7-4500-aeee-372230f17c99
 
-codepipes dependency load dependency-demo/infra/dependency.yaml 
+codepipes dependency load dependency-demo/dependency.yaml 
 
 codepipes component create \
     --title GCS \
@@ -70,7 +70,7 @@ cpi integration create --name docker-ci -d "Build and push" -p gcp -i 79fe549b-7
 
 # Set state using codepipes init
 # Use codepipes plugin to generate codepipes.yaml
-codepipes app dependencies load  dependency-demo/app/gcp/codepipes.yaml
+codepipes app dependencies load  dependency-demo/borat-gcs-redis/go-src/codepipes.yaml
 
 
 
