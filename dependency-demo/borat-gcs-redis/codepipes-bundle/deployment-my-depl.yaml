@@ -13,7 +13,7 @@ deployment:
                 containerPort: 8080
                 domain: ""
                 region: us-central1
-                vpcConnector: ${terraform.connector_name}
+                vpcConnector: ${terraform.connector_name.value}
         env:
             IMAGE_PATH: test.gif
 application:
