@@ -10,7 +10,7 @@ application:
             type: branch
             identifier: main
             repo: https://github.com/cldcvr/codepipes-tutorials
-            dir: dependency-demo/borat-gcs/go-src
+            dir: dependency-demo/borat-gcs/src
             driver: github
         - id: e62dc1cf-ba35-4eef-833e-64f5de36a314
           name: image

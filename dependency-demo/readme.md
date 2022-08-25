@@ -201,7 +201,7 @@ codepipes init
 Use the following command to add dependencies to the app:
 
 ```sh
-codepipes app dependencies load dependency-demo/borat-gcs-redis/go-src/codepipes.yaml
+codepipes app dependencies load dependency-demo/borat-gcs-redis/src/codepipes.yaml
 ```
 
 ## Build App
