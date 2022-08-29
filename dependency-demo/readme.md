@@ -221,7 +221,7 @@ codepipes integration job status <pipeline id>
 
 use the following command to deploy the app:
 ```sh
-cpi deployment deploy
+codepipes deployment deploy
 ```
 (take note of the pipeline ID)
 
