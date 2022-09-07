@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "demo_storage_account" {
   account_kind              = "StorageV2"
   account_tier              = "Standard"
   account_replication_type  = "GRS"
-  allow_blob_public_access  = true
+  allow_nested_items_to_be_public  = true
   enable_https_traffic_only = true
 
   static_website {
