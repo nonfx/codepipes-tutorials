@@ -1,8 +1,9 @@
 provider "google-beta" {
+  version = "=4.34"
 }
 
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13"
 }
 
 provider "random" {}
