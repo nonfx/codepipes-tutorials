@@ -1,0 +1,9 @@
+schema_version: v1.0.0
+environment:
+    name: dev
+    revision:
+        type: branch
+        identifier: main
+        repo: https://github.com/cldcvr/codepipes-tutorials
+        dir: lambda/infra
+        driver: github
