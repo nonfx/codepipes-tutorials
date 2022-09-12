@@ -19,3 +19,14 @@ application:
             host: gcr.io
             repo: gcr.io/pranay-test-dev/boratv1
             reference: latest
+    dependsOn:
+        GCS:
+            dependencyName: GCS
+            inputs:
+                force_destroy: '{"borat":true}'
+                names: '["borat"]'
+            outputs:
+                bucket: BUCKET
+                bucketName: BUCKET_NAME
+                bucketNames: BUCKET_NAMES
+                buckets: BUCKETS

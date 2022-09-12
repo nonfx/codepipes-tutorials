@@ -19,4 +19,4 @@ deployment:
 application:
     import: app-borat.yaml
 environment:
-    import: environment-my-env.yaml
+    import: environment-development.yaml
