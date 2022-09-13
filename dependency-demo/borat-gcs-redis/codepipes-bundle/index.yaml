@@ -2,6 +2,6 @@ schema_version: v1.0.0
 project:
     name: lego
 deployments:
-    - import: deployment-my-depl.yaml
+    - import: deployment-cloudrun.yaml
 integrations:
     - import: integration-ci.yaml

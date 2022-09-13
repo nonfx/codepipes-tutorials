@@ -154,13 +154,12 @@ codepipes environment template apply <id of template>
 4. it should show the classifications chain in the center of screen
 5. Click on "Create Set" button
 
-## Install the Code Pipes bundle
+## Install via Code Pipes bundle
 The bundle contains the environment, application, integration and deployment definitions.
 Installing the bundle means creating all the required entities automatically.
+And running all pipelines automatically.
 
 The bundle can be added from CLI or UI.
-
-Note: We want to skip the app deployment for now because the app dependencies needs to be added separately before we can deploy the app.
 
 ### Using CLI
 
@@ -171,7 +170,7 @@ codepipes bundle plan \
   --revision branch:main
   --dir /dependency-demo/borat-gcs-redis/codepipes-bundle
 
-codepipes bundle apply --skipPipelines
+codepipes bundle apply
 ```
 
 ### Using UI
@@ -181,16 +180,19 @@ codepipes bundle apply --skipPipelines
 3. Click on "Add new bundle"
 4. Select open source
 5. fill in the following details:
-```
-Repository path: https://github.com/cldcvr/codepipes-tutorials
-Directory path: /dependency-demo/borat-gcs-redis/codepipes-bundle
-Revision type: branch
-Revision identifier: main
-```
+    ```
+    Repository path: https://github.com/cldcvr/codepipes-tutorials
+    Directory path: /dependency-demo/borat-gcs-redis/codepipes-bundle
+    Revision type: branch
+    Revision identifier: main
+    ```
 6. click the "Add Bundle" button
 
+## Without bundle
 
-## Add dependencies
+
+
+### Add dependencies
 
 Init the CLI to update the state with all the newly created entities
 
@@ -204,7 +206,7 @@ Use the following command to add dependencies to the app:
 codepipes app dependencies load dependency-demo/borat-gcs-redis/src/codepipes.yaml
 ```
 
-## Build App
+### Build App
 
 use the following command to build the app:
 ```sh
@@ -217,7 +219,7 @@ To check the status of the pipeline using the following command
 codepipes integration job status <pipeline id>
 ```
 
-## Deploy App
+### Deploy App
 
 use the following command to deploy the app:
 ```sh
