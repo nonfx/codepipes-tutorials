@@ -26,7 +26,12 @@ A fiber server which exposes two endpoints:
 ### Makefile 
 * Use build command to build binary.
 * Use upload command to create and upload docker container to choice of your container repository, set `$GCR_REPO/$ECR_REPO/$ACR_REPO` and `tag` variables before running the commands.
-* eg:  `GCR_REPO=gcr.io/<project-id>/<app-name> tag=latest make upload`
+* eg:
+```
+GCR_REPO=gcr.io/<project-id>/<app-name>
+tag=latest
+make upload
+```
 
 To uplod ECR containers: https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
 
@@ -54,13 +59,13 @@ Lets start by creating a new org or you can use the default org.
 Now create a project, this is where we organise our project related resources.
 
 ```
-    cpi project create --name <project-name> --description '<desc-about-your-project>'
+    codepipes project create --name <project-name> --description '<desc-about-your-project>'
 ```
 
 Add creds in order to setup a pipeline on your cloud
 
 ```
-    cpi creds create gcp -f  <path-to-your-sa> -p <project-name> --name <name-your-credential>
+    codepipes creds create gcp -f  <path-to-your-sa> -p <project-name> --name <name-your-credential>
 ```
 Create a new environment, this will seggregate your project releases.
 
