@@ -3,7 +3,7 @@ environment:
     name: development
     revision:
         type: branch
-        identifier: main
+        identifier: tempBranch
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: dependency-demo/borat-gcs-redis/infra
         driver: github
