@@ -154,6 +154,10 @@ codepipes environment template apply <id of template>
 4. it should show the classifications chain in the center of screen
 5. Click on "Create Set" button
 
+Note:
+Before applying bundle make sure you make changes in appropriate inputs like container image, currently as a placeholder its set to 'pranay-test-dev' which should be replaced with your GCP project ID, 
+Add these changes to a branch and change the branch name in `dependency-demo/borat-gcs-redis/codepipes-bundle/environment-development.yaml` and also while using the bundle plan command
+
 ## Install via Code Pipes bundle
 The bundle contains the environment, application, integration and deployment definitions.
 Installing the bundle means creating all the required entities automatically.
@@ -161,16 +165,18 @@ And running all pipelines automatically.
 
 The bundle can be added from CLI or UI.
 
+Note: We want to skip the app deployment for now because the app container image needs to be built separately before we can deploy the app using [integration](#build-app).
+
 ### Using CLI
 
 ```sh
 codepipes bundle plan \
   --proj <Code Pipes project id>
   --repo https://github.com/cldcvr/codepipes-tutorials
-  --revision branch:main
+  --revision branch:<BRANCH-NAME>
   --dir /dependency-demo/borat-gcs-redis/codepipes-bundle
 
-codepipes bundle apply
+codepipes bundle apply --skipPipelines
 ```
 
 ### Using UI
@@ -180,12 +186,12 @@ codepipes bundle apply
 3. Click on "Add new bundle"
 4. Select open source
 5. fill in the following details:
-    ```
-    Repository path: https://github.com/cldcvr/codepipes-tutorials
-    Directory path: /dependency-demo/borat-gcs-redis/codepipes-bundle
-    Revision type: branch
-    Revision identifier: main
-    ```
+```
+Repository path: https://github.com/cldcvr/codepipes-tutorials
+Directory path: /dependency-demo/borat-gcs-redis/codepipes-bundle
+Revision type: branch
+Revision identifier: main
+```
 6. click the "Add Bundle" button
 
 ## Without bundle
