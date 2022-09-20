@@ -12,5 +12,5 @@ variable "GOOGLE_VPC_CONNECTOR_NAME" {
 variable "IP_CIDR_RANGE" {
   description = "Network cidr range"
   type        = string
-  default     = "10.0.0.0/8"
+  default     = "10.8.0.0/28"
 }
