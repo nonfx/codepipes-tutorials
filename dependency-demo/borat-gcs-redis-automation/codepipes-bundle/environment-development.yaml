@@ -5,6 +5,6 @@ environment:
         type: branch
         identifier: main
         repo: https://github.com/cldcvr/codepipes-tutorials
-        dir: dependency-demo/borat-gcs-redis/infra
+        dir: dependency-demo/borat-gcs-redis-automation/infra
         driver: github
     tfVersion: 1.2.5
