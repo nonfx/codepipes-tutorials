@@ -3,7 +3,7 @@ environment:
     name: development
     revision:
         type: branch
-        identifier: rajat/VAN-3059
+        identifier: main
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: dependency-demo/borat-gcs-redis-automation/infra
         driver: github
