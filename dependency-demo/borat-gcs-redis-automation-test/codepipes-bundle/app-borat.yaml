@@ -17,7 +17,7 @@ application:
           containerImage:
             provider: google_container_registry
             host: gcr.io
-            repo: gcr.io/vanguard-api-automation-test-1/boratv2
+            repo: gcr.io/vanguard-api-automation-test-2/boratv2
             reference: latest
     dependsOn:
         GCS:

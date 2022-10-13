@@ -2,7 +2,7 @@
 
 **Note**: This bundle is used for the test automation suite and only difference from _borat-gcs-redis_ and _borat-gcs-redis-automation-test_ is as below-
 
-- Used vanguard-api-automation-test-1 for publish the artifact as this account is used in the automation.
+- Used vanguard-api-automation-test-2 for publish the artifact as this account is used in the automation.
 - Used a different GOOGLE_VPC_CONNECTOR_NAME to avoid the conflict.
 - Used different IP_CIDR_RANGE to avoid the conflict.
 
