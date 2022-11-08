@@ -13,6 +13,7 @@ resource "google_project_service" "vpcaccess_api" {
 }
 
 resource "google_vpc_access_connector" "connector" {
+  project = var.GOOGLE_PROJECT
   name          = var.GOOGLE_VPC_CONNECTOR_NAME
   ip_cidr_range = "10.8.0.0/28"
   network       = "default"
