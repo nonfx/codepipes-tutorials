@@ -9,6 +9,7 @@ terraform {
 resource "google_project_service" "vpcaccess_api" {
   project = var.GOOGLE_PROJECT
   service = "vpcaccess.googleapis.com"
+  disable_on_destroy = false
 }
 
 resource "google_vpc_access_connector" "connector" {
