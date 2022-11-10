@@ -11,9 +11,10 @@ deployment:
             moduleRefId: gcp:private-helm@1
             inputs:
                 cluster: ${terraform.cluster.value}
-                helm_chart_path: myhelm
-                helm_values_path: myhelm/values.yaml
+                helm_chart_path: helm-example/myhelm
+                helm_values_path: helm-example/myhelm/values.yaml
                 region: ${terraform.region.value}
+                namespace: new-app
 application:
     import: app-helm-app.yaml
 environment:
