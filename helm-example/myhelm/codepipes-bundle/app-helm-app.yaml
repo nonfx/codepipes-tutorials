@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 application:
-    name: loki-helm-app
+    name: my-helm-app
     description: helm chart app deployment
     appConfig:
         version: "1.14"

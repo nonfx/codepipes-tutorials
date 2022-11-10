@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 deployment:
-    name: loki-helm-app-dev
+    name: my-helm-app-dev
     deploymentConfig:
         artifact:
             id: 5af03e36-550d-4f71-afe2-7430273697ac
