@@ -1,0 +1,20 @@
+schema_version: v1.0.0
+deployment:
+    name: loki-helm-app-dev
+    deploymentConfig:
+        artifact:
+            id: 5af03e36-550d-4f71-afe2-7430273697ac
+            gitCode:
+                type: branch
+                identifier: main
+        template:
+            moduleRefId: gcp:private-helm@1
+            inputs:
+                cluster: ${terraform.cluster.value}
+                helm_chart_path: myhelm
+                helm_values_path: myhelm/values.yaml
+                region: ${terraform.region.value}
+application:
+    import: app-helm-app.yaml
+environment:
+    import: environment-dev.yaml
