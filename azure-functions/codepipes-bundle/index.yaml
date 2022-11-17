@@ -1,0 +1,8 @@
+schema_version: v1.0.0
+project:
+    name: csharpapp
+environments:
+    - import: environment-staging.yaml
+deployments:
+    - import: deployment-azurefunction.yaml
+

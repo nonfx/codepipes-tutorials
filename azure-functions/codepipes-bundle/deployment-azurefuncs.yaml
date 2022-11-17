@@ -1,0 +1,21 @@
+schema_version: v1.0.0
+deployment:
+    name: cloudrun
+    deploymentConfig:
+        artifact:
+            id: 9bcb92de-403a-4df6-8983-03f6080a4221
+            gitCode:
+                type: branch
+                identifier: main
+        template:
+            moduleRefId: azure:azure-functions-code@1
+            inputs:
+                region: Southeast Asia
+                function_app_name: ${terraform.function_app.value}
+        env:
+            database_connection_string: ${terraform.database_connection_string.value}
+application:
+    import: app-azurefuncs.yaml
+environment:
+    import: environment-staging.yaml
+
