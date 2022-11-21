@@ -9,16 +9,16 @@ using System.Data.SqlClient;
 
 namespace app
 {
-    public class testy
+    public class swift
     {
         private readonly ILogger _logger;
 
-        public testy(ILoggerFactory loggerFactory)
+        public swift(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<testy>();
+            _logger = loggerFactory.CreateLogger<swift>();
         }
 
-        [Function("testy")]
+        [Function("swift")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
