@@ -1,0 +1,15 @@
+project = "<existing GCP project name>"
+service_account_name = "<name of service account to create"
+bucket_name = "<name for GCS bucket>"
+
+# optional (i.e. these have defaults)
+bucket_region = "<GCP region for the bucket>"
+key_ring = "<KMS key ring name>"
+cloud_build_topic_name = "<name for Cloud Build topic>"
+cloud_build_subscription_name = "<name for Cloud Build subscription>"
+
+# to configure cloudrun
+with_cloudrun = true | false
+
+# to configure GKE
+with_gke = true | false
