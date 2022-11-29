@@ -1,5 +1,5 @@
 schema_version: v1.0.0
 project:
-    name: csharpapp
+    name: policy-cmp-test
 deployments:
     - import: deployment-swiftclone-staging-Github.yaml

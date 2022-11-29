@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 environment:
-    name: staging
+    name: Staging
     revision:
         type: branch
         identifier: pranay/VAN-3196
@@ -9,5 +9,8 @@ environment:
         driver: github
     variables:
         - key: resource_group
-          value: sls-seasi-dev-azure-funcs-rg
+          value: $(ARM_RESOURCE_GROUP)
+          type: tf_var
+        - key: location
+          value: $(ARM_REGION)
           type: tf_var
