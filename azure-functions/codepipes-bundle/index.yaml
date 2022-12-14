@@ -1,5 +1,0 @@
-schema_version: v1.0.0
-project:
-    name: policy-cmp-test
-integrations:
-    - import: integration-ci.yaml
