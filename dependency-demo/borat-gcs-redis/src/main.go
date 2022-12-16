@@ -76,7 +76,7 @@ func main() {
 		// Render index template
 		return c.Render("index", fiber.Map{
 			"path":        "/gif",
-			"vistorCount": vc,
+			"visitorCount": vc,
 		})
 	})
 	app.Get("/gif", getStorageFile)
