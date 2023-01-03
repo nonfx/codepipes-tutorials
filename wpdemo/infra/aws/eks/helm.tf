@@ -9,6 +9,7 @@ terraform {
 
 module "container-insights" {
   source       = "Young-ook/eks/aws//modules/container-insights"
+  version      = "1.7.11"
   cluster_name = aws_eks_cluster.demo.name
   oidc         = zipmap(
     ["url", "arn"],
