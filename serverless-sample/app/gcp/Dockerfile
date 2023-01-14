@@ -1,4 +1,4 @@
-FROM alpine
+FROM golang:alpine AS builder
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 WORKDIR /build
 COPY . .
