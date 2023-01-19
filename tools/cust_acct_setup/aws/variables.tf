@@ -84,3 +84,21 @@ variable "codepipes_aws_account_user" {
   type        = string
   default     = "root"
 }
+
+variable "iam_pipeline_policy_name" {
+  description = "The name for the IAM policy created for Code Build execution"
+  type = string
+  default = "CodePipesPipelineRole"
+}
+
+variable "iam_codebuild_policy_name" {
+  description = "The name for the IAM policy created to allow Code Build operations"
+  type = string
+  default = "cldcvr-codebuild-policy"
+}
+
+variable "iam_codebuild_role_name" {
+  description = "The name for the IAM role created for use by Code Build"
+  type = string
+  default = "cldcvr-codebuild-role"
+}

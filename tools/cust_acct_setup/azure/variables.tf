@@ -56,3 +56,10 @@ variable "servicebus_topic_name" {
   description = "The name for the Azure service bus topic"
   type        = string
 }
+
+variable "pipeline_role_name" {
+  description = "The name for the role created for pipeline execution"
+  type = string
+  default = "CodePipesPipelineRole"
+}
+

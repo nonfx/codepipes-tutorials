@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "cp_policy" {
-  name        = "CodePipesPipelineRole"
+  name        = var.iam_pipeline_policy_name
   path        = "/"
   description = "Policy with permissions required to use Code Pipes"
 
@@ -128,7 +128,7 @@ resource "aws_iam_role_policy_attachment" "cp-attach-role" {
 }
 
 resource "aws_iam_policy" "cp-codebuild-policy" {
-  name = "cldcvr-codebuild-policy"
+  name = var.iam_codebuild_policy_name
   path = "/"
 
   policy = jsonencode({
@@ -153,7 +153,7 @@ resource "aws_iam_policy" "cp-codebuild-policy" {
 }
 
 resource "aws_iam_role" "cp-codebuild-role" {
-  name = "cldcvr-codebuild-role"
+  name = var.iam_codebuild_role_name
 
   assume_role_policy = <<POLICY
 {

@@ -37,6 +37,24 @@ variable "cloud_build_subscription_name" {
   default = "codepipes.events.pipeline-listener" 
 }
 
+variable "iam_pipeline_role_name" {
+  description = "The name for the IAM role created for Cloud Build execution"
+  type = string
+  default = "CodePipesPipelineRole"
+}
+
+variable "iam_creator_role_name" {
+  description = "The name for the IAM role created to allow Code Pipes to create resources"
+  type = string
+  default = "CodePipesResourceCreatorRole"
+}
+
+variable "iam_cloudrun_role_name" {
+  description = "The name for the IAM role created for use by Cloud Run"
+  type = string
+  default = "CodePipesCloudRunRole"
+}
+
 variable "with_gke" {
   description = "Configure GKE services for project"
   type        = bool

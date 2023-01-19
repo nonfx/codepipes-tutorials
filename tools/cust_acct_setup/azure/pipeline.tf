@@ -1,7 +1,7 @@
 data "azurerm_subscription" "primary" {}
 
 resource "azurerm_role_definition" "cp_pipeline_role" {
-  name        = "CodePipesPipelineRole"
+  name        = var.pipeline_role_name
   scope       = data.azurerm_subscription.primary.id
   description = "Role with permissions required to use Code Pipes"
 
@@ -125,7 +125,6 @@ resource "azurerm_role_definition" "cp_pipeline_role" {
 }
 
 resource "azurerm_role_assignment" "cp_pipeline_role_assignment" {
-  #   name               = "00000000-0000-0000-0000-000000000000"
   scope              = data.azurerm_subscription.primary.id
   role_definition_id = azurerm_role_definition.cp_pipeline_role.role_definition_resource_id
   principal_id       = azuread_service_principal.cp_service_principal.object_id
