@@ -1,5 +1,5 @@
 resource "google_project_iam_custom_role" "cp_pipeline_role" {
-  project     = data.google_project.project.name
+  project     = data.google_project.project.project_id
   role_id     = var.iam_pipeline_role_name
   title       = "Code Pipes Permissions to use resources"
   description = "Role required to use Code Pipes"
@@ -44,7 +44,7 @@ resource "google_project_iam_custom_role" "cp_pipeline_role" {
 }
 
 resource "google_project_iam_custom_role" "cp_pipeline_creator_role" {
-  project     = data.google_project.project.name
+  project     = data.google_project.project.project_id
   role_id     = var.iam_creator_role_name
   title       = "Code Pipes Permissions to create resources"
   description = "Role required to create Code Pipes resources"
@@ -62,13 +62,13 @@ resource "google_project_iam_custom_role" "cp_pipeline_creator_role" {
 }
 
 resource "google_project_iam_binding" "pipeline_role_assignment" {
-  project = data.google_project.project.name
+  project = data.google_project.project.project_id
   role    = google_project_iam_custom_role.cp_pipeline_role.id
   members = ["serviceAccount:${google_service_account.cp_service_acct.email}"]
 }
 
 resource "google_project_iam_member" "cloudbuild_role_assignment" {
-  project = data.google_project.project.name
+  project = data.google_project.project.project_id
   role    = "roles/cloudkms.cryptoKeyDecrypter"
   member  = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
 }
