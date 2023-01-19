@@ -1,6 +1,6 @@
 resource "google_project_iam_custom_role" "cp_pipeline_role" {
   project     = data.google_project.project.name
-  role_id     = "CodePipesPipelineRole"
+  role_id     = var.iam_pipeline_role_name
   title       = "Code Pipes Permissions to use resources"
   description = "Role required to use Code Pipes"
   permissions = [
@@ -45,7 +45,7 @@ resource "google_project_iam_custom_role" "cp_pipeline_role" {
 
 resource "google_project_iam_custom_role" "cp_pipeline_creator_role" {
   project     = data.google_project.project.name
-  role_id     = "CodePipesResourceCreatorRole"
+  role_id     = var.iam_creator_role_name
   title       = "Code Pipes Permissions to create resources"
   description = "Role required to create Code Pipes resources"
   permissions = [
@@ -66,19 +66,6 @@ resource "google_project_iam_binding" "pipeline_role_assignment" {
   role    = google_project_iam_custom_role.cp_pipeline_role.id
   members = ["serviceAccount:${google_service_account.cp_service_acct.email}"]
 }
-
-# resource "google_project_iam_custom_role" "cp_cloudbuild_role" {
-#   project     = data.google_project.project.name
-#   role_id     = "CodePipesCloudBuildRole"
-#   title       = "Code Pipes CloudBuild Permissions"
-#   description = "Role required by default cloudbuild service account to use Code Pipes."
-#   permissions = [
-#     "cloudkms.cryptoKeyVersions.useToDecrypt",
-#     "cloudkms.locations.get",
-#     "cloudkms.locations.list",
-#     "resourcemanager.projects.get"
-#   ]
-# }
 
 resource "google_project_iam_member" "cloudbuild_role_assignment" {
   project = data.google_project.project.name

@@ -8,7 +8,7 @@ resource "google_project_service" "cloudrun_apis" {
 resource "google_project_iam_custom_role" "cp_cloudrun_role" {
   count       = var.with_cloudrun ? 1 : 0
   project     = data.google_project.project.name
-  role_id     = "CodePipesCloudRunRole"
+  role_id     = var.iam_cloudrun_role_name
   title       = "Code Pipes CloudRun Permissions"
   description = "Role required for cloudrun service for Code Pipes."
   permissions = [
