@@ -42,7 +42,7 @@ test-docker-public-bundle:
 	--mount type=bind,source=${PWD}/report,target=/tmp/report \
 	--env-file .env.tests \
 	--env GIT_TOKEN=$$GIT_TOKEN \
-	-i --rm cldcvr/vanguard-api-automation:${TEST_VERSION} ./publicbundle -defaultOrg -timeout 600000s -testSuiteName='"API Result Public Bundles(codepipes-tutorial)"' -test.run='"${TEST_REGEX}"' --tags='"publicbundle"' -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -gitRef='"${TEST_AZURE_BUILD_BRANCH}"' -azureBuildUrl='"${TEST_AZURE_BUILD_URL}"' -credindex=0 | tee -a ${PWD}/report/APIResultPublicBundle.log
+	-i --rm cldcvr/vanguard-api-automation:${TEST_VERSION} ./publicbundle -parallel 5 -defaultOrg -timeout 600000s -testSuiteName='"API Result Public Bundles(codepipes-tutorial)"' -test.run='"${TEST_REGEX}"' --tags='"publicbundle"' -env="${TEST_ENV}" -user="${TEST_USER}" -password="${TEST_PASSWORD}" -gitRef='"${TEST_AZURE_BUILD_BRANCH}"' -azureBuildUrl='"${TEST_AZURE_BUILD_URL}"' -credindex=0 | tee -a ${PWD}/report/APIResultPublicBundle.log
 
 test-docker-cleanup:
 	mkdir -p report || true
