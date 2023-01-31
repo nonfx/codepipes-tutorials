@@ -13,7 +13,7 @@ resource "google_project_service" "vpcaccess_api" {
 }
 
 resource "google_vpc_access_connector" "connector" {
-  name          = var.GOOGLE_VPC_CONNECTOR_NAME
+  name          = format("%s-%s", var.GOOGLE_VPC_CONNECTOR_NAME, random_string.random.result)
   ip_cidr_range = "10.0.0.0/28"
   network       = "default"
   region        = "us-central1"
