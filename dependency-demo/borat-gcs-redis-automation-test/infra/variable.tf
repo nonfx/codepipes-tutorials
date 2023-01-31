@@ -14,3 +14,11 @@ variable "IP_CIDR_RANGE" {
   type        = string
   default     = "10.0.0.0/28"
 }
+
+provider "random" {}
+
+resource "random_string" "random" {
+  length    = 5
+  special   = false
+  min_lower = 5
+}
