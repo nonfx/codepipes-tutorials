@@ -51,6 +51,7 @@ resource "google_project_iam_custom_role" "cp_pipeline_creator_role" {
   permissions = [
     "cloudkms.keyRings.create",
     "pubsub.subscriptions.create",
+    "pubsub.subscriptions.update",
     "pubsub.topics.attachSubscription",
     "pubsub.topics.create",
     "resourcemanager.projects.setIamPolicy",
