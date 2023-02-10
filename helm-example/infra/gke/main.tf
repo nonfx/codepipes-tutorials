@@ -10,6 +10,7 @@ resource "google_container_cluster" "primary" {
   location           = var.location
   initial_node_count = 1
   remove_default_node_pool = true
+  node_locations = var.node_locations
   node_config {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.default.email
