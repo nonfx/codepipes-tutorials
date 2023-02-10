@@ -23,3 +23,9 @@ variable "CLUSTER_NAME" {
   type        = string
   default     = "test-cluster"
 }
+
+variable "node_locations" {
+  description = "The list of zones in which the cluster's nodes are located. Nodes must be in the region of their regional cluster or in the same region as their cluster's zone for zonal clusters"
+  type        = list
+  default     = ["us-central1-c"]
+}
