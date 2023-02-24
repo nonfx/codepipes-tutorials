@@ -31,7 +31,7 @@ REDIS_DATABASE=
 
 ## Container image
 
-Container image can be build for this app automatically using buildpack builders from paketo or heroku. Or the Dockerfile can also be used to build directly using docker.
+Container image can be built for this app automatically using buildpack builders from paketo or heroku. Or the Dockerfile can also be used to build directly using docker.
 
 ```
 # using paketo
@@ -41,7 +41,7 @@ pack build 03-nodejs-redis:paketo --builder paketobuildpacks/builder:base
 # OR
 # using heroku
 # final image size ~910MB
-pack build 01-modejs:heroku --builder heroku/builder:22
+pack build 01-nodejs:heroku --builder heroku/builder:22
 
 # OR
 # using docker

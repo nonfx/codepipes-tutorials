@@ -24,8 +24,8 @@ NODE_ENV=development
 
 ## Container image
 
-Container image can be build for this app automatically using buildpack.
+Container image can be built for this app automatically using buildpack.
 
 ```
-pack build 01-modejs --builder heroku/builder:22
+pack build 01-nodejs --builder heroku/builder:22
 ```
