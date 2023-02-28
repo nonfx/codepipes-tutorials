@@ -41,7 +41,7 @@ func main() {
 
 func getStorageFile(c *fiber.Ctx) error {
 	GCSBucket := os.Getenv("BUCKET")
-	ProjectID := os.Getenv("PROJECT_ID")
+	ProjectID := os.Getenv("GOOGLE_PROJECT")
 	filePath := os.Getenv("IMAGE_PATH")
 	clientCtx := c.Context()
 	client, err := GetGCSClient(clientCtx)

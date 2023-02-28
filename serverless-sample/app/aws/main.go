@@ -7,7 +7,6 @@ import (
 	"os"
 	"sync"
 
-	"cloud.google.com/go/storage"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -17,13 +16,8 @@ import (
 	"github.com/gofiber/template/html"
 )
 
-type storageConnection struct {
-	Client *storage.Client
-}
-
 var (
-	client *storageConnection
-	once   sync.Once
+	once sync.Once
 )
 
 func main() {
