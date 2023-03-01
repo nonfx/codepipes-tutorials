@@ -12,12 +12,13 @@
         - [Create environment set](#create-environment-set)
             - [Using CLI](#using-cli)
             - [Using UI](#using-ui)
-    - [Install the Code Pipes bundle](#install-the-code-pipes-bundle)
+    - [Install via Code Pipes bundle](#install-via-code-pipes-bundle)
         - [Using CLI](#using-cli)
         - [Using UI](#using-ui)
-    - [Add dependencies](#add-dependencies)
-    - [Build App](#build-app)
-    - [Deploy App](#deploy-app)
+    - [Without bundle](#without-bundle)
+        - [Add dependencies](#add-dependencies)
+        - [Build App](#build-app)
+        - [Deploy App](#deploy-app)
 
 <!-- /TOC -->
 
@@ -72,7 +73,7 @@ codepipes component create \
   --tf-var force_destroy="" \
   --tf-var location=us-central1 \
   --tf-var names="" \
-  --tf-var project_id="\"\${var.GOOGLE_PROJECT}\""
+  --tf-var project_id="<your-project-name>"
 
 codepipes component create \
   --title MemoryStore \
@@ -80,7 +81,7 @@ codepipes component create \
   --tf-var region=us-central1 \
   --tf-var name="" \
   --tf-var transit_encryption_mode=DISABLED \
-  --tf-var project="\"\${var.GOOGLE_PROJECT}\""
+  --tf-var project="<your-project-name>"
 ```
 (take note of the component IDs)
 
