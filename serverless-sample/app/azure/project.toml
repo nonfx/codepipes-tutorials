@@ -1,0 +1,4 @@
+[ build ]
+  [[ build.env ]]
+    name="BP_KEEP_FILES"
+    value="views/*:views/*"
