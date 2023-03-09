@@ -1,13 +1,21 @@
 module app-runner-demo
 
-go 1.16
+go 1.19
 
 require (
 	github.com/aws/aws-sdk-go v1.42.11
 	github.com/gofiber/fiber/v2 v2.17.0
 	github.com/gofiber/template v1.6.15
-	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
-	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22 // indirect
-	golang.org/x/text v0.3.7 // indirect
+)
+
+require (
+	github.com/andybalholm/brotli v1.0.2 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	github.com/klauspost/compress v1.12.2 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.26.0 // indirect
+	github.com/valyala/tcplisten v1.0.0 // indirect
+	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
