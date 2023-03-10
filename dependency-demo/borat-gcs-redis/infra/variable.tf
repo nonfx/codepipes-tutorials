@@ -25,11 +25,6 @@ resource "random_string" "random" {
 }
 
 resource "random_integer" "subnet" {
-  min = 1
-  max = 256
-}
-
-resource "random_integer" "mask" {
-  min = 24
-  max = 30
+  min = 0
+  max = 15
 }
