@@ -14,7 +14,7 @@ resource "google_project_service" "vpcaccess_api" {
 resource "google_vpc_access_connector" "connector" {
   project = var.GOOGLE_PROJECT
   name          = format("%s-%s", var.GOOGLE_VPC_CONNECTOR_NAME, random_string.random.result)
-  ip_cidr_range = "[\"10.8.0.${random_integer.subnet.result}/28\"]"
+  ip_cidr_range = "${cidrsubnet("10.8.0.0/16", 4, random_integer)}" 
   network       = "default"
   region        = "us-central1"
   depends_on    = [google_project_service.vpcaccess_api]
