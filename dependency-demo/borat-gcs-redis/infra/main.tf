@@ -5,6 +5,10 @@ terraform {
   required_version = ">= 0.12"
 }
 
+locals {
+  subnet_octet = random_integer.subnet.result
+  cidr_mask = random_integer.mask.result
+}
 
 resource "google_project_service" "vpcaccess_api" {
   project = var.GOOGLE_PROJECT
@@ -15,7 +19,7 @@ resource "google_project_service" "vpcaccess_api" {
 resource "google_vpc_access_connector" "connector" {
   project = var.GOOGLE_PROJECT
   name          = format("%s-%s", var.GOOGLE_VPC_CONNECTOR_NAME, random_string.random.result)
-  ip_cidr_range = "10.8.0.0/28"
+  ip_cidr_range = cidrsubnet("10.0.0.0/28", 8, local.subnet_octet)
   network       = "default"
   region        = "us-central1"
   depends_on    = [google_project_service.vpcaccess_api]
