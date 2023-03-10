@@ -23,8 +23,3 @@ resource "random_string" "random" {
   special   = false
   min_lower = 5
 }
-
-resource "random_integer" "subnet_suffix" {
-  min = 0
-  max = 15
-}
