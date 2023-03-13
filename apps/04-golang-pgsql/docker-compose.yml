@@ -1,0 +1,33 @@
+version: "3.8"
+
+networks:
+  gosql-network:
+    driver: bridge
+    name: gosql-network
+
+services:
+  db:
+    image: postgres:alpine
+    networks: [gosql-network]
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    networks: [gosql-network]
+    depends_on:
+      - db
+
+volumes:
+  postgres-db:
