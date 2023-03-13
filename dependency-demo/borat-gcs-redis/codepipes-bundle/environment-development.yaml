@@ -8,3 +8,7 @@ environment:
         dir: dependency-demo/borat-gcs-redis/infra
         driver: github
     tfVersion: 1.2.5
+    variables:
+    - type: tf_var
+      key: GOOGLE_PROJECT
+      value: pranay-test-dev
