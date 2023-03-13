@@ -7,7 +7,13 @@ terraform {
 
 resource "random_integer" "subnet_suffix" {
   min = 0
-  max = 255
+  max = 15
+}
+
+locals {
+  cidr_suffix = [for i in range(16): i]
+  cidr_ips = [for i in range(16): "10.8.${i}.0/28" ]
+  cidr_with_suffix = [for i in range(16): "${local.cidr_ips[i]}" ]
 }
 
 resource "google_project_service" "vpcaccess_api" {
@@ -19,7 +25,7 @@ resource "google_project_service" "vpcaccess_api" {
 resource "google_vpc_access_connector" "connector" {
   project = var.GOOGLE_PROJECT
   name          = format("%s-%s", var.GOOGLE_VPC_CONNECTOR_NAME, random_string.random.result)
-  ip_cidr_range = "${cidrsubnet("10.0.0.0/8", 8, random_integer.subnet_suffix.result)}" 
+  ip_cidr_range = local.cidr_with_suffix[random_integer.random.result]
   network       = "default"
   region        = "us-central1"
   depends_on    = [google_project_service.vpcaccess_api]
