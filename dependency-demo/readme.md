@@ -156,8 +156,7 @@ codepipes environment template apply <id of template>
 5. Click on "Create Set" button
 
 Note:
-Before applying bundle make sure you make changes in appropriate inputs like container image, currently as a placeholder its set to 'pranay-test-dev' which should be replaced with your GCP project ID, 
-Add these changes to a branch and change the branch name in `dependency-demo/borat-gcs-redis/codepipes-bundle/environment-development.yaml` and also while using the bundle plan command
+Before applying the bundle make sure you make changes in appropriate inputs like container image or google project id, currently as a placeholder it is set to 'pranay-test-dev' which should be replaced with your GCP project ID, Add make these changes in environment-development.yaml and app-borat.yaml file for tf_var(GOOGLE_PROJECT) and container image repo respectively
 
 ## Install via Code Pipes bundle
 The bundle contains the environment, application, integration and deployment definitions.
