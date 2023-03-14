@@ -19,6 +19,7 @@ services:
       - postgres-db:/var/lib/postgresql/data
   web:
     build: .
+    image: banking-app
     env_file:
       - .env
     ports:
