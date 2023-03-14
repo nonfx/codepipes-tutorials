@@ -5,11 +5,6 @@ terraform {
   required_version = ">= 0.12"
 }
 
-resource "random_integer" "subnet_suffix" {
-  min = 0
-  max = 15
-}
-
 locals {
   cidr_suffix = [for i in range(16): i]
   cidr_ips = [for i in range(16): "10.8.${i}.0/28" ]
