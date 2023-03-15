@@ -1,15 +1,23 @@
-FROM public.ecr.aws/p0k3r4s4/golang:1.19-alpine as build
+ARG GO_BASE_IMAGE=golang:1.19-alpine
+ARG RUNTIME_BASE_IMAGE=alpine
+
+FROM ${GO_BASE_IMAGE} as build
 
 WORKDIR /usr/src/app
 
+# Copy the current directory contents into the container at /app
+COPY go.mod go.sum ./
+
+# Download any necessary dependencies
+RUN go mod download
+
 COPY . .
-RUN go mod tidy
 
 # Build the Go app
 RUN CGO_ENABLED=0 GOOS=linux go build -o /go/bin/app
 
 # Final stage
-FROM public.ecr.aws/p0k3r4s4/alpine
+FROM ${RUNTIME_BASE_IMAGE}
 
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 
