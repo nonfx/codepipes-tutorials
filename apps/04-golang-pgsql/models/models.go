@@ -14,6 +14,8 @@ type MessageContainer struct {
 	Amount       int
 	AccountName  string
 	Balance      int
+	BuildDate    string
+	BuildVersion string
 }
 
 type DepositRequest struct {
@@ -24,10 +26,4 @@ type DepositRequest struct {
 type WithdraRequest struct {
 	AccountID uint
 	Amount    int
-}
-
-type UpdateBalanceRequest struct {
-	AccountID uint
-	Amount    int
-	IsDeposit bool
 }

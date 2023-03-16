@@ -31,11 +31,17 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+
+        footer {
+            bottom: 10;
+            margin-top: 50px;
+            text-align: left;
+        }
     </style>
 </head>
 
 <body
-    style=" background-color:aquamarine; background-image: url('https://www.teahub.io/photos/full/283-2838767_home-background-image-for-blood-bank.jpg');">
+    style=" background-image: url('https://www.teahub.io/photos/full/283-2838767_home-background-image-for-blood-bank.jpg');">
     <h1>Welcome to XYZ Bank</h1><br><br>
     <img src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-bank-icon-png-image_4173728.jpg"
         alt="SVG" width="100" height="100" />
@@ -57,6 +63,10 @@
             <a href="/withdraw">Withdraw</a>
         </table>
     </b>
+    <footer style="color:Lime; font-size:10px;">
+        <p>BUILD_DATE: {{.BuildDate}}<br>
+            BUILD_VERSION: {{.BuildVersion}}</p>
+    </footer>
 </body>
 
 </html>

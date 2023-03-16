@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"go-sql-demo/build"
 	"go-sql-demo/models"
 	"go-sql-demo/service"
 	"io/ioutil"
@@ -88,8 +89,15 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
+	res := &models.MessageContainer{
+		AccountName:  account.Name,
+		Balance:      account.Balance,
+		BuildDate:    build.Date,
+		BuildVersion: build.Version,
+	}
+
 	writer := bytes.NewBufferString("")
-	err = viewContext["index"].Execute(writer, &models.MessageContainer{AccountName: account.Name, Balance: account.Balance})
+	err = viewContext["index"].Execute(writer, res)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
@@ -98,8 +106,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func WithdrawHandler(w http.ResponseWriter, r *http.Request) {
+	res := &models.MessageContainer{
+		BuildDate:    build.Date,
+		BuildVersion: build.Version,
+	}
 	writer := bytes.NewBufferString("")
-	err := viewContext["withdraw"].Execute(writer, nil)
+	err := viewContext["withdraw"].Execute(writer, res)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -109,8 +121,12 @@ func WithdrawHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func DepositHandler(w http.ResponseWriter, r *http.Request) {
+	res := &models.MessageContainer{
+		BuildDate:    build.Date,
+		BuildVersion: build.Version,
+	}
 	writer := bytes.NewBufferString("")
-	err := viewContext["deposit"].Execute(writer, nil)
+	err := viewContext["deposit"].Execute(writer, res)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -132,6 +148,8 @@ func WithdrawEventHandler(w http.ResponseWriter, r *http.Request) {
 		AccountID: demoAccount.ID,
 		Amount:    amount,
 	})
+	res.BuildDate = build.Date
+	res.BuildVersion = build.Version
 	if err != nil {
 		err := viewContext["withdraw_failure"].Execute(writer, res)
 		if err != nil {
@@ -162,6 +180,8 @@ func DepositEventHandler(w http.ResponseWriter, r *http.Request) {
 		AccountID: demoAccount.ID,
 		Amount:    amount,
 	})
+	res.BuildDate = build.Date
+	res.BuildVersion = build.Version
 	if err != nil {
 		err := viewContext["deposit_failure"].Execute(writer, res)
 		if err != nil {

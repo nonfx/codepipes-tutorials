@@ -1,8 +1,14 @@
 
-build:
+COMMIT := $(shell git log --format="%H" -n 1)
+ifeq ($(COMMIT),)
+	export VERSION=dev
+else
+export VERSION=$(COMMIT)
+endif
+build-app: 
 	docker compose build
 
-run:
+run-app:
 	docker compose up
 
 debug:

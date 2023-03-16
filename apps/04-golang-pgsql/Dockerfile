@@ -13,8 +13,9 @@ RUN go mod download
 
 COPY . .
 
+ARG VERSION
 # Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux go build -o /go/bin/app
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w -X 'go-sql-demo/build.Date=$(date)' -X 'go-sql-demo/build.Version=${VERSION}' " -o /go/bin/app
 
 # Final stage
 FROM ${RUNTIME_BASE_IMAGE}
