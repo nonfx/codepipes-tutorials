@@ -73,7 +73,7 @@ codepipes component create \
   --tf-var force_destroy="" \
   --tf-var location=us-central1 \
   --tf-var names="" \
-  --tf-var project_id="<your-project-name>"
+  --tf-var project_id="\"\${var.GOOGLE_PROJECT}\""
 
 codepipes component create \
   --title MemoryStore \
@@ -81,9 +81,17 @@ codepipes component create \
   --tf-var region=us-central1 \
   --tf-var name="" \
   --tf-var transit_encryption_mode=DISABLED \
-  --tf-var project="<your-project-name>"
+  --tf-var project="\"\${var.GOOGLE_PROJECT}\""
 ```
 (take note of the component IDs)
+
+Note that the above component uses terraform variable "GOOGLE_PROJECT" this variable is automatically set by Code Pipes but is only available inside terraform if terraform declares it. Therefore, make sure to add the following to the base terraform:
+```
+variable "GOOGLE_PROJECT" {
+  description = "The ID of the google project"
+  type        = string
+}
+```
 
 Once the dependency interfaces and the components are created, we need to define how each dependency is resolved. For this, we need to create resolvers for each dependency that links the dependency to the component.
 
