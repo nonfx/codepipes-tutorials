@@ -18,6 +18,8 @@ import (
 )
 
 var (
+	bankService service.Service
+
 	demoAccount *models.Account
 
 	viewContext map[string]*template.Template
@@ -37,6 +39,14 @@ var (
 	//go:embed views/withdraw.html
 	withdrawFormat string
 )
+
+func SetBankService(s service.Service) {
+	bankService = s
+}
+
+func SetDemoAccount(acc *models.Account) {
+	demoAccount = acc
+}
 
 func init() {
 	indexTmpl, err := template.New("index").Parse(indexFormat)
@@ -72,10 +82,11 @@ func init() {
 		"withdraw_failure": withdrawFailureTmpl,
 		"withdraw":         withdrawTmpl,
 	}
+	bankService = &service.ServiceImpl{}
 }
 
 func SetupDemoAccount() {
-	res, err := service.CreateAccount(&models.Account{Name: "cpi-demo-customer", Balance: 500})
+	res, err := bankService.CreateAccount(&models.Account{Name: "cpi-demo-customer", Balance: 500})
 	if err != nil {
 		log.Fatalf("Failed to create demo account %v", err)
 	}
@@ -84,9 +95,10 @@ func SetupDemoAccount() {
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
-	account, err := service.GetAccountByID(demoAccount.ID)
+	account, err := bankService.GetAccountByID(demoAccount.ID)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	res := &models.MessageContainer{
@@ -144,7 +156,7 @@ func WithdrawEventHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writer := bytes.NewBufferString("")
-	res, err := service.WithDraw(&models.WithdraRequest{
+	res, err := bankService.WithDraw(&models.WithdraRequest{
 		AccountID: demoAccount.ID,
 		Amount:    amount,
 	})
@@ -176,7 +188,7 @@ func DepositEventHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writer := bytes.NewBufferString("")
-	res, err := service.Deposit(&models.DepositRequest{
+	res, err := bankService.Deposit(&models.DepositRequest{
 		AccountID: demoAccount.ID,
 		Amount:    amount,
 	})
@@ -215,7 +227,7 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := service.CreateAccount(account)
+	res, err := bankService.CreateAccount(account)
 	if err != nil {
 		log.Printf("failed to create account: %v", err)
 		http.Error(w, "failed to create account", http.StatusInternalServerError)
@@ -230,7 +242,7 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 func ListAccountsHandler(w http.ResponseWriter, r *http.Request) {
 
-	res, err := service.ListAccounts()
+	res, err := bankService.ListAccounts()
 	if err != nil {
 		log.Printf("failed to create account: %v", err)
 		http.Error(w, "failed to create account", http.StatusInternalServerError)
@@ -252,7 +264,7 @@ func GetAccountHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := service.GetAccountByID(uint(id))
+	res, err := bankService.GetAccountByID(uint(id))
 	if err != nil {
 		log.Printf("failed to create account: %v", err)
 		http.Error(w, "failed to create account", http.StatusInternalServerError)
@@ -272,7 +284,7 @@ func DeleteAccountHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = service.DeleteAccount(uint(id))
+	err = bankService.DeleteAccount(uint(id))
 	if err != nil {
 		log.Printf("failed to create account: %v", err)
 		http.Error(w, "failed to create account", http.StatusInternalServerError)

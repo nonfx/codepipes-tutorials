@@ -11,7 +11,19 @@ const (
 	depositLimit int = 5000
 )
 
-func Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
+type Service interface {
+	Deposit(req *models.DepositRequest) (*models.MessageContainer, error)
+	WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error)
+	CreateAccount(req *models.Account) (*models.Account, error)
+	GetAccount(req *models.Account) (*models.Account, error)
+	ListAccounts() ([]models.Account, error)
+	GetAccountByID(ID uint) (*models.Account, error)
+	DeleteAccount(ID uint) error
+}
+
+type ServiceImpl struct{}
+
+func (s *ServiceImpl) Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
 
 	if req.Amount > depositLimit {
 		err := errors.New("requested deposit is greater than limit")
@@ -22,7 +34,7 @@ func Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
 		}, err
 	}
 
-	account, err := GetAccountByID(req.AccountID)
+	account, err := s.GetAccountByID(req.AccountID)
 	if err != nil {
 		log.Println("Failed to get account: ", err.Error())
 		return &models.MessageContainer{
@@ -53,8 +65,8 @@ func Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
 	}, nil
 }
 
-func WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error) {
-	account, err := GetAccountByID(req.AccountID)
+func (s *ServiceImpl) WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error) {
+	account, err := s.GetAccountByID(req.AccountID)
 	if err != nil {
 		log.Println("Failed to get account: ", err.Error())
 		return &models.MessageContainer{ErrorMessage: err.Error()}, err
@@ -91,7 +103,7 @@ func WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error) {
 	}, nil
 }
 
-func CreateAccount(req *models.Account) (*models.Account, error) {
+func (s *ServiceImpl) CreateAccount(req *models.Account) (*models.Account, error) {
 	err := database.DB.Db.Create(req).Error
 	if err != nil {
 		return nil, err
@@ -99,7 +111,7 @@ func CreateAccount(req *models.Account) (*models.Account, error) {
 	return req, nil
 }
 
-func GetAccount(req *models.Account) (*models.Account, error) {
+func (s *ServiceImpl) GetAccount(req *models.Account) (*models.Account, error) {
 	account := &models.Account{}
 	err := database.DB.Db.Find(account, req).Error
 	if err != nil {
@@ -108,7 +120,7 @@ func GetAccount(req *models.Account) (*models.Account, error) {
 	return req, nil
 }
 
-func ListAccounts() ([]models.Account, error) {
+func (s *ServiceImpl) ListAccounts() ([]models.Account, error) {
 	accounts := []models.Account{}
 	err := database.DB.Db.Find(&accounts).Error
 	if err != nil {
@@ -117,7 +129,7 @@ func ListAccounts() ([]models.Account, error) {
 	return accounts, nil
 }
 
-func GetAccountByID(ID uint) (*models.Account, error) {
+func (s *ServiceImpl) GetAccountByID(ID uint) (*models.Account, error) {
 	account := &models.Account{}
 	account.ID = ID
 	err := database.DB.Db.Find(&account, account).Error
@@ -127,7 +139,7 @@ func GetAccountByID(ID uint) (*models.Account, error) {
 	return account, nil
 }
 
-func DeleteAccount(ID uint) error {
+func (s *ServiceImpl) DeleteAccount(ID uint) error {
 	account := &models.Account{}
 	account.ID = ID
 	return database.DB.Db.Delete(&models.Account{}, account).Error
