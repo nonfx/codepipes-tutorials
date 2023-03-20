@@ -3,3 +3,4 @@ Dockerfile
 README.md
 Makefile
 *docker-compose*.yml
+coverage.txt
