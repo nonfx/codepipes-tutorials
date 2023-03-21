@@ -16,4 +16,4 @@ debug:
 
 unit-test:
 	touch coverage.txt
-	go test -timeout 30s -coverprofile=coverage.txt go-sql-demo/handlers
+	go test -timeout 30s -coverprofile=coverage.txt ./...
