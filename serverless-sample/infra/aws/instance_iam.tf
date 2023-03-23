@@ -42,6 +42,16 @@ resource "aws_iam_policy" "instance_policy" {
       "Effect": "Allow",
       "Action": "s3:*",
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticache:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "secretsmanager:*",
+      "Resource": "*"
     }
   ]
 }
