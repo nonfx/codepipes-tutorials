@@ -9,7 +9,7 @@
 *.tfvars
 *.exe
 *.terraform.lock.hcl
-
+.env
 
 # bundles
 *.plan
