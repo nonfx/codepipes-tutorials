@@ -1,0 +1,6 @@
+Dockerfile
+.dockerignore
+README.md
+Makefile
+*docker-compose*.yml
+coverage.txt

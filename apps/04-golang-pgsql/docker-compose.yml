@@ -1,0 +1,45 @@
+version: "3.8"
+
+networks:
+  gosql-network:
+    driver: bridge
+    name: gosql-network
+
+services:
+  db:
+    image: postgres:11
+    networks: [gosql-network]
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+  web:
+    image: banking-app
+    build: 
+      context: .
+      args:
+        GO_BASE_IMAGE: ${GO_BASE_IMAGE:-}
+        RUNTIME_BASE_IMAGE: ${RUNTIME_BASE_IMAGE:-}
+        VERSION: ${VERSION:-dev}
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    networks: [gosql-network]
+    depends_on: [db]
+    restart: on-failure
+    environment:
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-}
+      DB_NAME: ${DB_NAME:-postgres}
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_SSLMODE: ${DB_SSLMODE:-disable}
+
+volumes:
+  postgres-db:
+    name: demo_04_pg_data
