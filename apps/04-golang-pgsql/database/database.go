@@ -41,7 +41,11 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Error)
 
 	log.Println("running migrations")
-	db.AutoMigrate(&models.Account{})
+	err = db.AutoMigrate(&models.Account{})
+	if err != nil {
+		log.Fatal("Failed to run database migration \n", err)
+		os.Exit(2)
+	}
 
 	DB = Dbinstance{
 		Db: db,

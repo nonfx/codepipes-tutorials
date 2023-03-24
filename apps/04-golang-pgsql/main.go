@@ -5,6 +5,7 @@ import (
 	"go-sql-demo/handlers"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -16,8 +17,17 @@ func main() {
 	// initialize router
 	r := setupRoutes()
 	handlers.SetupDemoAccount()
+
 	log.Println("Server listening on port 3000...!!")
-	log.Fatal(http.ListenAndServe(":3000", r))
+	server := &http.Server{
+		Addr:              ":3000",
+		ReadHeaderTimeout: 3 * time.Second,
+		Handler:           r,
+	}
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
 }
 
 func setupRoutes() *mux.Router {

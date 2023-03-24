@@ -113,7 +113,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
-	w.Write(writer.Bytes())
+	_, err = w.Write(writer.Bytes())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -128,7 +132,11 @@ func WithdrawHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.Write(writer.Bytes())
+	_, err = w.Write(writer.Bytes())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -143,7 +151,11 @@ func DepositHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.Write(writer.Bytes())
+	_, err = w.Write(writer.Bytes())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -175,7 +187,11 @@ func WithdrawEventHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	w.Write(writer.Bytes())
+	_, err = w.Write(writer.Bytes())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -207,7 +223,11 @@ func DepositEventHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	w.Write(writer.Bytes())
+	_, err = w.Write(writer.Bytes())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -220,7 +240,7 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	account := &models.Account{}
-	json.Unmarshal(body, account)
+	err = json.Unmarshal(body, account)
 	if err != nil {
 		log.Printf("Error unmarshaling: %v", err)
 		http.Error(w, "can't unmarshal", http.StatusBadRequest)
@@ -237,7 +257,11 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	b, _ := json.Marshal(res)
 
 	w.WriteHeader(200)
-	w.Write(b)
+	_, err = w.Write(b)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func ListAccountsHandler(w http.ResponseWriter, r *http.Request) {
@@ -252,7 +276,11 @@ func ListAccountsHandler(w http.ResponseWriter, r *http.Request) {
 	b, _ := json.Marshal(res)
 
 	w.WriteHeader(200)
-	w.Write(b)
+	_, err = w.Write(b)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func GetAccountHandler(w http.ResponseWriter, r *http.Request) {
@@ -273,7 +301,11 @@ func GetAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 	b, _ := json.Marshal(res)
 	w.WriteHeader(200)
-	w.Write(b)
+	_, err = w.Write(b)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func DeleteAccountHandler(w http.ResponseWriter, r *http.Request) {
