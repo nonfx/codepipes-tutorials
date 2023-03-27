@@ -15,7 +15,7 @@ deployment:
                 is_public: true
                 memory: 2 GB
                 port: 3000
-                region: ${terraform.aws_region}
+                region: ${terraform.aws_region.value}
                 vpc_connector_arn: ${terraform.vpc_connector.value}
         env:
             DB_SSLMODE: disable
