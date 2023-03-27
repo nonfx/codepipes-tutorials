@@ -1,0 +1,23 @@
+schema_version: v0.0.1
+
+application:
+  import: ./app.yml
+
+integration:
+  name: ci-build1
+  description: Build and push
+  inputAppArtifact:
+    id: 3da02999-3e73-4d6e-834b-997f1ce8b721
+  outputAppArtifact:
+    id: 47f115ac-5c98-4cd1-bf16-cf26289955st
+  pipeline:
+    - moduleRefId: aws:test_module@1
+      inputs:
+        echo_string: test-String
+        echo_int: 1
+        echo_float: 1
+        echo_map:
+          k1: v1
+        echo_list:
+          - I1
+          - I2

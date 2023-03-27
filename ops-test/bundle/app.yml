@@ -1,0 +1,25 @@
+schema_version: v0.0.1
+
+application:
+  name: ops-test-app
+  description: ops test app
+  appConfig:
+    version: 1
+  artifacts:
+    - name: container_Image
+      id: 3e9f0abf-c768-499d-8c46-577777222dc
+      containerImage:
+        provider: dockerhub_container_registry
+        host: index.docker.io
+        repo: cldcvr/tweet-service
+        reference: latest
+    - name: git-ops
+      id: 3e9f0abf-c768-499d-8c46-577777222dd
+      gitcode:
+        repo: https://github.com/shekharapps/apps-test
+        dir: infra/aws
+        identifier: main
+        type: branch
+creds:
+  - cloud
+  - git

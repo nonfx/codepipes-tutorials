@@ -1,0 +1,10 @@
+schema_version: v0.0.1
+
+project:
+  name: bundle-test
+
+deployments:
+  - import: ./deployment.yml
+
+integrations:
+  - import: ./integration.yml

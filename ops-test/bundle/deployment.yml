@@ -1,0 +1,25 @@
+schema_version: v0.0.1
+
+environment:
+  import: ./env.yml
+
+application:
+  import: ./app.yml
+
+deployment:
+  name: ResultDeployment
+  description: test Deployment
+  deploymentConfig:
+    artifact:
+      id: 3e9f0abf-c768-499d-8c46-23455622dc
+    template:
+      moduleRefId: aws:test_module@1
+      inputs:
+        echo_float: 1
+        echo_map:
+          k1: v1
+        echo_int:  8080
+        echo_list:
+          - "a"
+          - "b"
+        echo_string: "test"
