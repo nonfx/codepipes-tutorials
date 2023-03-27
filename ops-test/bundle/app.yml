@@ -4,7 +4,8 @@ application:
   name: ops-test-app
   description: ops test app
   appConfig:
-    version: 1
+    language: source_go
+    version: 2.5.2
   artifacts:
     - name: container_Image
       id: 3e9f0abf-c768-499d-8c46-577777222dc
