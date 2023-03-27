@@ -6,7 +6,7 @@ The goal is to show off a variety of features in Code Pipes including:
 - use the dependency mechanism for an RDS PostgreSQL DB
 - Deployment to AppRunner that includes Terraform outputs being passed to the deployment
 - App Integration that has some checks and builds a container pushed to ECR
-- Promotion of mulitple versions of the app from Dev to Prod
+- Promotion of multiple versions of the app from Dev to Prod
 
 #### Setup Notes
 
@@ -23,11 +23,11 @@ $ codepipes env template create -n AppRunner-Base -r https://github.com/cldcvr/c
 id: f222be09-0bd7-4792-a842-35648a9acd00
 
 # dev env with policy CC-Best (bd04a6ca-9043-4135-9299-d490c42dfe12)
-$ codepipes class create -n dev -p bd04a6ca-9043-4135-9299-d490c42dfe12 -t aws_region=us-east-1
+$ codepipes class create -n Dev -p bd04a6ca-9043-4135-9299-d490c42dfe12 -t aws_region=us-east-1
 id: e28ed565-b5f5-4cbf-94a1-1620ca736bd1
 
 # prod env with SOC2 (61755ba8-41c5-4ff8-80ce-58133190b25a)
-$ codepipes class create -n prod -p 61755ba8-41c5-4ff8-80ce-58133190b25a -t aws_region=us-east-1 -a e28ed565-b5f5-4cbf-94a1-1620ca736bd1
+$ codepipes class create -n Prod -p 61755ba8-41c5-4ff8-80ce-58133190b25a -t aws_region=us-east-1 -a e28ed565-b5f5-4cbf-94a1-1620ca736bd1
 id: 56799bc5-7970-4a41-a7e5-e46fa7f7f66a
 
 # then into the UI:
@@ -61,25 +61,42 @@ Created dependency:  33492720-992c-487d-80f3-60ec95f5e080
 Created resolver:  7f45818c-010d-4da4-a6ea-57e803750784
 ```
 
-#### Code Pipes Project/App setup
+#### Code Pipes Project/Env/App setup
 
-###### Credentials
-1. You will need AWS credentials (i.e. access key/secret) for the Dev and Prod envs
-2. You will need AWS credentials for the AWS acct where the ECR container is (vg-sso)
+###### Environments
+
+1. Create project
+2. Create an environment set using the "AppRunner-Base" template from the project page in UI.
+
+This should end up creating two environments ( dev & prod ). Inheriting the policy sets from classifications.
+
+##### credentials
+1. You will need AWS credentials (i.e. access key/secret) for the Dev and Prod envs (AWS-Dev, AWS-Prod)
+2. You will need AWS credentials for the AWS acct where the ECR container is (AWS-VG-SSO)
 3. Github credentials
+4. Assign all credentials as following
+    - **AWS-Dev**: Apply to Project As Cloud
+      - use to run dev-infra deployment
+      - use to run app dev-deployment
+      - use to run app integration
+    - **AWS-Prod**: Apply to Prod-Env As Cloud
+      - use to run prod-infra deployment
+      - use to run app prod-deployment
+    - **AWS-VG-SSO**: Apply to Project As Container
+      - use to run app integration and write the container image in ECR
+      - use to access container image (ECR) in app dev-deployment pipeline
+      - use to access container image (ECR) in app prod-deployment pipeline
+    - **GitHub**: Apply to Project As Git
+      - workaround for an unknown bug. the flow should work without this as we are using a public repo.
 
-- Each env will need the appropriate AWS cred from item 1
-- The app will need the dev cred as Cloud, the cred from 2 as the container cred and the Github cred
-
-###### Using the bundle
-1. Using the Organization that was created above, create Github credential in it.
-2. Navigate to the apps/04-golang-pgsql/bundle; type:
+###### Application
+Apply bundle from "bundles/banking-demo" repo "github.com/cldcvr/codepipes-tutorials"
 ```
 $ codepipes bundle plan
 Using config file: /Users/doug/.codepipes.yml
 Processing plan for bundle:
         Repo: https://github.com/cldcvr/codepipes-tutorials
-        Directory: /apps/04-golang-pgsql/bundle
+        Directory: /bundles/banking-demo
         Bundle File: (default)
         Revision: branch:doug/van-3873
 
@@ -87,18 +104,13 @@ Organization: 5fbf2111-9e53-4a53-a9b8-9dada882b372
 Project: Banking-Demo (New)
 <snip>
 $ codepipes bundle apply --skipPipelines
-
 ```
-3. Assign the relevant policies to the environments. CC-Best-Practices to dev and SOC-2 to prod.
-4. Create/Assign creds as follows:
-    - cloud creds - you will need 2 - one for dev and one for prod.
-    - container creds - one AWS creds to where the app container will live in ECR (here I used vanguard-sso)
-    - The App will need the container creds as well as a cloud cred for one of the envs (where the App build will run - presumably dev)
 
-(The issue with using the bundle is that it doesn't use the classifications or env template)
+Note: Bundle apply should create the app entity, app integration entity, and the app deployment entities in both the environments from the set above.
 
 #### Environment Deploy
 Kicked of the dev env validate pipeline
+
 ###### Issue #1:
 Availability Zones: UnauthorizedOperation:
 The IAM user created by the cust-acct-setup doesn't have perms for this - added PowerUserAccess (Ultimately had to give AdminAccess - TBD figure out least amount of privs for this)

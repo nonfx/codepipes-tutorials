@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 environment:
-    name: prod-AppRunner-Base
+    name: Prod-AppRunner-Base
     description: prod environment for AppRunner-Base
     revision:
         type: branch
