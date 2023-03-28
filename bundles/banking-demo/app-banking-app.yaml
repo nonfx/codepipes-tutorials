@@ -17,6 +17,7 @@ application:
             host: 543332486884.dkr.ecr.us-east-1.amazonaws.com
             repo: banking-app
             reference: v1.0.0
+            versionTagPattern: "v\\d+\\.\\d+\\.\\d+"
     dependsOn:
         PostgresDB:
             dependencyName: PostgresDB

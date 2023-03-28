@@ -22,4 +22,4 @@ deployment:
 application:
     import: app-banking-app.yaml
 environment:
-    import: environment-Dev-AppRunner-Base.yaml
+    import: environment-dev-AppRunner-Base.yaml
