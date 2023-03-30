@@ -19,7 +19,7 @@ The repo (i.e. banking-app) needs to be pre-created in ECR before any of this wo
 Used tools/cust-acct-setup to create CP LZ in each account (doug-test-cust and doug-test1)
 
 ```
-$ codepipes env template create -n AppRunner-Base -r https://github.com/cldcvr/codepipes-tutorials -v branch:doug/van-3873 --dir /tfs/aws-ecr-apprunner-vpc --tfversion 1.3.7
+$ codepipes env template create -n AppRunner-Base -r https://github.com/cldcvr/codepipes-tutorials -v branch:main --dir /tfs/aws-ecr-apprunner-vpc --tfversion 1.3.7
 id: f222be09-0bd7-4792-a842-35648a9acd00
 
 # dev env with policy CC-Best (bd04a6ca-9043-4135-9299-d490c42dfe12)
@@ -98,7 +98,7 @@ Processing plan for bundle:
         Repo: https://github.com/cldcvr/codepipes-tutorials
         Directory: /bundles/banking-demo
         Bundle File: (default)
-        Revision: branch:doug/van-3873
+        Revision: branch:main
 
 Organization: 5fbf2111-9e53-4a53-a9b8-9dada882b372
 Project: Banking-Demo (New)
@@ -108,12 +108,15 @@ $ codepipes bundle apply --skipPipelines
 
 Note: Bundle apply should create the app entity, app integration entity, and the app deployment entities in both the environments from the set above.
 
-#### Environment Deploy
-Kicked of the dev env validate pipeline
+#### Deploy
+1. Run deploy pipeline of both development and production environment
+2. Run app integration pipeline
+3. Run app promotion to development environment
+4. Run app promotion to production environment
 
 ###### Issue #1:
 Availability Zones: UnauthorizedOperation:
-The IAM user created by the cust-acct-setup doesn't have perms for this - added PowerUserAccess (Ultimately had to give AdminAccess - TBD figure out least amount of privs for this)
+The IAM user created by the cust-acct-setup doesn't have perms for this - added PowerUserAccess (Ultimately had to give AdminAccess - TBD figure out least amount of permissions for this)
 
 #### Cross-Account ECR sharing setup
 Need to setup cross-account sharing for the ECR image (app int pushes to one AWS acct and it used by the 2 other accounts)
