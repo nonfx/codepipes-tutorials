@@ -1,0 +1,20 @@
+schema_version: v1.0.0
+deployment:
+    name: banking-app-dev
+    deploymentConfig:
+        artifact:
+            id: eac84f49-6b31-4c03-85b8-7bf3a07f4627
+            containerImage:
+                reference: v1.0.0
+        template:
+            moduleRefId: aws:basic-eks-regional@1
+            inputs:
+                cluster: ${terraform.cluster_name.value}
+                region: ${terraform.cluster_region.value}
+                roleArn: ${terraform.eks_arn.value}
+        env:
+            DB_SSLMODE: disable
+application:
+    import: app-banking-app.yaml
+environment:
+    import: environment-dev-eks-base.yaml
