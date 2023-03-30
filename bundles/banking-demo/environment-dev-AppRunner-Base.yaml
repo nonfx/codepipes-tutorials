@@ -4,7 +4,7 @@ environment:
     description: dev environment for AppRunner-Base
     revision:
         type: branch
-        identifier: doug/van-3873
+        identifier: main
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: /tfs/aws-ecr-apprunner-vpc
         driver: github
