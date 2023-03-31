@@ -1,72 +1,254 @@
 <!DOCTYPE html>
 <html>
-<title>
-    XYZ bank
-</title>
+  <title>SkyCoast Finance Corporation</title>
 
-<head>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@cldcvr/flow-core@1.7.2/umd/style.css"
+    />
     <style>
-        body {
-            background: #555;
-            text-align: center;
-            background: white;
-        }
+      body {
+        background: #555;
+        text-align: center;
+        background: white;
+      }
 
-        .content {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 10px;
-            text-align: center;
-        }
+      .content {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 10px;
+        text-align: center;
+      }
 
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
 
-        footer {
-            bottom: 10;
-            margin-top: 50px;
-            text-align: left;
-        }
+      footer {
+        bottom: 10;
+        margin-top: 50px;
+        text-align: left;
+      }
     </style>
-</head>
+    <script src="https://unpkg.com/@cldcvr/flow-core@1.7.2/umd/flow-core.umd.js"></script>
+    <script src="https://unpkg.com/@cldcvr/flow-system-icon@1.2.2/umd/flow-icon.umd.js"></script>
+  </head>
 
-<body
-    style=" background-image: url('https://www.teahub.io/photos/full/283-2838767_home-background-image-for-blood-bank.jpg');">
-    <h1>Welcome to XYZ Bank</h1><br><br>
-    <img src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-bank-icon-png-image_4173728.jpg"
-        alt="SVG" width="100" height="100" />
+  <body>
+    <f-div height="100%" width="100%" state="default" direction="column">
+      <!--Start : Top bar-->
+      <f-div
+        height="56px"
+        state="secondary"
+        align="middle-left"
+        padding="medium"
+        gap="auto"
+      >
+        <f-div align="middle-left" gap="medium">
+          <f-icon
+            source="i-dollar-filled"
+            state="warning"
+            size="large"
+          ></f-icon>
+          <f-text variant="heading" weight="bold" size="medium"
+            >SkyCoast Finance Corporation</f-text
+          >
+        </f-div>
+        <f-div align="middle-left" gap="x-large" width="hug-content">
+          <f-text
+            state="secondary"
+            variant="para"
+            weight="regular"
+            size="medium"
+            >Monday 3 April 2023</f-text
+          >
+          <f-icon source="i-user" size="medium" clickable></f-icon>
+        </f-div>
+      </f-div>
+      <!--End : Top bar-->
+      <f-divider state="secondary"></f-divider>
+      <!--Start : Account info-->
+      <f-div align="middle-left" height="82px">
+        <f-div
+          padding="x-large"
+          gap="x-large"
+          height="hug-content"
+          align="middle-left"
+        >
+          <f-text state="secondary" weight="bold" inline
+            >Account overview</f-text
+          >
+          <f-divider></f-divider>
+          <f-div gap="medium" width="hug-content" align="middle-left">
+            <f-icon
+              source="i-user-filled"
+              size="medium"
+              state="secondary"
+              clickable
+            ></f-icon>
+            <f-text inline weight="bold">Samanth Davis</f-text>
+          </f-div>
+          <f-divider></f-divider>
+          <f-div gap="medium" width="hug-content" align="middle-left">
+            <f-icon source="i-hashtag" size="medium" state="secondary"></f-icon>
+            <f-text inline weight="bold">411592653589793</f-text>
+          </f-div>
+        </f-div>
+      </f-div>
+      <!--End : Account info-->
+      <f-divider state="secondary"></f-divider>
+      <f-div direction="column">
+        <f-div
+          padding="x-large"
+          gap="x-large"
+          align="middle-right"
+          height="hug-content"
+        >
+          <f-div gap="x-large">
+            <!--Start: Current balance-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="hug-content"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-tick" state="success"></f-icon>
+                <f-text>Current balance</f-text>
+              </f-div>
+              <f-div align="middle-left">
+                <f-text
+                  variant="heading"
+                  weight="bold"
+                  size="x-large"
+                  state="success"
+                  >$ 22,405.93</f-text
+                >
+              </f-div>
+            </f-div>
+            <!--End: Current balance-->
+
+            <!--Start : Monthly avg.incoming-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="hug-content"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-download"></f-icon>
+                <f-text>Monthly avg. incoming</f-text>
+              </f-div>
+              <!-- <f-div align="middle-left">
+            <f-text variant="heading" weight="bold" size="x-large"
+              >$ 22,405.93</f-text
+            >
+          </f-div> -->
+              <f-div align="middle-left">
+                <f-text state="subtle">No transactions yet</f-text>
+              </f-div>
+            </f-div>
+            <!--End : Monthly avg.incoming-->
+
+            <!--Start : Monthly avg.outgoing-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="hug-content"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-download"></f-icon>
+                <f-text>Monthly avg. outgoing</f-text>
+              </f-div>
+              <!-- <f-div align="middle-left">
+		   <f-text variant="heading" weight="bold" size="x-large"
+			 >$ 22,405.93</f-text
+		   >
+		 </f-div> -->
+              <f-div align="middle-left">
+                <f-text state="subtle">No transactions yet</f-text>
+              </f-div>
+            </f-div>
+            <!--End : Monthly avg.outgoing-->
+          </f-div>
+          <f-div gap="x-large" align="middle-right" height="hug-content">
+            <f-button
+              label="deposit funds"
+              size="large"
+              state="success"
+              category="outline"
+            ></f-button>
+            <f-button
+              label="SEND PAYMENTS"
+              size="large"
+              state="warning"
+              category="outline"
+            ></f-button>
+          </f-div>
+        </f-div>
+
+        <!--Placeholder to add any other content-->
+      </f-div>
+
+      <f-div height="hug-content" padding="medium">
+        <f-text state="subtle"
+          >Built on Monday 23 March 2023 21:10:55 • v1.0.0</f-text
+        >
+      </f-div>
+    </f-div>
+    <!-- <h1>Welcome to XYZ Bank</h1>
+    <br /><br />
+    <img
+      src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-bank-icon-png-image_4173728.jpg"
+      alt="SVG"
+      width="100"
+      height="100"
+    />
     <h3>Account Details</h3>
-    <a href="/">Home</a><br><br>
+    <a href="/">Home</a><br /><br />
     <b>
-        <table class="center" style="width:40%">
-            <tr style="height:40px">
-                <td>Name</td>
-                <td>{{ .AccountName }}</td>
-            </tr>
-            <tr style="height:40px">
-                <td>Balance</td>
-                <td>{{ .Balance }}</td>
-            </tr>
-        </table><br><br>
-        <table class="center">
-            <a href="/deposit">Deposit</a><br><br>
-            <a href="/withdraw">Withdraw</a>
-        </table>
+      <table class="center" style="width: 40%">
+        <tr style="height: 40px">
+          <td>
+            Name
+            <f-button icon-left="i-plus" label="Test" size="small"></f-button>
+          </td>
+          <td>{{ .AccountName }}</td>
+        </tr>
+        <tr style="height: 40px">
+          <td>Balance</td>
+          <td>{{ .Balance }}</td>
+        </tr>
+      </table>
+      <br /><br />
+      <table class="center">
+        <a href="/deposit">Deposit</a
+        ><br /><br />
+        <a href="/withdraw">Withdraw</a>
+      </table>
     </b>
-    <footer style="color:Lime; font-size:10px;">
-        <p>BUILD_DATE: {{.BuildDate}}<br>
-            BUILD_VERSION: {{.BuildVersion}}</p>
-    </footer>
-</body>
-
+    <footer style="color: Lime; font-size: 10px">
+      <p>
+        BUILD_DATE: {{.BuildDate}}<br />
+        BUILD_VERSION: {{.BuildVersion}}
+      </p>
+    </footer> -->
+  </body>
 </html>
