@@ -9,13 +9,26 @@ type Account struct {
 	Balance int    `json:"balance"`
 }
 
+type Transaction struct {
+	gorm.Model
+	AccountID       uint
+	Account         Account `gorm:"foreignKey:AccountID"`
+	TransactionType string
+	Amount          int
+}
+
 type MessageContainer struct {
-	ErrorMessage string
-	Amount       int
-	AccountName  string
-	Balance      int
-	BuildDate    string
-	BuildVersion string
+	ErrorMessage  string
+	Amount        int
+	AccountName   string
+	Balance       int
+	AccountID     uint
+	BuildDate     string
+	BuildVersion  string
+	AvgDeposit    int
+	AvgWithdraw   int
+	MonthlyAvgIn  string
+	MonthlyAvgOut string
 }
 
 type DepositRequest struct {
@@ -23,7 +36,12 @@ type DepositRequest struct {
 	Amount    int
 }
 
-type WithdraRequest struct {
+type WithdrawRequest struct {
 	AccountID uint
 	Amount    int
+}
+
+type ManageAccountRequest struct {
+	TransactionType string `json:"transaction"`
+	Amount          int    `json:"amount"`
 }

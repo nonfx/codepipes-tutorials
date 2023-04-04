@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <title>SkyCoast Finance Corporation</title>
+  <title>Example Bank Global</title>
 
   <head>
     <link
@@ -33,7 +33,7 @@
             size="large"
           ></f-icon>
           <f-text variant="heading" weight="bold" size="medium"
-            >SkyCoast Finance Corporation</f-text
+            >Example Bank Global</f-text
           >
         </f-div>
         <f-div align="middle-left" gap="x-large" width="hug-content">
@@ -42,6 +42,7 @@
             variant="para"
             weight="regular"
             size="medium"
+            id="currentDate"
             >Monday 3 April 2023</f-text
           >
           <f-icon source="i-user" size="medium" clickable></f-icon>
@@ -68,12 +69,12 @@
               state="secondary"
               clickable
             ></f-icon>
-            <f-text inline weight="bold">Samanth Davis</f-text>
+            <f-text inline weight="bold">{{.AccountName}}</f-text>
           </f-div>
           <f-divider></f-divider>
           <f-div gap="medium" width="hug-content" align="middle-left">
             <f-icon source="i-hashtag" size="medium" state="secondary"></f-icon>
-            <f-text inline weight="bold">411592653589793</f-text>
+            <f-text inline weight="bold">{{.AccountID}}</f-text>
           </f-div>
         </f-div>
       </f-div>
@@ -106,7 +107,7 @@
                   weight="bold"
                   size="x-large"
                   state="success"
-                  >$ 22,405.93</f-text
+                  >$ {{.Balance}}</f-text
                 >
               </f-div>
             </f-div>
@@ -131,7 +132,7 @@
             >
           </f-div> -->
               <f-div align="middle-left">
-                <f-text state="subtle">No transactions yet</f-text>
+                <f-text state="subtle">{{.MonthlyAvgIn}}</f-text>
               </f-div>
             </f-div>
             <!--End : Monthly avg.incoming-->
@@ -155,7 +156,7 @@
 		   >
 		 </f-div> -->
               <f-div align="middle-left">
-                <f-text state="subtle">No transactions yet</f-text>
+                <f-text state="subtle">{{.MonthlyAvgOut}}</f-text>
               </f-div>
             </f-div>
             <!--End : Monthly avg.outgoing-->
@@ -225,11 +226,12 @@
 
       <f-div height="hug-content" padding="medium">
         <f-text state="subtle"
-          >Built on Monday 23 March 2023 21:10:55 • v1.0.0</f-text
+          >Built on {{.BuildDate}} • {{.BuildVersion}}</f-text
         >
       </f-div>
     </f-div>
     <script defer>
+      document.getElementById("currentDate").textContent = new Date().toDateString();
       const fundForm = document.querySelector("#fundForm");
       const submitButton = document.querySelector("#submitButton");
       const closePopover = document.querySelector("#closePopover");
@@ -251,6 +253,15 @@
         const formvalues = event.detail;
         // values to pass on server side
         console.log(transactionType, formvalues);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/manage", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.onload  = function() {
+          var jsonResponse = xhttp.response;
+          location.reload()
+        };
+        xhttp.send(JSON.stringify({ amount: formvalues, transaction: transactionType}));
         popover.open = false;
       });
 
@@ -299,7 +310,7 @@
 
         transactionHeader.innerHTML = "Send payments";
         transactionHelp.innerHTML = "Current balance";
-        transactionLimit.innerHTML = `$ ${currentBalance}`;
+        transactionLimit.innerHTML = `$ {{.Balance}}`;
 
         fundForm.field = {
           type: "number",

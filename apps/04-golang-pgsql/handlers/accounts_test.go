@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"bytes"
 	_ "embed"
+	"encoding/json"
 	"errors"
 	"go-sql-demo/models"
 	"net/http"
@@ -12,10 +14,10 @@ import (
 type MockService struct{}
 
 func (ms *MockService) Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
-	return nil, nil
+	return &models.MessageContainer{}, nil
 }
 
-func (ms *MockService) WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error) {
+func (ms *MockService) WithDraw(req *models.WithdrawRequest) (*models.MessageContainer, error) {
 	return nil, nil
 }
 
@@ -45,6 +47,10 @@ func (ms *MockService) GetAccountByID(ID uint) (*models.Account, error) {
 
 func (ms *MockService) DeleteAccount(ID uint) error {
 	return nil
+}
+
+func (ms *MockService) GetMonthlyAverages(req *models.Account) (*models.MessageContainer, error) {
+	return &models.MessageContainer{}, nil
 }
 
 func TestHomeHandler(t *testing.T) {
@@ -89,7 +95,14 @@ func TestHomeHandler(t *testing.T) {
 	}
 }
 
-func TestWithdrawHandler(t *testing.T) {
+func TestFundHandler(t *testing.T) {
+	s := &MockService{}
+	SetBankService(s)
+	acc := &models.Account{Name: "test"}
+	acc.ID = 5
+	SetDemoAccount(acc)
+
+	requestBody, _ := json.Marshal(map[string]interface{}{"amount": 100, "transaction": "deposit"})
 	type args struct {
 		w http.ResponseWriter
 		r *http.Request
@@ -101,69 +114,14 @@ func TestWithdrawHandler(t *testing.T) {
 		{
 			name: "success",
 			args: args{
-				r: httptest.NewRequest("POST", "http://example.com", nil),
+				r: httptest.NewRequest("POST", "http://example.com", bytes.NewBuffer(requestBody)),
 				w: httptest.NewRecorder(),
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			WithdrawHandler(tt.args.w, tt.args.r)
-		})
-	}
-}
-
-func TestDepositHandler(t *testing.T) {
-	type args struct {
-		w http.ResponseWriter
-		r *http.Request
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{
-			name: "success",
-			args: args{
-				r: httptest.NewRequest("POST", "http://example.com", nil),
-				w: httptest.NewRecorder(),
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			DepositHandler(tt.args.w, tt.args.r)
-		})
-	}
-}
-
-func TestWithdrawEventHandler(t *testing.T) {
-	type args struct {
-		w http.ResponseWriter
-		r *http.Request
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{
-			name: "failure - amount not present",
-			args: args{
-				r: httptest.NewRequest("POST", "http://example.com", nil),
-				w: httptest.NewRecorder(),
-			},
-		},
-		{
-			name: "failure - amount not present",
-			args: args{
-				r: httptest.NewRequest("POST", "http://example.com", nil),
-				w: httptest.NewRecorder(),
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			WithdrawEventHandler(tt.args.w, tt.args.r)
+			FundHandler(tt.args.w, tt.args.r)
 		})
 	}
 }

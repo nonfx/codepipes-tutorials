@@ -23,10 +23,7 @@ func main() {
 func setupRoutes() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handlers.HomeHandler)
-	r.HandleFunc("/withdraw", handlers.WithdrawHandler).Methods(http.MethodGet)
-	r.HandleFunc("/deposit", handlers.DepositHandler).Methods(http.MethodGet)
-	r.HandleFunc("/withdraw-event", handlers.WithdrawEventHandler).Methods(http.MethodPost)
-	r.HandleFunc("/deposit-event", handlers.DepositEventHandler).Methods(http.MethodPost)
+	r.HandleFunc("/manage", handlers.FundHandler).Methods(http.MethodPost)
 	r.HandleFunc("/accounts", handlers.CreateAccountHandler).Methods(http.MethodPost)
 	r.HandleFunc("/accounts", handlers.ListAccountsHandler).Methods(http.MethodGet)
 	r.HandleFunc("/accounts/{id}", handlers.GetAccountHandler).Methods(http.MethodGet)
