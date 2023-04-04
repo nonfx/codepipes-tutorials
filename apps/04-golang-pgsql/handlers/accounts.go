@@ -72,12 +72,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	addMonthlyAverages(res, account)
 	if res.AvgDeposit == 0 {
-		res.MonthlyAvgIn = "No Transactions yet"
+		res.MonthlyAvgIn = "NA"
 	} else {
 		res.MonthlyAvgIn = fmt.Sprintf("$ %v", res.AvgDeposit)
 	}
 	if res.AvgWithdraw == 0 {
-		res.MonthlyAvgOut = "No Transactions yet"
+		res.MonthlyAvgOut = "NA"
 	} else {
 		res.MonthlyAvgOut = fmt.Sprintf("$ %v", res.AvgWithdraw)
 	}
