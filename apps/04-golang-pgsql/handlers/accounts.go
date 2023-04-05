@@ -11,10 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 	"text/template"
-
-	"github.com/gorilla/mux"
 )
 
 var (
@@ -26,18 +23,6 @@ var (
 
 	//go:embed views/index.html
 	indexFormat string
-
-	//go:embed views/deposit.html
-	depositFormat string
-
-	//go:embed views/deposit_failure.html
-	depositFailureFormat string
-
-	//go:embed views/withdraw_failure.html
-	withdrawFailureFormat string
-
-	//go:embed views/withdraw.html
-	withdrawFormat string
 )
 
 func SetBankService(s service.Service) {
@@ -54,33 +39,9 @@ func init() {
 		panic(fmt.Sprintf("error parsing index template: %v", err))
 	}
 
-	depositTmpl, err := template.New("depositSuccess").Parse(depositFormat)
-	if err != nil {
-		panic(fmt.Sprintf("error parsing deposit success template: %v", err))
-	}
-
-	depositFailureTmpl, err := template.New("depositFailure").Parse(depositFailureFormat)
-	if err != nil {
-		panic(fmt.Sprintf("error parsing deposit failure template: %v", err))
-	}
-
-	withdrawFailureTmpl, err := template.New("withdrawFailure").Parse(withdrawFailureFormat)
-	if err != nil {
-		panic(fmt.Sprintf("error parsing withdraw failure template: %v", err))
-	}
-
-	withdrawTmpl, err := template.New("withdrawSuccess").Parse(withdrawFormat)
-	if err != nil {
-		panic(fmt.Sprintf("error parsing withdraw success template: %v", err))
-	}
-
 	// initialize view templates
 	viewContext = map[string]*template.Template{
-		"index":            indexTmpl,
-		"deposit":          depositTmpl,
-		"deposit_failure":  depositFailureTmpl,
-		"withdraw_failure": withdrawFailureTmpl,
-		"withdraw":         withdrawTmpl,
+		"index": indexTmpl,
 	}
 	bankService = &service.ServiceImpl{}
 }
@@ -106,6 +67,20 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Balance:      account.Balance,
 		BuildDate:    build.Date,
 		BuildVersion: build.Version,
+		AccountID:    account.ID,
+		DepositLimit: service.DepositLimit,
+	}
+
+	addMonthlyAverages(res, account)
+	if res.AvgDeposit == 0 {
+		res.MonthlyAvgIn = "NA"
+	} else {
+		res.MonthlyAvgIn = fmt.Sprintf("$ %v", res.AvgDeposit)
+	}
+	if res.AvgWithdraw == 0 {
+		res.MonthlyAvgOut = "NA"
+	} else {
+		res.MonthlyAvgOut = fmt.Sprintf("$ %v", res.AvgWithdraw)
 	}
 
 	writer := bytes.NewBufferString("")
@@ -117,178 +92,68 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func WithdrawHandler(w http.ResponseWriter, r *http.Request) {
-	res := &models.MessageContainer{
-		BuildDate:    build.Date,
-		BuildVersion: build.Version,
-	}
-	writer := bytes.NewBufferString("")
-	err := viewContext["withdraw"].Execute(writer, res)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	w.Write(writer.Bytes())
-	w.WriteHeader(http.StatusOK)
-}
+func FundHandler(w http.ResponseWriter, r *http.Request) {
 
-func DepositHandler(w http.ResponseWriter, r *http.Request) {
-	res := &models.MessageContainer{
-		BuildDate:    build.Date,
-		BuildVersion: build.Version,
-	}
-	writer := bytes.NewBufferString("")
-	err := viewContext["deposit"].Execute(writer, res)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	w.Write(writer.Bytes())
-	w.WriteHeader(http.StatusOK)
-}
-
-func WithdrawEventHandler(w http.ResponseWriter, r *http.Request) {
-
-	amount, err := strconv.Atoi(r.FormValue("amount"))
-	if err != nil {
-		http.Error(w, fmt.Sprintf("invalid amount %v", r.FormValue("amount")), http.StatusBadRequest)
-		return
-	}
-
-	writer := bytes.NewBufferString("")
-	res, err := bankService.WithDraw(&models.WithdraRequest{
-		AccountID: demoAccount.ID,
-		Amount:    amount,
-	})
-	res.BuildDate = build.Date
-	res.BuildVersion = build.Version
-	if err != nil {
-		err := viewContext["withdraw_failure"].Execute(writer, res)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-	} else {
-		err := viewContext["index"].Execute(writer, res)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-	}
-	w.Write(writer.Bytes())
-	w.WriteHeader(http.StatusOK)
-}
-
-func DepositEventHandler(w http.ResponseWriter, r *http.Request) {
-
-	amount, err := strconv.Atoi(r.FormValue("amount"))
-	if err != nil {
-		http.Error(w, fmt.Sprintf("invalid amount %v", r.FormValue("amount")), http.StatusBadRequest)
-		return
-	}
-
-	writer := bytes.NewBufferString("")
-	res, err := bankService.Deposit(&models.DepositRequest{
-		AccountID: demoAccount.ID,
-		Amount:    amount,
-	})
-	res.BuildDate = build.Date
-	res.BuildVersion = build.Version
-	if err != nil {
-		err := viewContext["deposit_failure"].Execute(writer, res)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-	} else {
-		err := viewContext["index"].Execute(writer, res)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-	}
-	w.Write(writer.Bytes())
-	w.WriteHeader(http.StatusOK)
-}
-
-func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
+	var amount int
+	var res *models.MessageContainer
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
 		http.Error(w, "can't read body", http.StatusBadRequest)
 		return
 	}
-
-	account := &models.Account{}
-	json.Unmarshal(body, account)
+	m := &models.ManageAccountRequest{}
+	err = json.Unmarshal(body, m)
 	if err != nil {
-		log.Printf("Error unmarshaling: %v", err)
-		http.Error(w, "can't unmarshal", http.StatusBadRequest)
+		log.Printf("Error unmarshaling body: %v", err)
+		http.Error(w, "can't unmarshal body", http.StatusBadRequest)
+		return
+	}
+	amount = m.Amount
+
+	if m.TransactionType == "deposit" {
+		res, err = bankService.Deposit(&models.DepositRequest{
+			AccountID: demoAccount.ID,
+			Amount:    amount,
+		})
+	} else {
+		res, err = bankService.WithDraw(&models.WithdrawRequest{
+			AccountID: demoAccount.ID,
+			Amount:    amount,
+		})
+	}
+	if err != nil {
+		log.Printf("failed to %s : %v", m.TransactionType, err)
+		http.Error(w, fmt.Sprintf("failed to %s : %v", m.TransactionType, err), http.StatusInternalServerError)
 		return
 	}
 
-	res, err := bankService.CreateAccount(account)
+	account, err := bankService.GetAccountByID(demoAccount.ID)
 	if err != nil {
-		log.Printf("failed to create account: %v", err)
-		http.Error(w, "failed to create account", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
+	res.AccountName = account.Name
+	res.Balance = account.Balance
+	res.BuildDate = build.Date
+	res.BuildVersion = build.Version
+	res.AccountID = account.ID
+
+	// res = addMonthlyAverages(res, account)
 
 	b, _ := json.Marshal(res)
-
-	w.WriteHeader(200)
+	w.Header().Add("Content-Type", "application/json")
 	w.Write(b)
+	w.WriteHeader(http.StatusOK)
 }
 
-func ListAccountsHandler(w http.ResponseWriter, r *http.Request) {
-
-	res, err := bankService.ListAccounts()
+func addMonthlyAverages(res *models.MessageContainer, account *models.Account) *models.MessageContainer {
+	response, err := bankService.GetMonthlyAverages(account)
 	if err != nil {
-		log.Printf("failed to create account: %v", err)
-		http.Error(w, "failed to create account", http.StatusInternalServerError)
-		return
+		return res
 	}
-
-	b, _ := json.Marshal(res)
-
-	w.WriteHeader(200)
-	w.Write(b)
-}
-
-func GetAccountHandler(w http.ResponseWriter, r *http.Request) {
-
-	v := mux.Vars(r)["id"]
-	id, err := strconv.Atoi(v)
-	if err != nil {
-		http.Error(w, "failed to parse account ID", http.StatusBadRequest)
-		return
-	}
-
-	res, err := bankService.GetAccountByID(uint(id))
-	if err != nil {
-		log.Printf("failed to create account: %v", err)
-		http.Error(w, "failed to create account", http.StatusInternalServerError)
-		return
-	}
-
-	b, _ := json.Marshal(res)
-	w.WriteHeader(200)
-	w.Write(b)
-}
-
-func DeleteAccountHandler(w http.ResponseWriter, r *http.Request) {
-	v := mux.Vars(r)["id"]
-	id, err := strconv.Atoi(v)
-	if err != nil {
-		http.Error(w, "failed to parse account ID", http.StatusBadRequest)
-		return
-	}
-
-	err = bankService.DeleteAccount(uint(id))
-	if err != nil {
-		log.Printf("failed to create account: %v", err)
-		http.Error(w, "failed to create account", http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(200)
+	res.AvgDeposit = response.AvgDeposit
+	res.AvgWithdraw = response.AvgWithdraw
+	return res
 }

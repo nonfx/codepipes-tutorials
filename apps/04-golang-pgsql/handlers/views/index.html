@@ -1,72 +1,345 @@
 <!DOCTYPE html>
 <html>
-<title>
-    XYZ bank
-</title>
+  <title>Example Bank Global</title>
 
-<head>
-    <style>
-        body {
-            background: #555;
-            text-align: center;
-            background: white;
-        }
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@cldcvr/flow-core@1.7.2/umd/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@cldcvr/flow-form-builder@1.5.5/umd/style.css"
+    />
+    <script src="https://unpkg.com/@cldcvr/flow-core@1.7.2/umd/flow-core.umd.js"></script>
+    <script src="https://unpkg.com/@cldcvr/flow-system-icon@1.2.2/umd/flow-icon.umd.js"></script>
+    <script src="https://unpkg.com/@cldcvr/flow-form-builder@1.5.5/umd/flow-form-builder.umd.js"></script>
+  </head>
 
-        .content {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 10px;
-            text-align: center;
-        }
+  <body>
+    <f-div height="100%" width="100%" state="default" direction="column">
+      <!--Start : Top bar-->
+      <f-div
+        height="56px"
+        state="secondary"
+        align="middle-left"
+        padding="medium"
+        gap="auto"
+      >
+        <f-div align="middle-left" gap="medium">
+          <f-icon
+            source="i-dollar-filled"
+            state="warning"
+            size="large"
+          ></f-icon>
+          <f-text variant="heading" weight="bold" size="medium"
+            >Example Bank Global</f-text
+          >
+        </f-div>
+        <f-div align="middle-left" gap="x-large" width="hug-content">
+          <f-text
+            state="secondary"
+            variant="para"
+            weight="regular"
+            size="medium"
+            id="currentDate"
+            >Monday 3 April 2023</f-text
+          >
+          <f-icon source="i-user" size="medium" clickable></f-icon>
+        </f-div>
+      </f-div>
+      <!--End : Top bar-->
+      <f-divider state="secondary"></f-divider>
+      <!--Start : Account info-->
+      <f-div align="middle-left" height="82px">
+        <f-div
+          padding="x-large"
+          gap="x-large"
+          height="hug-content"
+          align="middle-left"
+        >
+          <f-text state="secondary" weight="bold" inline
+            >Account overview</f-text
+          >
+          <f-divider></f-divider>
+          <f-div gap="medium" width="hug-content" align="middle-left">
+            <f-icon
+              source="i-user-filled"
+              size="medium"
+              state="secondary"
+              clickable
+            ></f-icon>
+            <f-text inline weight="bold">{{.AccountName}}</f-text>
+          </f-div>
+          <f-divider></f-divider>
+          <f-div gap="medium" width="hug-content" align="middle-left">
+            <f-icon source="i-hashtag" size="medium" state="secondary"></f-icon>
+            <f-text inline weight="bold">{{.AccountID}}</f-text>
+          </f-div>
+        </f-div>
+      </f-div>
+      <!--End : Account info-->
+      <f-divider state="secondary"></f-divider>
+      <f-div direction="column">
+        <f-div padding="x-large" gap="x-large" align="top-left">
+          <f-div gap="x-large" height="hug-content">
+            <!--Start: Current balance-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="300px"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-tick" state="success"></f-icon>
+                <f-text>Current balance</f-text>
+              </f-div>
+              <f-div align="middle-left">
+                <f-text
+                  variant="heading"
+                  weight="bold"
+                  size="x-large"
+                  state="success"
+                  >$ {{.Balance}}</f-text
+                >
+              </f-div>
+            </f-div>
+            <!--End: Current balance-->
 
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
+            <!--Start : Monthly avg.incoming-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="300px"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-download"></f-icon>
+                <f-text>Monthly avg. incoming</f-text>
+              </f-div>
+              <f-div align="middle-left">
+                <f-text variant="heading" weight="bold" size="x-large"
+                  >{{.MonthlyAvgIn}}</f-text
+                >
+              </f-div>
+            </f-div>
+            <!--End : Monthly avg.incoming-->
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
+            <!--Start : Monthly avg.outgoing-->
+            <f-div
+              padding="x-large"
+              state="secondary"
+              width="300px"
+              direction="column"
+              height="112px"
+              variant="curved"
+            >
+              <f-div gap="medium">
+                <f-icon source="i-download"></f-icon>
+                <f-text>Monthly avg. outgoing</f-text>
+              </f-div>
+              <f-div align="middle-left">
+                <f-text variant="heading" weight="bold" size="x-large"
+                  >{{.MonthlyAvgOut}}</f-text
+                >
+              </f-div>
+            </f-div>
+            <!--End : Monthly avg.outgoing-->
+          </f-div>
+          <f-div
+            gap="x-large"
+            width="hug-content"
+            align="middle-right"
+            height="hug-content"
+          >
+            <f-div width="230px">
+              <f-button
+                id="openDepositFund"
+                label="deposit funds"
+                size="large"
+                state="success"
+                category="outline"
+                icon-right="i-download"
+              ></f-button>
+            </f-div>
+            <f-div width="230px">
+              <f-button
+                id="openSendPayment"
+                label="SEND PAYMENTS"
+                size="large"
+                state="warning"
+                category="outline"
+                icon-right="i-arrow-up-right"
+              ></f-button
+            ></f-div>
+          </f-div>
+        </f-div>
 
-        footer {
-            bottom: 10;
-            margin-top: 50px;
-            text-align: left;
-        }
-    </style>
-</head>
+        <f-popover id="popover" size="medium">
+          <f-div
+            state="default"
+            width="100%"
+            direction="column"
+            variant="curved"
+          >
+            <f-div padding="medium" gap="auto">
+              <f-text inline weight="medium" id="transactionHeader"
+                >Deposit funds</f-text
+              >
+              <f-icon
+                id="closePopover"
+                source="i-close"
+                state="secondary"
+                clickable
+              ></f-icon>
+            </f-div>
+            <f-div padding="x-large medium" gap="large">
+              <f-text state="secondary" id="transactionHelp" inline
+                >Deposit limit</f-text
+              >
+              <f-text state="secondary" id="transactionLimit" inline
+                >$ 5,000</f-text
+              >
+            </f-div>
+            <f-div padding="none medium x-large medium" direction="column">
+              <f-divider></f-divider>
+            </f-div>
+            <f-div padding="none medium medium medium">
+              <f-form-builder id="fundForm"> </f-form-builder>
+            </f-div>
+            <f-button
+              id="submitButton"
+              variant="block"
+              state="success"
+              label="deposit funds"
+            ></f-button>
+          </f-div>
+        </f-popover>
+        <!--Placeholder to add any other content-->
+      </f-div>
 
-<body
-    style=" background-image: url('https://www.teahub.io/photos/full/283-2838767_home-background-image-for-blood-bank.jpg');">
-    <h1>Welcome to XYZ Bank</h1><br><br>
-    <img src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-bank-icon-png-image_4173728.jpg"
-        alt="SVG" width="100" height="100" />
-    <h3>Account Details</h3>
-    <a href="/">Home</a><br><br>
-    <b>
-        <table class="center" style="width:40%">
-            <tr style="height:40px">
-                <td>Name</td>
-                <td>{{ .AccountName }}</td>
-            </tr>
-            <tr style="height:40px">
-                <td>Balance</td>
-                <td>{{ .Balance }}</td>
-            </tr>
-        </table><br><br>
-        <table class="center">
-            <a href="/deposit">Deposit</a><br><br>
-            <a href="/withdraw">Withdraw</a>
-        </table>
-    </b>
-    <footer style="color:Lime; font-size:10px;">
-        <p>BUILD_DATE: {{.BuildDate}}<br>
-            BUILD_VERSION: {{.BuildVersion}}</p>
-    </footer>
-</body>
+      <f-div height="hug-content" padding="medium">
+        <f-text state="subtle"
+          >Built on {{.BuildDate}} • {{.BuildVersion}}</f-text
+        >
+      </f-div>
+    </f-div>
+    <script defer>
+      document.getElementById("currentDate").textContent = new Date().toDateString();
+      const fundForm = document.querySelector("#fundForm");
+      const submitButton = document.querySelector("#submitButton");
+      const closePopover = document.querySelector("#closePopover");
+      const openDepositFund = document.querySelector("#openDepositFund");
+      const popover = document.querySelector("#popover");
+      const transactionHeader = document.querySelector("#transactionHeader");
+      const transactionHelp = document.querySelector("#transactionHelp");
+      const transactionLimit = document.querySelector("#transactionLimit");
+      let transactionType = "deposit";
+      const depositLimit = {{.DepositLimit}};
+      const currentBalance = {{.Balance}};
 
+      fundForm.addEventListener("state-change", (event) => {
+        const state = event.detail;
+        submitButton.disabled = !state.isValid;
+      });
+
+      fundForm.addEventListener("submit", (event) => {
+        const formvalues = event.detail;
+        // values to pass on server side
+        console.log(transactionType, formvalues);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/manage", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.onload  = function() {
+          var jsonResponse = xhttp.response;
+          location.reload()
+        };
+        xhttp.send(JSON.stringify({ amount: formvalues, transaction: transactionType}));
+        popover.open = false;
+      });
+
+      submitButton.onclick = () => {
+        fundForm.submit();
+      };
+      closePopover.onclick = () => {
+        popover.open = false;
+      };
+
+      openDepositFund.onclick = () => {
+        popover.open = true;
+        submitButton.state = "success";
+        submitButton.label = "deposit funds";
+        transactionType = "deposit";
+
+        transactionHeader.innerHTML = "Deposit funds";
+        transactionHelp.innerHTML = "Deposit limit";
+        transactionLimit.innerHTML = `$ ${depositLimit}`;
+
+        fundForm.field = {
+          type: "number",
+          label: {
+            title: "Deposit amount",
+          },
+          placeholder: "Enter amount",
+          iconLeft: "i-dollar",
+          validationRules: [
+            {
+              name: "max-value",
+              params: {
+                max: depositLimit,
+              },
+            },{
+              name: "min-value",
+              params: {
+                min: 0,
+              },
+            },
+            {
+              name: "required",
+            },
+          ],
+        };
+      };
+      openSendPayment.onclick = () => {
+        popover.open = true;
+        submitButton.state = "warning";
+        submitButton.label = "send payments";
+        transactionType = "send";
+
+        transactionHeader.innerHTML = "Send payments";
+        transactionHelp.innerHTML = "Current balance";
+        transactionLimit.innerHTML = `$ ${currentBalance}`;
+
+        fundForm.field = {
+          type: "number",
+          label: {
+            title: "Payment amount",
+          },
+          placeholder: "Enter amount",
+          iconLeft: "i-dollar",
+          validationRules: [
+            {
+              name: "max-value",
+              params: {
+                max: currentBalance,
+              },
+            },{
+              name: "min-value",
+              params: {
+                min: 0,
+              },
+            },
+            {
+              name: "required",
+            },
+          ],
+        };
+      };
+    </script>
+  </body>
 </html>

@@ -5,27 +5,29 @@ import (
 	"go-sql-demo/database"
 	"go-sql-demo/models"
 	"log"
+	"time"
 )
 
 const (
-	depositLimit int = 5000
+	DepositLimit int = 5000
 )
 
 type Service interface {
 	Deposit(req *models.DepositRequest) (*models.MessageContainer, error)
-	WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error)
+	WithDraw(req *models.WithdrawRequest) (*models.MessageContainer, error)
 	CreateAccount(req *models.Account) (*models.Account, error)
 	GetAccount(req *models.Account) (*models.Account, error)
 	ListAccounts() ([]models.Account, error)
 	GetAccountByID(ID uint) (*models.Account, error)
 	DeleteAccount(ID uint) error
+	GetMonthlyAverages(req *models.Account) (*models.MessageContainer, error)
 }
 
 type ServiceImpl struct{}
 
 func (s *ServiceImpl) Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
 
-	if req.Amount > depositLimit {
+	if req.Amount > DepositLimit {
 		err := errors.New("requested deposit is greater than limit")
 		log.Println(err.Error())
 		return &models.MessageContainer{
@@ -44,28 +46,16 @@ func (s *ServiceImpl) Deposit(req *models.DepositRequest) (*models.MessageContai
 			Balance:      account.Balance,
 		}, err
 	}
-
 	account.Balance = account.Balance + req.Amount
 
-	err = database.DB.Db.Model(account).Save(account).Error
-	if err != nil {
-		log.Println("Failed to update: ", err.Error())
-		return &models.MessageContainer{
-			ErrorMessage: err.Error(),
-			Amount:       req.Amount,
-			AccountName:  account.Name,
-			Balance:      account.Balance,
-		}, err
-	}
-
-	return &models.MessageContainer{
-		Amount:      req.Amount,
-		AccountName: account.Name,
-		Balance:     account.Balance,
-	}, nil
+	return s.updateBalance(req.Amount, account, "deposit")
 }
 
-func (s *ServiceImpl) WithDraw(req *models.WithdraRequest) (*models.MessageContainer, error) {
+func (s *ServiceImpl) addTransaction(req *models.Transaction) error {
+	return database.DB.Db.Model(req).Save(req).Error
+}
+
+func (s *ServiceImpl) WithDraw(req *models.WithdrawRequest) (*models.MessageContainer, error) {
 	account, err := s.GetAccountByID(req.AccountID)
 	if err != nil {
 		log.Println("Failed to get account: ", err.Error())
@@ -85,19 +75,29 @@ func (s *ServiceImpl) WithDraw(req *models.WithdraRequest) (*models.MessageConta
 
 	account.Balance = account.Balance - req.Amount
 
-	err = database.DB.Db.Model(account).Save(account).Error
+	return s.updateBalance(req.Amount, account, "withdraw")
+}
+
+func (s *ServiceImpl) updateBalance(amount int, account *models.Account, transactionType string) (*models.MessageContainer, error) {
+	err := database.DB.Db.Model(account).Save(account).Error
 	if err != nil {
 		log.Println("Failed to update: ", err.Error())
 		return &models.MessageContainer{
 			ErrorMessage: err.Error(),
-			Amount:       req.Amount,
+			Amount:       amount,
 			AccountName:  account.Name,
 			Balance:      account.Balance,
 		}, err
 	}
 
+	s.addTransaction(&models.Transaction{
+		AccountID:       account.ID,
+		TransactionType: transactionType,
+		Amount:          amount,
+	})
+
 	return &models.MessageContainer{
-		Amount:      req.Amount,
+		Amount:      amount,
 		AccountName: account.Name,
 		Balance:     account.Balance,
 	}, nil
@@ -143,4 +143,26 @@ func (s *ServiceImpl) DeleteAccount(ID uint) error {
 	account := &models.Account{}
 	account.ID = ID
 	return database.DB.Db.Delete(&models.Account{}, account).Error
+}
+
+func (s *ServiceImpl) GetMonthlyAverages(req *models.Account) (*models.MessageContainer, error) {
+	thirtyDaysAgo := time.Now().AddDate(0, 0, -30)
+	transactions := []models.Transaction{}
+	err := database.DB.Db.Where(&models.Transaction{AccountID: req.ID}).Where("created_at >= ?", thirtyDaysAgo).Find(&transactions).Error
+	if err != nil {
+		return nil, err
+	}
+	var deposit, send int
+	for _, tr := range transactions {
+		if tr.TransactionType == "deposit" {
+			deposit = deposit + tr.Amount
+		} else {
+			send = send + tr.Amount
+		}
+	}
+
+	return &models.MessageContainer{
+		AvgWithdraw: send / 30,
+		AvgDeposit:  deposit / 30,
+	}, nil
 }
