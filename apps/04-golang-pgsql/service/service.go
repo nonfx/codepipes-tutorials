@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	depositLimit int = 5000
+	DepositLimit int = 5000
 )
 
 type Service interface {
@@ -27,7 +27,7 @@ type ServiceImpl struct{}
 
 func (s *ServiceImpl) Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
 
-	if req.Amount > depositLimit {
+	if req.Amount > DepositLimit {
 		err := errors.New("requested deposit is greater than limit")
 		log.Println(err.Error())
 		return &models.MessageContainer{

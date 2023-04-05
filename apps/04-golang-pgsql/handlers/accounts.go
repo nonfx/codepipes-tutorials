@@ -68,6 +68,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		BuildDate:    build.Date,
 		BuildVersion: build.Version,
 		AccountID:    account.ID,
+		DepositLimit: service.DepositLimit,
 	}
 
 	addMonthlyAverages(res, account)

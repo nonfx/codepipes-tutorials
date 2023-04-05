@@ -29,6 +29,7 @@ type MessageContainer struct {
 	AvgWithdraw   int
 	MonthlyAvgIn  string
 	MonthlyAvgOut string
+	DepositLimit  int
 }
 
 type DepositRequest struct {
