@@ -127,9 +127,10 @@
                 <f-text>Monthly avg. incoming</f-text>
               </f-div>
               <f-div align="middle-left">
-            <f-text variant="heading" weight="bold" size="x-large"
-              >{{.MonthlyAvgIn}}</f-text>
-            </f-div>
+                <f-text variant="heading" weight="bold" size="x-large"
+                  >{{.MonthlyAvgIn}}</f-text
+                >
+              </f-div>
             </f-div>
             <!--End : Monthly avg.incoming-->
 
@@ -147,9 +148,10 @@
                 <f-text>Monthly avg. outgoing</f-text>
               </f-div>
               <f-div align="middle-left">
-		          <f-text variant="heading" weight="bold" size="x-large"
-			          >{{.MonthlyAvgOut}}</f-text>
-		          </f-div>
+                <f-text variant="heading" weight="bold" size="x-large"
+                  >{{.MonthlyAvgOut}}</f-text
+                >
+              </f-div>
             </f-div>
             <!--End : Monthly avg.outgoing-->
           </f-div>
@@ -233,8 +235,8 @@
       const transactionHelp = document.querySelector("#transactionHelp");
       const transactionLimit = document.querySelector("#transactionLimit");
       let transactionType = "deposit";
-      const depositLimit = 5000;
-      const currentBalance = 22405.93;
+      const depositLimit = {{.DepositLimit}};
+      const currentBalance = {{.Balance}};
 
       fundForm.addEventListener("state-change", (event) => {
         const state = event.detail;
@@ -287,6 +289,11 @@
               params: {
                 max: depositLimit,
               },
+            },{
+              name: "min-value",
+              params: {
+                min: 0,
+              },
             },
             {
               name: "required",
@@ -302,7 +309,7 @@
 
         transactionHeader.innerHTML = "Send payments";
         transactionHelp.innerHTML = "Current balance";
-        transactionLimit.innerHTML = `$ {{.Balance}}`;
+        transactionLimit.innerHTML = `$ ${currentBalance}`;
 
         fundForm.field = {
           type: "number",
@@ -316,6 +323,11 @@
               name: "max-value",
               params: {
                 max: currentBalance,
+              },
+            },{
+              name: "min-value",
+              params: {
+                min: 0,
               },
             },
             {
