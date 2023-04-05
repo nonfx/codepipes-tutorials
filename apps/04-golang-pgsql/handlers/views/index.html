@@ -82,16 +82,12 @@
       <f-divider state="secondary"></f-divider>
       <f-div direction="column">
         <f-div padding="x-large" gap="x-large" align="top-left">
-          <f-div
-            gap="x-large"
-            width="minmax(250px, 850px)"
-            height="hug-content"
-          >
+          <f-div gap="x-large" height="hug-content">
             <!--Start: Current balance-->
             <f-div
               padding="x-large"
               state="secondary"
-              width="hug-content"
+              width="300px"
               direction="column"
               height="112px"
               variant="curved"
@@ -116,7 +112,7 @@
             <f-div
               padding="x-large"
               state="secondary"
-              width="hug-content"
+              width="300px"
               direction="column"
               height="112px"
               variant="curved"
@@ -137,7 +133,7 @@
             <f-div
               padding="x-large"
               state="secondary"
-              width="hug-content"
+              width="300px"
               direction="column"
               height="112px"
               variant="curved"
@@ -154,23 +150,32 @@
             </f-div>
             <!--End : Monthly avg.outgoing-->
           </f-div>
-          <f-div gap="x-large" align="middle-right" height="hug-content">
-            <f-button
-              id="openDepositFund"
-              label="deposit funds"
-              size="large"
-              state="success"
-              category="outline"
-              icon-right="i-download"
-            ></f-button>
-            <f-button
-              id="openSendPayment"
-              label="SEND PAYMENTS"
-              size="large"
-              state="warning"
-              category="outline"
-              icon-right="i-arrow-up-right"
-            ></f-button>
+          <f-div
+            gap="x-large"
+            width="hug-content"
+            align="middle-right"
+            height="hug-content"
+          >
+            <f-div width="230px">
+              <f-button
+                id="openDepositFund"
+                label="deposit funds"
+                size="large"
+                state="success"
+                category="outline"
+                icon-right="i-download"
+              ></f-button>
+            </f-div>
+            <f-div width="230px">
+              <f-button
+                id="openSendPayment"
+                label="SEND PAYMENTS"
+                size="large"
+                state="warning"
+                category="outline"
+                icon-right="i-arrow-up-right"
+              ></f-button
+            ></f-div>
           </f-div>
         </f-div>
 
