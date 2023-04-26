@@ -19,7 +19,7 @@ The repo (i.e. banking-app) needs to be pre-created in ECR before any of this wo
 Used tools/cust-acct-setup to create CP LZ in each account (doug-test-cust and doug-test1)
 
 ```
-$ codepipes env template create -n AppRunner-Base -r https://github.com/cldcvr/codepipes-tutorials -v branch:main --dir /tfs/aws-ecr-apprunner-vpc --tfversion 1.3.7
+$ codepipes env template create -n eks-base -r https://github.com/cldcvr/codepipes-tutorials -v branch:main --dir /tfs/aws-eks-vpc --tfversion 1.3.7
 id: f222be09-0bd7-4792-a842-35648a9acd00
 
 # dev env with policy CC-Best (bd04a6ca-9043-4135-9299-d490c42dfe12)
