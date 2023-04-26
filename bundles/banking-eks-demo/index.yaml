@@ -1,6 +1,6 @@
 schema_version: v1.0.0
 project:
-    name: Banking-Demo
+    id: 8fd5381a-9506-404e-84ed-dc2da48e061e
 deployments:
     - import: deployment-banking-app-dev.yaml
     - import: deployment-banking-app-prod.yaml
