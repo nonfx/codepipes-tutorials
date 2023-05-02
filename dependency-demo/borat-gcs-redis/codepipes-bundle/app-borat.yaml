@@ -23,8 +23,8 @@ application:
         GCS:
             dependencyName: GCS
             inputs:
-                force_destroy: '{"borat-new":true}'
-                names: '["borat-new"]'
+                force_destroy: '{"borat-zvdzy":true}'
+                names: '["borat-zvdzy"]'
             outputs:
                 bucket: BUCKET
                 bucketName: BUCKET_NAME
