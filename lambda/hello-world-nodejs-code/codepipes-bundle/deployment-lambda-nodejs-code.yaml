@@ -1,0 +1,18 @@
+schema_version: v1.0.0
+deployment:
+    name: lambda-nodejs-code
+    deploymentConfig:
+        artifact:
+            id: 9bcb92de-403a-4df6-8983-03f6080a4221
+            gitCode:
+                type: branch
+                identifier: main
+        template:
+            moduleRefId: aws:lambda-update@1
+            inputs:
+                functionName: my-function
+                region: us-east-1
+application:
+    import: app-lambda-nodejs-code.yaml
+environment:
+    import: environment-development.yaml
