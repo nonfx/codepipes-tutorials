@@ -14,3 +14,8 @@ resource "random_string" "random" {
   special   = false
   min_lower = 8
 }
+
+variable "aws_region" {
+  default = "us-east-1"
+   type    = string
+}
