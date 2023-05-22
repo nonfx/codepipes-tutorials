@@ -7,12 +7,20 @@ application:
   appConfig:
     version: 1
   artifacts:
+    - id: fc0498a5-6157-41fd-a391-e12a72e2b33d
+      name: banking-app-src
+      gitCode:
+        type: branch
+        identifier: main
+        repo: https://github.com/cldcvr/codepipes-tutorials
+        dir: /serverless-sample/gcp
+        driver: github
     - name: Cloud_Run_Sample_Container_Image
       id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
       containerImage:
         provider: google_container_registry
-        repo: vanguard-test-deploy/cloudrun-server
-        reference: latest
+        repo: vanguard-api-automation-test-3/cloudrun-server
+        reference: fc0494s2-6157-41fd-a391-e12a72e2b33d
   creds:
     - cloud
     - git

@@ -1,0 +1,15 @@
+schema_version: v1.0.0
+integration:
+    name: cloud-run-appint
+    inputAppArtifact:
+        id: fc0498a5-6157-41fd-a391-e12a72e2b33d
+    outputAppArtifact:
+        id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
+    config:
+        buildPlatform: gcp
+    pipeline:
+        - moduleRefId: gcp:docker-build-n-push@1
+          inputs:
+              use_github_tag: false
+application:
+    import: app.yaml
