@@ -12,4 +12,4 @@ integration:
           inputs:
               use_github_tag: false
 application:
-    import: app.yaml
+    import: app.yml
