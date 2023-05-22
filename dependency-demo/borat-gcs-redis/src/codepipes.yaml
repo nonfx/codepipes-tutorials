@@ -1,8 +1,8 @@
 GCS:
     dependencyName: GCS
     inputs:
-      names: "[\"borat\"]"
-      force_destroy: "{\"borat\":true}"
+      names: borat
+      force_destroy: true
     outputs:
       bucket: BUCKET
       buckets: BUCKETS

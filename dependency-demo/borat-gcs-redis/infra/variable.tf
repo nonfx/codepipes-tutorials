@@ -1,7 +1,7 @@
 variable "GOOGLE_PROJECT" {
   description = "The ID of the project to create the bucket in."
   type        = string
-  default = "pranay-test-dev"
+  default = "vanguard-dev-297213"
 }
 
 variable "GOOGLE_VPC_CONNECTOR_NAME" {
