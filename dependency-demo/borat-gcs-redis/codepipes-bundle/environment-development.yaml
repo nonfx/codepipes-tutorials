@@ -11,4 +11,4 @@ environment:
     variables:
     - type: tf_var
       key: GOOGLE_PROJECT
-      value: pranay-test-dev
+      value: vanguard-dev-297213
