@@ -3,4 +3,4 @@ schema_version: v0.0.1
 deployments:
   - import: ./deployment.yml
 integrations:
-    - import: ./integration.yaml
+    - import: ./integration.yml
