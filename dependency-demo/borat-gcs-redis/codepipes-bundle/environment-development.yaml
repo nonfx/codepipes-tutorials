@@ -3,7 +3,7 @@ environment:
     name: development
     revision:
         type: branch
-        identifier: main
+        identifier: shekhar/VAN-3419-depe-w-template
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: dependency-demo/borat-gcs-redis/infra
         driver: github

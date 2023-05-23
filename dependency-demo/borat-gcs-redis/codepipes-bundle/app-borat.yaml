@@ -8,7 +8,7 @@ application:
           name: Git Code Repo
           gitCode:
             type: branch
-            identifier: main
+            identifier: shekhar/VAN-3419-depe-w-template
             repo: https://github.com/cldcvr/codepipes-tutorials
             dir: dependency-demo/borat-gcs-redis/src
             driver: github
@@ -17,14 +17,14 @@ application:
           containerImage:
             provider: google_container_registry
             host: gcr.io
-            repo: gcr.io/pranay-test-dev/boratv2
+            repo: gcr.io/vanguard-dev-297213/boratv2
             reference: latest
     dependsOn:
         GCS:
             dependencyName: GCS
             inputs:
-                force_destroy: '{"borat-zvdzy":true}'
-                names: '["borat-zvdzy"]'
+                force_destroy: true
+                names: borat-zvdzy
             outputs:
                 bucket: BUCKET
                 bucketName: BUCKET_NAME
