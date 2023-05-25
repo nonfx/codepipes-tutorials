@@ -100,9 +100,9 @@ Note: use IDs from the above steps in below commands
 codepipes dependency resolver create \
   --dep <GCS dependency interface ID> \
   --provider <GCS component ID> \
-  -i names:names \
+  -i names:"[\"{{.names}}\"]" \
   -i location:location \
-  -i force_destroy:force_destroy \
+  -i force_destroy:"{ \"{{.names}}\":{{.force_destroy}} }" \
   -o bucket:bucket \
   -o buckets:buckets \
   -o bucketName:name \
