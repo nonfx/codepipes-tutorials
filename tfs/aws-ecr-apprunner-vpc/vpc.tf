@@ -54,6 +54,13 @@ module "security_group" {
       rule        = "postgresql-tcp"
       cidr_blocks = module.vpc.vpc_cidr_block
     },
+    {
+      from_port   = 53
+      to_port     = 53
+      protocol    = "UDP"
+      description = "DNS Query"
+      cidr_blocks = module.vpc.vpc_cidr_block
+    },
   ]
   egress_with_cidr_blocks = [
     {
