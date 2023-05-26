@@ -29,11 +29,14 @@ module "vpc_endpoints" {
 
   vpc_id             = module.vpc.vpc_id
   security_group_ids = [module.security_group.security_group_id]
+  subnet_ids = module.vpc.database_subnets
+  
 
   endpoints = {
     rds = {
       service = "rds"
-      tags    = { Name = "${local.name}-endpoint" }
+      tags    = { Name = "${local.name}-endpoint" },
+      private_dns_enabled = true
     },
   }
 }

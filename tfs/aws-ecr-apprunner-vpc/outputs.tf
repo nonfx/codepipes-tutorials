@@ -27,3 +27,8 @@ output "aws_region" {
   value       = data.aws_region.current.name
   description = "AWS region that the resources were provisioned in"
 }
+
+output "vpc_endpoint" {
+  value       = module.vpc_endpoints.endpoints
+  description = "The VPC Endpoint for the RDS"
+}
