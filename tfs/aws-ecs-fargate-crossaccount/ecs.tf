@@ -6,6 +6,7 @@ data "aws_subnet" "existing_subnet" {
   id = "subnet-0df3f6810ecfcf4fc" 
 }
 
+
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = "my-ecs-cluster-fargate" 
 }

@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "nginx_task" {
   family                   = "nginx-task"
-  execution_role_arn       = aws_iam_role.task_execution_role.arn
-  task_role_arn            = aws_iam_role.task_role.arn
+  # execution_role_arn       = aws_iam_role.task_execution_role.arn
+  # task_role_arn            = aws_iam_role.task_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 
@@ -69,7 +69,10 @@ resource "aws_lb" "nginx_lb" {
   name               = "nginx-lb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [data.aws_subnet.existing_subnet.id]
+  subnets            = [
+    "subnet-0df3f6810ecfcf4fc",
+    "subnet-039bf408e3d6f1325"
+  ]
 }
 
 resource "aws_lb_target_group" "nginx_tg" {
@@ -99,38 +102,38 @@ resource "aws_lb_listener" "nginx_listener" {
   }
 }
 
-resource "aws_iam_role" "task_execution_role" {
-  name               = "ecsTaskExecutionRole"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
+# resource "aws_iam_role" "task_execution_role" {
+#   name               = "ecsTaskExecutionRole"
+#   assume_role_policy = <<EOF
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Effect": "Allow",
+#       "Principal": {
+#         "Service": "ecs-tasks.amazonaws.com"
+#       },
+#       "Action": "sts:AssumeRole"
+#     }
+#   ]
+# }
+# EOF
+# }
 
-resource "aws_iam_role" "task_role" {
-  name               = "ecsTaskRole"
-  assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "ecs-tasks.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  }
-  EOF
-}
+# resource "aws_iam_role" "task_role" {
+#   name               = "ecsTaskRole"
+#   assume_role_policy = <<EOF
+#   {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#       {
+#         "Effect": "Allow",
+#         "Principal": {
+#           "Service": "ecs-tasks.amazonaws.com"
+#         },
+#         "Action": "sts:AssumeRole"
+#       }
+#     ]
+#   }
+#   EOF
+# }
