@@ -121,7 +121,7 @@ resource "aws_ecs_service" "ngnix_service" {
   }
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ecs.name
-    weight = 100
+    weight            = 100
   }
   network_configuration {
     subnets         = [data.aws_subnet.existing_subnet.id]
