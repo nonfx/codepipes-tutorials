@@ -21,8 +21,8 @@ resource "aws_security_group" "ecs_instance_sg" {
   vpc_id      = data.aws_vpc.existing_vpc.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Update with your desired source IP range for SSH access
   }
@@ -65,4 +65,51 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
 # Output the ECS cluster name
 output "ecs_cluster_name" {
   value = aws_ecs_cluster.ecs_cluster.name
+}
+
+# Define your ECS cluster capacity providers
+resource "aws_ecs_cluster_capacity_providers" "cluster_capacity_provider" {
+  cluster_name        = aws_ecs_cluster.ecs_cluster.name
+  capacity_providers  = [aws_autoscaling_group.ecs_autoscaling_group.name]
+  default_capacity_provider_strategy {
+    capacity_provider = aws_autoscaling_group.ecs_autoscaling_group.name
+  }
+}
+
+# Define your ECS task definition
+resource "aws_ecs_task_definition" "ngnix_task_definition" {
+  family                = "ngnix-task"
+  container_definitions = <<DEFINITION
+[
+  {
+    "name": "nginx",
+    "image": "nginx:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ]
+  }
+]
+DEFINITION
+}
+
+# Define your ECS service
+resource "aws_ecs_service" "ngnix_service" {
+  name            = "ngnix-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  task_definition = aws_ecs_task_definition.ngnix_task_definition.arn
+  desired_count   = 1
+  launch_type     = "EC2"
+
+  deployment_controller {
+    type = "ECS"
+  }
+
+  network_configuration {
+    subnets         = [data.aws_subnet.existing_subnet.id]
+    security_groups = [aws_security_group.ecs_instance_sg.id]
+  }
 }
