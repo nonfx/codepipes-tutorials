@@ -43,7 +43,6 @@ resource "aws_launch_configuration" "ecs_launch_configuration" {
   image_id             = var.aws_ami_id
   instance_type        = var.aws_instance_type
   security_groups      = [aws_security_group.ecs_instance_sg.id]
-  iam_instance_profile = "ecs-instance-profile"  # Update with your desired IAM instance profile name
   user_data            = <<-EOF
                           #!/bin/bash
                           echo ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name} >> /etc/ecs/ecs.config
