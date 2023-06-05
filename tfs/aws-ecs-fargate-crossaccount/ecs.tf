@@ -1,13 +1,13 @@
 data "aws_vpc" "existing_vpc" {
-  id = "vpc-0789949926e072698" # Update with your VPC ID
+  id = "vpc-0789949926e072698" 
 }
 
 data "aws_subnet" "existing_subnet" {
-  id = "subnet-0df3f6810ecfcf4fc" # Update with your subnet ID
+  id = "subnet-0df3f6810ecfcf4fc" 
 }
 
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "my-ecs-cluster-fargate"  # Update with your desired ECS cluster name
+  name = "my-ecs-cluster-fargate" 
 }
 
 resource "aws_ecs_task_definition" "nginx_task" {
@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "nginx_task" {
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "/ecs/nginx-task",
-        "awslogs-region": "us-west-2",  # Update with your desired AWS region
+        "awslogs-region": "us-east-1",
         "awslogs-stream-prefix": "nginx"
       }
     }
@@ -52,7 +52,7 @@ resource "aws_ecs_service" "nginx_service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets         = [data.aws_subnet.existing_subnet.id]
+    subnets          = [data.aws_subnet.existing_subnet.id]
     assign_public_ip = true
     security_groups  = [aws_security_group.nginx_sg.id]
   }
@@ -97,7 +97,6 @@ resource "aws_lb_target_group" "nginx_tg" {
     unhealthy_threshold = 2
     timeout             = 3
     interval            = 30
-    success_codes       = "200,301,302"
   }
 }
 
@@ -133,17 +132,17 @@ EOF
 resource "aws_iam_role" "task_role" {
   name               = "ecsTaskRole"
   assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ecs-tasks.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  }
+  EOF
 }
