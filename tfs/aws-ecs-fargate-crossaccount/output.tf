@@ -1,6 +1,6 @@
 
 output "ecs-cluster-name" {
-  value = aws_ecs_cluster.cluster.name
+  value = aws_ecs_cluster.ecs_cluster.name
 }
 
 output "ecs_cluster_arn" {

@@ -1,14 +1,9 @@
-locals {
-  extract_resource_name  = "test-fargate"
+provider "aws" {
+  region = var.region
+  assume_role {
+    role_arn     = var.role_arn
+    session_name = "cross_account_session"
+    external_id  = var.external_id
+  }
 }
 
-resource "aws_ecs_cluster" "cluster" {
-  name = "${local.extract_resource_name}-ecs"
-
-}
-
-resource "aws_ecs_cluster_capacity_providers" "cluster-capacity-provider" {
-  cluster_name = aws_ecs_cluster.cluster.name
-
-  capacity_providers = ["FARGATE"]
-}
