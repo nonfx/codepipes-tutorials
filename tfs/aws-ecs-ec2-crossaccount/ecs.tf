@@ -40,8 +40,8 @@ resource "aws_security_group" "ecs_instance_sg" {
 # Launch configuration for EC2 instances
 resource "aws_launch_configuration" "ecs_launch_configuration" {
   name_prefix          = "ecs-launch-"
-  image_id             = "ami-0123456789abcdef"  # Update with your desired AMI ID
-  instance_type        = "t2.micro"  # Update with your desired instance type
+  image_id             = var.aws_ami_id
+  instance_type        = var.aws_instance_type
   security_groups      = [aws_security_group.ecs_instance_sg.id]
   iam_instance_profile = "ecs-instance-profile"  # Update with your desired IAM instance profile name
   user_data            = <<-EOF
