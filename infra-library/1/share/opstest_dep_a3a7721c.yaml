@@ -1,0 +1,6 @@
+name: opstest_dep_a3a7721c
+description: opstest_dep_a3a7721c description
+inputs:
+    trigger: trigger value
+outputs:
+    resource_id: The null resource ID

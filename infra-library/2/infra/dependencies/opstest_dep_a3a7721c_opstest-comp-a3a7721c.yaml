@@ -1,0 +1,9 @@
+interface: /share/opstest_dep_a3a7721c.yaml
+provider:
+    kind: 1
+    import: /infra/components/opstest-comp-a3a7721c.yaml
+resolver:
+    input_map:
+        trigger: trigger
+    output_map:
+        resource_id: null_resource_id

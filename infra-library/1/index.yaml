@@ -1,0 +1,15 @@
+infra_templates:
+    - /infra/templates/opstest-tmpl-a3a7721c.yaml
+classifications:
+    imports:
+        DEV-opstest-class-a3a7721c: /infra/classifications/dev-opstest-class-a3a7721c.yaml
+        PROD-opstest-class-a3a7721c: /infra/classifications/prod-opstest-class-a3a7721c.yaml
+        STAGE-opstest-class-a3a7721c: /infra/classifications/stage-opstest-class-a3a7721c.yaml
+    promotion:
+        DEV-opstest-class-a3a7721c:
+            - STAGE-opstest-class-a3a7721c
+        STAGE-opstest-class-a3a7721c:
+            - PROD-opstest-class-a3a7721c
+dependencies:
+    opstest_dep_a3a7721c:
+        - import: /infra/dependencies/opstest_dep_a3a7721c_opstest-comp-a3a7721c.yaml
