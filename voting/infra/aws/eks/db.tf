@@ -22,7 +22,7 @@ resource "aws_db_instance" "default" {
   engine_version       = "11"
   instance_class       = "db.t3.micro"
   #Credentials
-  name                 = "postgres"
+  db_name                 = "postgres"
   username             = "postgres"
   password             = "postgres"
   #Setting this true so that there will be no problem while destroying the Infrastructure as it won't create snapshot
