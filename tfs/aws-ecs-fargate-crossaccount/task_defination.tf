@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "nginx_task" {
   [
     {
       "name": "nginx",
-      "image": "569700770868.dkr.ecr.us-east-1.amazonaws.com/ngnix:latest",
+      "image": "public.ecr.aws/w4o2l8x1/ngnix:latest",
       "cpu": 256,
       "memory": 512,
       "portMappings": [
