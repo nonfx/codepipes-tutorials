@@ -80,6 +80,7 @@ resource "aws_lb" "nginx_lb" {
 
 resource "aws_lb_target_group" "nginx_tg" {
   name     = "nginx-tg"
+  target_type = "ip"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.existing_vpc.id
