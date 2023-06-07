@@ -42,7 +42,7 @@ resource "aws_ecs_service" "nginx_service" {
 
   network_configuration {
     subnets          = [data.aws_subnet.existing_subnet.id]
-    assign_public_ip = true
+    assign_public_ip = false
     security_groups  = [aws_security_group.nginx_sg.id]
   }
 
@@ -62,18 +62,20 @@ resource "aws_security_group" "nginx_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/16"]
   }
 }
 
 resource "aws_lb" "nginx_lb" {
   name               = "nginx-lb"
-  internal           = false
+  internal           = true
   load_balancer_type = "application"
+  security_groups  = [aws_security_group.nginx_sg.id]
   subnets = [
     "subnet-0df3f6810ecfcf4fc",
     "subnet-039bf408e3d6f1325"
   ]
+  enable_cross_zone_load_balancing = true
 }
 
 resource "aws_lb_target_group" "nginx_tg" {
@@ -81,7 +83,7 @@ resource "aws_lb_target_group" "nginx_tg" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.existing_vpc.id
-
+  
   health_check {
     path                = "/"
     protocol            = "HTTP"
@@ -101,10 +103,6 @@ resource "aws_lb_listener" "nginx_listener" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.nginx_tg.arn
   }
-}
-
-resource "aws_internet_gateway" "gw" {
-  vpc_id = data.aws_vpc.existing_vpc.id
 }
 
 
