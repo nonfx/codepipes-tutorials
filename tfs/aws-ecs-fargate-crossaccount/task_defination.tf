@@ -1,35 +1,35 @@
 resource "aws_ecs_task_definition" "nginx_task" {
-  family                   = "nginx-task"
+  family = "nginx-task"
   # execution_role_arn       = aws_iam_role.task_execution_role.arn
   # task_role_arn            = aws_iam_role.task_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 
   container_definitions = <<DEFINITION
-[
-  {
-    "name": "nginx",
-    "image": "nginx:latest",
-    "cpu": 256,
-    "memory": 512,
-    "portMappings": [
-      {
-        "containerPort": 80,
-        "hostPort": 80,
-        "protocol": "tcp"
-      }
-    ],
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-group": "/ecs/nginx-task",
-        "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "nginx"
+  [
+    {
+      "name": "nginx",
+      "image": "nginx:latest",
+      "cpu": 256,
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/nginx-task",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "nginx"
+        }
       }
     }
-  }
-]
-DEFINITION
+  ]
+  DEFINITION
 }
 
 resource "aws_ecs_service" "nginx_service" {
@@ -69,7 +69,7 @@ resource "aws_lb" "nginx_lb" {
   name               = "nginx-lb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [
+  subnets = [
     "subnet-0df3f6810ecfcf4fc",
     "subnet-039bf408e3d6f1325"
   ]
@@ -102,6 +102,9 @@ resource "aws_lb_listener" "nginx_listener" {
   }
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = data.aws_vpc.existing_vpc.id
+}
 # resource "aws_iam_role" "task_execution_role" {
 #   name               = "ecsTaskExecutionRole"
 #   assume_role_policy = <<EOF
