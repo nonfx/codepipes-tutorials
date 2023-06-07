@@ -65,7 +65,6 @@ resource "aws_instance" "bastion" {
 
   user_data = <<-EOL
   #!/bin/bash -xe
-  sudo amazon-linux-extras install postgresql10 -y
   sudo yum install socat -y
   EOL
 }
