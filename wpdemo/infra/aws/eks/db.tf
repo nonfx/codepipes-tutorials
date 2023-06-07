@@ -22,7 +22,7 @@ resource "aws_db_instance" "default" {
   engine_version       = "5.7"
   instance_class       = "db.t3.micro"
   #Credentials
-  name                 = "db1"
+  db_name                 = "db1"
   username             = "dbuser"
   password             = "dbpassword"
   #Setting this true so that there will be no problem while destroying the Infrastructure as it won't create snapshot
