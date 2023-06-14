@@ -1002,7 +1002,7 @@ grafana:
     - name: Logging
       type: loki
       access: proxy
-      url: http://logging-loki-loki-distributed-gateway.logging
+      url: http://loki-staging:3100
   ## Passed to grafana subchart and used by servicemonitor below
   ##
   service:
