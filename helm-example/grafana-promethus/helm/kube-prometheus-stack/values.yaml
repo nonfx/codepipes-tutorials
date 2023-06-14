@@ -1012,7 +1012,7 @@ grafana:
     type: LoadBalancer
     port: 80
     targetPort: 3000
-    externalIPs: ""
+    loadBalancerIP: ""
   serviceMonitor:
     # If true, a ServiceMonitor CRD is created for a prometheus operator
     # https://github.com/coreos/prometheus-operator
