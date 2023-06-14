@@ -1003,6 +1003,8 @@ grafana:
       type: loki
       access: proxy
       url: http://loki-staging:3100
+      editable: true
+      isDefault: false
   ## Passed to grafana subchart and used by servicemonitor below
   ##
   service:
