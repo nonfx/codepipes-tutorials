@@ -26,7 +26,7 @@ type Service interface {
 type ServiceImpl struct{}
 
 func (s *ServiceImpl) Deposit(req *models.DepositRequest) (*models.MessageContainer, error) {
-
+	log.Printf("deposit requested %v", req.Amount)
 	if req.Amount > DepositLimit {
 		err := errors.New("requested deposit is greater than limit")
 		log.Println(err.Error())
@@ -56,6 +56,7 @@ func (s *ServiceImpl) addTransaction(req *models.Transaction) error {
 }
 
 func (s *ServiceImpl) WithDraw(req *models.WithdrawRequest) (*models.MessageContainer, error) {
+	log.Printf("withdrawal requested %v", req.Amount)
 	account, err := s.GetAccountByID(req.AccountID)
 	if err != nil {
 		log.Println("Failed to get account: ", err.Error())
