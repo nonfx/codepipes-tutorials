@@ -1,0 +1,23 @@
+schema_version: v1.0.0
+deployment:
+    name: hello-world-rest-St
+    deploymentConfig:
+        artifact:
+            id: 46034980-a2b7-4607-b09e-313ea778f7b1
+            containerImage:
+                reference: latest
+        template:
+            moduleRefId: gcp:basic-gke-regional@1
+            inputs:
+                cluster: ${terraform.name.value}
+                deployment_timeout: 300s
+                ports:
+                    - containerPort: 80
+                      healthCheck: ""
+                      name: hello-rest
+                      protocol: TCP
+                region: us-central1
+application:
+    import: app-hello-world-rest.yaml
+environment:
+    import: environment-Staging.yaml

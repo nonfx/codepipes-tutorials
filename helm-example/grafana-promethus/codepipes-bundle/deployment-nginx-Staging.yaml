@@ -1,0 +1,23 @@
+schema_version: v1.0.0
+deployment:
+    name: nginx-Staging
+    deploymentConfig:
+        artifact:
+            id: b14895b8-8021-4cb2-8304-ca8498c4e6ed
+            containerImage:
+                reference: latest
+        template:
+            moduleRefId: gcp:basic-gke-regional@1
+            inputs:
+                cluster: ${terraform.name.value}
+                deployment_timeout: 300s
+                ports:
+                    - containerPort: 80
+                      healthCheck: ""
+                      name: hc
+                      protocol: TCP
+                region: us-central1
+application:
+    import: app-nginx.yaml
+environment:
+    import: environment-Staging.yaml

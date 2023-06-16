@@ -1,0 +1,9 @@
+schema_version: v1.0.0
+project:
+    name: ByteWave
+    description: My first project
+deployments:
+    - import: deployment-nginx-Staging.yaml
+    - import: deployment-hello-world-rest-St.yaml
+    - import: deployment-loki-Staging.yaml
+    - import: deployment-monitor-Staging.yaml

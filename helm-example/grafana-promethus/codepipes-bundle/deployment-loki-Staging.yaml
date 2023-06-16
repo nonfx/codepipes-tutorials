@@ -1,0 +1,23 @@
+schema_version: v1.0.0
+deployment:
+    name: loki-Staging
+    deploymentConfig:
+        artifact:
+            id: 051178b6-9506-45ea-b559-2f218b7d2c2f
+            gitCode:
+                type: branch
+                identifier: akashj/VAN-4202
+        template:
+            moduleRefId: gcp:private-helm@1
+            inputs:
+                cluster: ${terraform.name.value}
+                deployment_timeout: 300s
+                helm_chart_path: helm-example/grafana-promethus/helm/loki-stack/
+                helm_values_path: helm-example/grafana-promethus/helm/loki-stack/values.yaml
+                helm_values_set_var: ""
+                namespace: monitor
+                region: us-central1
+application:
+    import: app-loki.yaml
+environment:
+    import: environment-Staging.yaml
