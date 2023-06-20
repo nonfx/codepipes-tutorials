@@ -1,0 +1,6 @@
+s3Dependency:
+    dependencyName: s3Dependency
+    inputs:
+      bucket_prefix: boratcpi
+    outputs:
+      bucket_name: BUCKET_NAME

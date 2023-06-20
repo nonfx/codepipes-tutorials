@@ -1,0 +1,6 @@
+- name: s3dependency
+  description: "AWS cloud storage to store objects"
+  inputs:
+    bucketPrefix : "bucket name prefix"
+  outputs:
+    bucket_name:	"The name of the bucket"
