@@ -1,7 +1,7 @@
 schema_version: v1.0.0
 project:
     name: ByteWave
-    description: My first project
+    description: This Project demo of Grafana , Prometheus , loki setup 
 deployments:
     - import: deployment-nginx-Staging.yaml
     - import: deployment-hello-world-rest-St.yaml

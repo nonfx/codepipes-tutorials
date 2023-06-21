@@ -3,7 +3,7 @@ application:
     name: loki
     artifacts:
         - id: 051178b6-9506-45ea-b559-2f218b7d2c2f
-          name: akashj-VAN-4202
+          name: github
           gitCode:
             type: branch
             identifier: main
