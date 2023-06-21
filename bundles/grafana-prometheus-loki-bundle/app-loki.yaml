@@ -6,7 +6,7 @@ application:
           name: akashj-VAN-4202
           gitCode:
             type: branch
-            identifier: akashj/VAN-4202
+            identifier: main
             repo: https://github.com/cldcvr/codepipes-tutorials.git
             dir: /
             driver: github

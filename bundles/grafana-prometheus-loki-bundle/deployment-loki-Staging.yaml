@@ -6,7 +6,7 @@ deployment:
             id: 051178b6-9506-45ea-b559-2f218b7d2c2f
             gitCode:
                 type: branch
-                identifier: akashj/VAN-4202
+                identifier: main
         template:
             moduleRefId: gcp:private-helm@1
             inputs:

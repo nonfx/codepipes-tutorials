@@ -6,7 +6,7 @@ application:
           name: master
           gitCode:
             type: branch
-            identifier: master
+            identifier: main
             repo: https://github.com/cldcvr/codepipes-tutorials.git
             dir: /
             driver: github
