@@ -18,8 +18,8 @@ deployment:
                 namespace: monitor
                 region: us-central1
         env:
-            GRAFANA_EXTERNAL_IP: 35.222.253.30
-            GRAFANA_PASSWORD: Codepipes@2023
+            GRAFANA_EXTERNAL_IP: X.X.X.X
+            GRAFANA_PASSWORD: Grafana@2023
 application:
     import: app-monitor.yaml
 environment:
