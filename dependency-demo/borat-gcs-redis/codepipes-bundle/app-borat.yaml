@@ -16,8 +16,8 @@ application:
           name: image
           containerImage:
             provider: google_container_registry
-            host: gcr.io
-            repo: gcr.io/pranay-test-dev/boratv2
+            host: us-docker.pkg.dev
+            repo: pranay-test-dev/automation-test/boratv2
             reference: latest
     dependsOn:
         GCS:

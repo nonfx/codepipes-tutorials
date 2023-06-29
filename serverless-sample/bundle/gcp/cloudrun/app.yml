@@ -11,7 +11,8 @@ application:
       id: 0187DD95-2315-44E1-9209-FA0C53F9B45A
       containerImage:
         provider: google_container_registry
-        repo: vanguard-test-deploy/cloudrun-server
+        host: us-docker.pkg.dev
+        repo: pranay-test-dev/automation-test/cloudrun-server
         reference: latest
   creds:
     - cloud
