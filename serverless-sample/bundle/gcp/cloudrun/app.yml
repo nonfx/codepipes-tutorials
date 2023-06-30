@@ -12,7 +12,7 @@ application:
       containerImage:
         provider: google_container_registry
         host: us-docker.pkg.dev
-        repo: pranay-test-dev/automation-test/cloudrun-server
+        repo: vanguard-test-deploy/public-test-images/cloudrun-server
         reference: latest
   creds:
     - cloud
