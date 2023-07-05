@@ -39,7 +39,7 @@ resource "aws_ecs_service" "nginx_service" {
   task_definition = aws_ecs_task_definition.nginx_task.arn
   desired_count   = 1
   launch_type     = "FARGATE"
-  platform_version = "1.3.0"
+  platform_version = var.fargate_platform_version
   network_configuration {
     subnets          = [data.aws_subnet.existing_subnet.id]
     assign_public_ip = false

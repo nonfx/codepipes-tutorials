@@ -9,6 +9,12 @@ variable "role_arn" {
   type        = string
 }
 
+variable "fargate_platform_version" {
+  description = "Fargate platform version"
+  type        = string
+  default     = "1.4.0"
+}
+
 variable "external_id" {
   description = "Optional external ID, if required by the role"
   type        = string
