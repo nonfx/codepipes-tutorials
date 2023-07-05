@@ -3,6 +3,11 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+variable "ecs_cluster_name" {
+  description = "Name of the ecs cluster"
+  type        = string
+  default = "my-cluster-default"
+}
 
 variable "role_arn" {
   description = "ARN of the IAM role in the target account"

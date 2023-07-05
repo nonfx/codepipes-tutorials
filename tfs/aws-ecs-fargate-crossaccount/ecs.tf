@@ -8,7 +8,7 @@ data "aws_subnet" "existing_subnet" {
 
 
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "my-ecs-cluster-fargate" 
+  name = var.ecs_cluster_name
 }
 
 
