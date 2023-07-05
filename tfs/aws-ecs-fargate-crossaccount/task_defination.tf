@@ -54,7 +54,7 @@ resource "aws_ecs_service" "nginx_service" {
 }
 
 resource "aws_security_group" "nginx_sg" {
-  name        = "nginx-sg"
+  name        = "${var.ecs_cluster_name}-nginx-sg"
   description = "Security group for NGINX"
   vpc_id      = data.aws_vpc.existing_vpc.id
 
@@ -73,7 +73,7 @@ resource "aws_security_group" "nginx_sg" {
 }
 
 resource "aws_lb" "nginx_lb" {
-  name               = "nginx-lb"
+  name               = "${random_string.random.id}-nginx-lb"
   internal           = true
   load_balancer_type = "application"
   security_groups  = [aws_security_group.nginx_sg.id]
@@ -85,7 +85,7 @@ resource "aws_lb" "nginx_lb" {
 }
 
 resource "aws_lb_target_group" "nginx_tg" {
-  name     = "nginx-tg"
+  name     = "${random_string.random.id}-nginx-tg"
   target_type = "ip"
   port     = 80
   protocol = "HTTP"
@@ -114,7 +114,7 @@ resource "aws_lb_listener" "nginx_listener" {
 
 
 resource "aws_iam_role" "ecs-iam-role" {
-  name = "ecs-iam-role-v2"
+  name = "${random_string.random.id}-ecs-iam-role"
 
   managed_policy_arns = ["arn:aws:iam::aws:policy/SecretsManagerReadWrite", "arn:aws:iam::aws:policy/AmazonS3FullAccess", "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy", "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess","arn:aws:iam::aws:policy/CloudWatchFullAccess"]
 
