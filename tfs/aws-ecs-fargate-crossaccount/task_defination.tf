@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "nginx_task" {
   [
     {
       "name": "nginx",
-      "image": "nginx:latest",
+      "image": var.container_image,
       "cpu": 256,
       "memory": 512,
       "portMappings": [

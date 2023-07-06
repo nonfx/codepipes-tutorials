@@ -9,6 +9,11 @@ variable "ecs_cluster_name" {
   default = "my-cluster-default"
 }
 
+variable "container_image" {
+  description = "container image reference"
+  type = string
+  default = "nginx:latest"
+}
 variable "role_arn" {
   description = "ARN of the IAM role in the target account"
   type        = string
