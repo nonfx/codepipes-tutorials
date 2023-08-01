@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "task-definition" {
       essential = true
       portMappings = [
         {
-          containerPort = 8000
+          containerPort = 3000
         }
       ]
 
@@ -78,7 +78,7 @@ resource "aws_ecs_service" "service" {
     content {
       target_group_arn = var.target_group_arn
       container_name   = var.apps
-      container_port   = 8000
+      container_port   = 3000
     }
   }
 
