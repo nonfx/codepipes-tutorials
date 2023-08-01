@@ -272,23 +272,3 @@ module "database_postgres" {
   db-sg-id = module.security_group.db-sg-id
 
 }
-
-
-module "redis" {
-  source = "../modules/redis"
-
-  # General variables
-  environment        = var.environment
-  common_name_prefix = var.common_name_prefix
-  tags               = var.tags
-
-  #Redis Variable
-  region         = data.aws_region.current.name
-  vpc_id         = module.vpc.vpc-id
-  subnet_ids     = ["${module.subnet.subnet-db-a-id}", "${module.subnet.subnet-db-b-id}"]
-  engine_version = "6.x"
-  instance_type  = "cache.t3.micro"
-  num_instances  = 1
-  security_group = module.security_group.db-sg-id
-}
-
