@@ -19,21 +19,6 @@ resource "aws_elasticache_cluster" "redis" {
   security_group_ids   = ["${var.security_group}"]
 }
 
-# user.tf
-resource "aws_elasticache_user" "redis_user" {
-  user_id      = var.user_id
-  user_name    = var.user_name
-  engine       = "REDIS"
-  access_string = "on ~* +@all"
-  passwords = [random_password.redis_user_password.result]
-}
-
-resource "random_password" "redis_user_password" {
-  length           = var.password_length
-  special          = var.password_special
-  override_special = var.password_override_special
-}
-
 
 
 

@@ -54,32 +54,3 @@ variable "security_group" {
     description = "Security Group for Redis"
     type        = string
 }
-
-#Redis user variables
-variable "user_id" {
-  description = "The user ID for the ElastiCache user"
-  type        = string
-}
-
-variable "user_name" {
-  description = "The user name for the ElastiCache user"
-  type        = string
-}
-
-variable "password_length" {
-  description = "The length of the generated password"
-  type        = number
-  default     = 16
-}
-
-variable "password_special" {
-  description = "Include special characters in the generated password"
-  type        = bool
-  default     = false
-}
-
-variable "password_override_special" {
-  description = "List of special characters to use for the generated password"
-  type        = string
-  default     = "_%+=.,:;@[]!"
-}

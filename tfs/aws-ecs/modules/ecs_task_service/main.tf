@@ -13,9 +13,8 @@ resource "aws_ecs_task_definition" "task-definition" {
 
   container_definitions = jsonencode([
     {
-      name  = "${var.apps}"
-      image = "${var.aws-account-id}.dkr.ecr.ap-south-1.amazonaws.com/carefi-web-ecr:latest"
-      # image     = "nginx"
+      name      = "${var.apps}"
+      image     = var.ecs_image
       cpu       = 256
       memory    = 512
       essential = true
@@ -66,22 +65,22 @@ resource "aws_ecs_service" "service" {
   desired_count                     = 1
   launch_type                       = "FARGATE"
   health_check_grace_period_seconds = try(length(var.site), 0) > 0 ? 15 : null
-  enable_execute_command = var.environment != "production"
+  enable_execute_command            = var.environment != "production"
 
   network_configuration {
     subnets         = var.subnets
     security_groups = var.security_groups
   }
 
- dynamic "load_balancer" {
-   # Check if site is empty or null
-   for_each = try(length(var.site), 0) > 0 ? [1] : []
-   content {
-     target_group_arn = var.target_group_arn
-     container_name = var.apps
-     container_port = 8000
-   }
- }
+  dynamic "load_balancer" {
+    # Check if site is empty or null
+    for_each = try(length(var.site), 0) > 0 ? [1] : []
+    content {
+      target_group_arn = var.target_group_arn
+      container_name   = var.apps
+      container_port   = 8000
+    }
+  }
 
   tags = merge(
     {

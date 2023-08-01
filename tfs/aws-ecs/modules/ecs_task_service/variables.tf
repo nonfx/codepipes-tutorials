@@ -52,3 +52,9 @@ variable "site" {
   type        = list(string)
   default     = null
 }
+
+variable "ecs_image" {
+  description = "The image to use for the ECS Task"
+  type = string
+  default = "docker/getting-started"
+}

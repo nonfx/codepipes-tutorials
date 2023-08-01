@@ -246,6 +246,7 @@ module "ecs_task" {
   environment        = var.environment
   tags               = var.tags
   apps               = each.key
+  ecs_image          = try(each.value.ecs_image, null)
   #ECS Variables
   aws-account-id = data.aws_caller_identity.current.account_id
   role_arn       = module.ecs.ecs_role_arn
@@ -289,11 +290,5 @@ module "redis" {
   instance_type  = "cache.t3.micro"
   num_instances  = 1
   security_group = module.security_group.db-sg-id
-
-  #User variables
-  user_id          = "redis-user"
-  user_name        = "redis-user"
-  password_length  = 20
-  password_special = false
 }
 
