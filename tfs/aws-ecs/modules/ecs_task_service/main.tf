@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "task-definition" {
   container_definitions = jsonencode([
     {
       name      = "${var.apps}"
-      image     = var.ecs_image
+      image     = "public.ecr.aws/nginx/nginx:stable"
       cpu       = 256
       memory    = 512
       essential = true
