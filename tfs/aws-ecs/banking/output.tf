@@ -64,4 +64,16 @@ output "postgres_connection_string" {
   sensitive = true
 }
 
+output "postgres_db_name" {
+  value = module.database_postgres.db_name
+}
+
+output "postgres_db_username" {
+  value = module.database_postgres.db_username
+}
+
+output "postgres_db_port" {
+  value = module.database_postgres.db_port
+}
+
 
