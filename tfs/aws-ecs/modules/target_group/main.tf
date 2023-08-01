@@ -4,14 +4,14 @@ locals {
 
 resource "aws_lb_target_group" "tg" {
   name                 = substr("${var.app}${local.extract_resource_name}tg", 0, 32)
-  port                 = 8000
+  port                 = 3000
   protocol             = "HTTP"
   target_type          = "ip"
   vpc_id               = var.vpc-id
   deregistration_delay = 60
 
   health_check {
-    port = 8000
+    port = 3000
     path = var.healthCheck
   }
 
