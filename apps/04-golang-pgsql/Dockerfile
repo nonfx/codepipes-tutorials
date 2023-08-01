@@ -1,5 +1,5 @@
-ARG GO_BASE_IMAGE=golang:1.19-alpine
-ARG RUNTIME_BASE_IMAGE=alpine
+ARG GO_BASE_IMAGE=public.ecr.aws/docker/library/golang:latest
+ARG RUNTIME_BASE_IMAGE=public.ecr.aws/docker/library/alpine:latest
 
 FROM ${GO_BASE_IMAGE} as build
 
