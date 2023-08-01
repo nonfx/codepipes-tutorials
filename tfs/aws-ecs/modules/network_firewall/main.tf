@@ -32,9 +32,9 @@ resource "aws_networkfirewall_rule_group" "inbound-firewall-rule-group" {
   rule_group {
     rules_source {
       rules_source_list {
-        generated_rules_type = "ALLOWLIST"
+        generated_rules_type = "DENYLIST"
         target_types         = ["TLS_SNI"]
-        targets              = [".github.com", ".python.org"]
+        targets              = [".example.com"]
       }
     }
   }
