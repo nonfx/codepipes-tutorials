@@ -117,7 +117,7 @@ module "security_group_vpc_connector" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name   = local.name
+  name   = "demo-vpc-${random_string.random.id}"
   vpc_id = module.vpc.vpc_id
 
   # ingress

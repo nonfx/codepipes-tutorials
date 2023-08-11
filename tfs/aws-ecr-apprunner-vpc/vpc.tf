@@ -25,8 +25,8 @@ module "vpc" {
 }
 
 module "vpc_endpoints" {
-  source = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "~> 4.0"
+  source             = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
+  version            = "~> 4.0"
   vpc_id             = module.vpc.vpc_id
   security_group_ids = [module.security_group.security_group_id]
 
@@ -52,6 +52,12 @@ module "security_group" {
       cidr_blocks = module.vpc.vpc_cidr_block
     },
   ]
+  ingress_with_source_security_group_id = [{
+    rule                     = "postgresql-tcp"
+    source_security_group_id = module.security_group_vpc_connector.security_group_id
+    },
+  ]
+
   egress_with_cidr_blocks = [
     {
       rule        = "all-all"
