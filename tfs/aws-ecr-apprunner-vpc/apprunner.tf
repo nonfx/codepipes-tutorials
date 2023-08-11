@@ -3,7 +3,7 @@
 resource "aws_apprunner_vpc_connector" "demo-vpc-conn" {
   vpc_connector_name = local.name
   subnets            = module.vpc.database_subnets
-  security_groups    = [module.security_group.security_group_id]
+  security_groups    = [module.security_group_vpc_connector.security_group_id]
 }
 
 # ECR role for AppRunner
@@ -111,4 +111,28 @@ resource "aws_iam_policy_attachment" "instance-attach" {
   name       = "instance-attachment"
   roles      = ["${aws_iam_role.instance_role.name}"]
   policy_arn = aws_iam_policy.instance_policy.arn
+}
+
+module "security_group_vpc_connector" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 4.0"
+
+  name   = local.name
+  vpc_id = module.vpc.vpc_id
+
+  # ingress
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "postgresql-tcp"
+      cidr_blocks = module.vpc.vpc_cidr_block
+    },
+  ]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
+
+  tags = local.tags
 }
