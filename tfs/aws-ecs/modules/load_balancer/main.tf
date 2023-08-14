@@ -2,9 +2,13 @@ locals {
   extract_resource_name = "${var.common_name_prefix}-${var.environment}-${var.number}"
 }
 
+resource "random_id" "s3_access_logs_bucket_id" {
+  byte_length = 8
+}
+
 #S3 Bucket for accesslogs
 resource "aws_s3_bucket" "s3_access_logs_bucket" {
-  bucket = "${local.extract_resource_name}-lb-log-bucket"
+  bucket = "${local.extract_resource_name}-lb-log-bucket-${random_id.s3_access_logs_bucket_id.hex}"
   acl    = "private"
   server_side_encryption_configuration {
     rule {
@@ -267,6 +271,6 @@ module "waf" {
   ]
 }
 resource "aws_cloudwatch_log_group" "web-logs" {
-  name              = "aws-waf-logs-1"
+  name              = "aws-waf-logs-${random_id.s3_access_logs_bucket_id.hex}"
   retention_in_days = 365
 }

@@ -123,7 +123,11 @@ resource "aws_appautoscaling_policy" "scale-cpu" {
   }
 }
 
+resource "random_id" "aws_cloudwatch_log_group_id" {
+  byte_length = 2
+}
+
 resource "aws_cloudwatch_log_group" "logs" {
-  name              = "/fargate/service/${var.apps}-logs"
+  name              = "/fargate/service/${var.apps}-logs-${random_id.aws_cloudwatch_log_group_id.hex}"
   retention_in_days = 365
 }
