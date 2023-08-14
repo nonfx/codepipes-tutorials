@@ -1,6 +1,7 @@
-variable "aws-account-id" {
-  default = "279513215685"
+variable "region" {
+  default = "us-east-1"
 }
+
 
 variable "aws-acm-certificate" {
   default = "0b0ef27f-bfd7-4a68-841b-449e975d7b6a"

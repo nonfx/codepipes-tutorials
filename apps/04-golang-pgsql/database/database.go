@@ -27,7 +27,7 @@ func ConnectDb() {
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_SSLMODE"),
 	)
-
+	fmt.Printf("dsn = %s", dsn)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Error),
 	})

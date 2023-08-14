@@ -29,8 +29,6 @@ variable "role_arn" {
     description = "Role ARN for ECS Task and Services"
 }
 
-variable "aws-account-id" {}
-
 variable "ecs_cluster" {
   description = "ECS Cluster to create task and service for"
 }
