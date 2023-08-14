@@ -2,7 +2,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-
 variable "aws-acm-certificate" {
   default = "0b0ef27f-bfd7-4a68-841b-449e975d7b6a"
 }
@@ -32,8 +31,8 @@ variable "number" {
 variable "apps" {
   description = "Array of apps for which resources needs to be created"
   type = map(object({
-    path = list(string)
-    site = list(string)
+    path        = list(string)
+    site        = list(string)
     healthCheck = optional(string)
   }))
 }
@@ -41,40 +40,40 @@ variable "apps" {
 #VPC Variables
 variable "vpc_cidr_block" {
   description = "CIDR Block to be used by VPC"
-  default = "10.1.0.0/16"
-  type = string
+  default     = "10.1.0.0/16"
+  type        = string
 }
 
 variable "vpc_enable_dns_hostnames" {
-  description = "A boolean flag to enable/disable DNS support in the VPC. Defaults to true."  
-  default = true
-  type = bool
+  description = "A boolean flag to enable/disable DNS support in the VPC. Defaults to true."
+  default     = true
+  type        = bool
 }
 
 
 #ECR Variables
 variable "ecr_image_tag_mutability" {
   description = "The tag mutability setting for the repository. Must be one of: MUTABLE or IMMUTABLE. Defaults to MUTABLE."
-  type = string
-  default = "MUTABLE"
+  type        = string
+  default     = "MUTABLE"
 }
 
 variable "ecr_enable_force_delete" {
   description = "If true, will delete the repository even if it contains images. Defaults to false."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "ecr_enable_scan_on_push" {
   description = " Indicates whether images are scanned after being pushed to the repository (true) or not scanned (false)."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "ecr_encryption_type" {
   description = "The encryption type to use for the repository. Valid values are AES256 or KMS. Defaults to AES256."
-  type = string
-  default = "KMS"
+  type        = string
+  default     = "KMS"
 }
 
 #LB WAF Variables

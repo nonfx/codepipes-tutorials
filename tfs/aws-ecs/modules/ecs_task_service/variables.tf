@@ -56,3 +56,7 @@ variable "ecs_image" {
   type = string
   default = "docker/getting-started"
 }
+
+variable "aws-account-id" {
+  description = "AWS Account ID"
+}
