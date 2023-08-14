@@ -247,6 +247,7 @@ module "ecs_task" {
   tags               = var.tags
   apps               = each.key
   ecs_image          = try(each.value.ecs_image, null)
+  site               = try(each.value.site, null)
   #ECS Variables
   aws-account-id = data.aws_caller_identity.current.account_id
   role_arn       = module.ecs.ecs_role_arn
