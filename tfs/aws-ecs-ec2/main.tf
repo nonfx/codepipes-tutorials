@@ -56,7 +56,7 @@ resource "aws_launch_configuration" "ecs_launch_configuration" {
 
 # Autoscaling group for EC2 instances
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
-  name                 = "ecs-autoscaling-group"
+  name                 = "ecs-ec2-autoscaling-group"
   min_size             = 1 # Update with your desired minimum number of instances
   max_size             = 5 # Update with your desired maximum number of instances
   desired_capacity     = 2 # Update with your desired initial number of instances
