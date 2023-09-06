@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-sql-demo/build"
+	"go-sql-demo/database"
 	"go-sql-demo/models"
 	"go-sql-demo/service"
 	"io/ioutil"
@@ -55,6 +56,8 @@ func SetupDemoAccount() {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	database.ConnectDb()
+	SetupDemoAccount()
 
 	account, err := bankService.GetAccountByID(demoAccount.ID)
 	if err != nil {

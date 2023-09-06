@@ -33,8 +33,8 @@ func ConnectDb() {
 	})
 
 	if err != nil {
-		log.Fatal("Failed to connect to database. \n", err)
-		os.Exit(2)
+		log.Println("Failed to connect to database. \n", err)
+		return
 	}
 
 	log.Println("connected")
