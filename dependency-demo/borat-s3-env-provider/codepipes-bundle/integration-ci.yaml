@@ -3,7 +3,7 @@ integration:
     name: ci
     description: Build and push
     inputAppArtifact:
-        id: 7c2e43e7-6e33-488e-b8dc-13494d2f5er9
+        id: 7c2e43e7-6e33-488e-b8dc-13494d2f5ed9
     outputAppArtifact:
         id: e62dc1cf-ba35-4eef-833e-64f5de36e324
     config:
