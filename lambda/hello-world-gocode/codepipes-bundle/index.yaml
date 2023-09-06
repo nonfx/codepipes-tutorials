@@ -1,5 +1,0 @@
-schema_version: v1.0.0
-project:
-    name: Lambda
-deployments:
-    - import: deployment-go-code-lambda.yaml

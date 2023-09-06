@@ -1,9 +1,0 @@
-schema_version: v1.0.0
-project:
-    name: all-about-FAS
-deployments:
-    - import: deployment-world-lambda-container-dev-world-1.yaml
-    - import: deployment-hello-lambda-container-dev-hello-1.yaml
-integrations:
-    - import: hello-integration-ci.yaml
-    - import: world-integration-ci.yaml

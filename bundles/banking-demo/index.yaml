@@ -1,8 +1,0 @@
-schema_version: v1.0.0
-project:
-    name: Banking-Demo
-deployments:
-    - import: deployment-banking-app-dev.yaml
-    - import: deployment-banking-app-prod.yaml
-integrations:
-    - import: integration-banking-app-integration-pipeline-1.yaml
