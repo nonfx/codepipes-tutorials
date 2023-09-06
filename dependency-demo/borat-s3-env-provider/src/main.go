@@ -25,13 +25,13 @@ var (
 	s3Client *s3.S3
 
 	region = "us-east-1"
-	bucket = "bucket-name"
+	bucket = ""
 	key    = "test.gif"
 )
 
 func init() {
 	// region = os.Getenv("bucket_region")
-	bucket = os.Getenv("bucket_name")
+	bucket = os.Getenv("tr_bucket_name")
 	var err error
 	indexTmpl, err = template.New("index").Parse(indexFormat)
 	if err != nil {
