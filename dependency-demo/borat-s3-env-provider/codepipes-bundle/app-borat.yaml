@@ -17,9 +17,4 @@ application:
           containerImage:
             provider: public_elastic_container_registry
             repo: p0k3r4s4/boratcpitest-depe
-            reference: latest
-    dependsOn:
-        s3bucket:
-            dependencyName: s3bucket
-            outputs:
-                bucket_name: bucket_name
+            reference: borat-s3-env-provider
