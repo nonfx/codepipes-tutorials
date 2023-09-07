@@ -3,7 +3,7 @@ environment:
     name: development
     revision:
         type: branch
-        identifier: shekhar/VAN-4215
+        identifier: main
         repo: https://github.com/cldcvr/codepipes-tutorials
         dir: dependency-demo/borat-s3-env-provider/infra
         driver: github
