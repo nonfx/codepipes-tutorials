@@ -1,0 +1,19 @@
+schema_version: v1.0.0
+deployment:
+    name: AppRunnerDeployment
+    deploymentConfig:
+        artifact:
+            id: e62dc1cf-ba35-4eef-833e-64f5de36a314
+        template:
+            moduleRefId: aws:app-runner@1
+            inputs:
+                region:  "${terraform.aws_region.value}"
+                port: 8080
+                ecr_role: "${terraform.aws_ecr_role.value}"
+                instance_role: "${terraform.aws_instance_role.value}"
+        env:
+            IMAGE_PATH: "test.gif"
+application:
+    import: app-borat.yaml
+environment:
+    import: environment-my-env.yaml

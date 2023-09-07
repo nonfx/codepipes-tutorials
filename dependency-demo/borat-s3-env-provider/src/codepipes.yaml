@@ -1,0 +1,4 @@
+s3bucket:
+    dependencyName: s3bucket
+    outputs:
+      bucket_name: tr_bucket_name

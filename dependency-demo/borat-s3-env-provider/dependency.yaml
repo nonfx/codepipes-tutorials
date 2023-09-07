@@ -1,0 +1,4 @@
+- name: s3bucket
+  description: "AWS cloud storage to store objects"
+  outputs:
+    bucket_name:	"The name of the bucket"

@@ -1,0 +1,7 @@
+schema_version: v1.0.0
+project:
+    name: NimbusConnect
+deployments:
+    - import: deployment-my-depl.yaml
+integrations:
+    - import: integration-ci.yaml

@@ -1,0 +1,27 @@
+schema_version: v1.0.0
+application:
+    name: borat
+    appConfig:
+        version: "1.14"
+    artifacts:
+        - id: 7c2e43e7-6e33-488e-b8dc-13494d2f5ed9
+          name: Git Code Repo
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials
+            dir: dependency-demo/borat-s3/src
+            driver: github
+        - id: e62dc1cf-ba35-4eef-833e-64f5de36a314
+          name: image
+          containerImage:
+            provider: public_elastic_container_registry
+            repo: p0k3r4s4/boratcpitest-depe
+            reference: latest
+    dependsOn:
+        s3bucket:
+            dependencyName: s3dependency
+            inputs:
+                bucketPrefix: 'maverick'
+            outputs:
+                bucket_name: bucket_name
