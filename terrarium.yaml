@@ -8,7 +8,7 @@ compute:
     port: 3000
 
 dependencies:
-  - id: ledgerdb
+  - id: ledger_db
     use: postgres
     inputs:
       version: "11.20"
