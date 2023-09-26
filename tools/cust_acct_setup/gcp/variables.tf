@@ -77,6 +77,7 @@ variable "api_services" {
     "cloudresourcemanager.googleapis.com",
     "cloudkms.googleapis.com",
     "pubsub.googleapis.com",
+    "secretmanager.googleapis.com"
   ]
 }
 
