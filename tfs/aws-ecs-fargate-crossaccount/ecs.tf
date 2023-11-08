@@ -4,7 +4,7 @@ data "aws_vpc" "existing_vpc" {
 
 # Reference an existing subnet by its ID
 data "aws_subnet" "existing_subnet" {
-  id = "subnet-0d347ca43bd641372" # Update with your subnet ID
+  id = "subnet-0d98827f3581fa7de" # Update with your subnet ID
 }
 
 resource "aws_ecs_cluster" "ecs_cluster" {
