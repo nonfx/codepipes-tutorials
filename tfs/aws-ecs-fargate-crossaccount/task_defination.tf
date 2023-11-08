@@ -78,8 +78,8 @@ resource "aws_lb" "nginx_lb" {
   load_balancer_type = "application"
   security_groups  = [aws_security_group.nginx_sg.id]
   subnets = [
-    "subnet-0df3f6810ecfcf4fc",
-    "subnet-039bf408e3d6f1325"
+    "subnet-0d98827f3581fa7de",
+    "subnet-0d347ca43bd641372"
   ]
   enable_cross_zone_load_balancing = true
 }
