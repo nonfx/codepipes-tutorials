@@ -1,12 +1,12 @@
 
 # Reference an existing VPC by its ID
 data "aws_vpc" "existing_vpc" {
-  id = "vpc-0789949926e072698" # Update with your VPC ID
+  id = "vpc-04f2d3c201e9a2de2" # Update with your VPC ID
 }
 
 # Reference an existing subnet by its ID
 data "aws_subnet" "existing_subnet" {
-  id = "subnet-0df3f6810ecfcf4fc" # Update with your subnet ID
+  id = "subnet-0d347ca43bd641372" # Update with your subnet ID
 }
 
 # Create an ECS cluster
