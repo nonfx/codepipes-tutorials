@@ -1,0 +1,12 @@
+title: opstest-comp-a3a7721c
+module_id:
+    namespace: vancluever
+    name: module
+    provider: "null"
+    version: 2.0.2
+variables:
+    - name: trigger
+      value: two
+outputs:
+    - name: null_resource_id
+      description: The `id` of the `null_resource` resource in this module.

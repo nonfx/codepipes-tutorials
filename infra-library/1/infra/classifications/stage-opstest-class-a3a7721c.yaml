@@ -1,0 +1,13 @@
+name: STAGE-opstest-class-a3a7721c
+description: STAGE opstest-class-a3a7721c-description
+variables:
+    - name: string_value
+      value: petmal-opstest
+      type: 2
+    - name: int_value
+      value: "42"
+      type: 2
+    - name: float_value
+      value: "3.14159"
+      type: 2
+policy_set_id: 8ea52707-af59-46e7-b16c-14f2e86d9e5d

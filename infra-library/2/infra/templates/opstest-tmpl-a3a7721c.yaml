@@ -1,0 +1,8 @@
+name: opstest-tmpl-a3a7721c
+description: opstest-tmpl-a3a7721c description
+base_infra_git:
+    type: 1
+    identifier: master
+    repo: https://github.com/cldcvr/vanguard-demo
+    dir: opstest/gcp
+    driver: 1
