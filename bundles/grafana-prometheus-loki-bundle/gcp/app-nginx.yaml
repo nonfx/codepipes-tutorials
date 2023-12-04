@@ -1,0 +1,19 @@
+schema_version: v1.0.0
+application:
+    name: nginx
+    artifacts:
+        - id: 5df5b837-b141-4524-8f53-f0d83b3d60ea
+          name: master
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials.git
+            dir: /
+            driver: github
+        - id: b14895b8-8021-4cb2-8304-ca8498c4e6ed
+          name: dockerhub_container_registry
+          containerImage:
+            provider: dockerhub_container_registry
+            repo: dockersamples/k8s-wordsmith-web
+            reference: latest
+            versionTagPattern: '[a-f0-9]+'

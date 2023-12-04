@@ -1,0 +1,12 @@
+schema_version: v1.0.0
+application:
+    name: loki
+    artifacts:
+        - id: 051178b6-9506-45ea-b559-2f218b7d2c2f
+          name: github
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials.git
+            dir: /
+            driver: github

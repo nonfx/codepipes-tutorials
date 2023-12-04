@@ -1,0 +1,52 @@
+schema_version: v1.0.0
+environment:
+    name: Staging
+    revision:
+        type: branch
+        identifier: master
+        repo: https://github.com/cldcvr/vanguard-demo
+        dir: cdn/infra/gcp/gke
+        driver: github
+    variables:
+        - key: cluster_ipv4_cidr
+          value: 10.254.192.144/28
+          type: tf_var
+        - key: create_codepipes_bot_service_account
+          value: "true"
+          type: tf_var
+        - key: create_workload_identity_service_accounts
+          value: "true"
+          type: tf_var
+        - key: environment
+          value: test
+          type: tf_var
+        - key: ip_range_pods
+          value: codepipes-ip-range-testing
+          type: tf_var
+        - key: ip_range_services
+          value: codepipes-svc-range-testing
+          type: tf_var
+        - key: kubernetes_version
+          value: 1.24.11-gke.1000
+          type: tf_var
+        - key: location
+          value: us-central1
+          type: tf_var
+        - key: name
+          value: testing
+          type: tf_var
+        - key: network
+          value: codepipes-net-testing
+          type: tf_var
+        - key: project
+          value: vanguard-test-deploy
+          type: tf_var
+        - key: project_code
+          value: pranay-test-dev
+          type: tf_var
+        - key: subnet_ip
+          value: 172.20.0.0/22
+          type: tf_var
+        - key: subnetwork
+          value: codepipes-sub-testing
+          type: tf_var

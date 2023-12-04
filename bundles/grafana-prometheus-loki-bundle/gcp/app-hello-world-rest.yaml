@@ -1,0 +1,19 @@
+schema_version: v1.0.0
+application:
+    name: hello-world-rest
+    artifacts:
+        - id: f21148c1-f33f-46f0-8b7b-79977194f98e
+          name: pranay
+          gitCode:
+            type: branch
+            identifier: pranay
+            repo: https://github.com/cldcvr/codepipes-tutorials
+            dir: /VAN-4162
+            driver: github
+        - id: 46034980-a2b7-4607-b09e-313ea778f7b1
+          name: dockerhub-container
+          containerImage:
+            provider: dockerhub_container_registry
+            repo: yeasy/simple-web
+            reference: latest
+            versionTagPattern: '[a-f0-9]+'

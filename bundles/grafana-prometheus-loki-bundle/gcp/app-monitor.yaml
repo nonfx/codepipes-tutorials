@@ -1,0 +1,12 @@
+schema_version: v1.0.0
+application:
+    name: monitor
+    artifacts:
+        - id: c0235a38-7009-4eb3-8442-4240777b7236
+          name: git
+          gitCode:
+            type: branch
+            identifier: main
+            repo: https://github.com/cldcvr/codepipes-tutorials.git
+            dir: /
+            driver: github

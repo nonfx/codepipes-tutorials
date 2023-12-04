@@ -1,0 +1,26 @@
+schema_version: v1.0.0
+deployment:
+    name: monitor-Staging
+    deploymentConfig:
+        artifact:
+            id: c0235a38-7009-4eb3-8442-4240777b7236
+            gitCode:
+                type: branch
+                identifier: main
+        template:
+            moduleRefId: gcp:private-helm@1
+            inputs:
+                cluster: ${terraform.name.value}
+                deployment_timeout: 300s
+                helm_chart_path: helm-example/grafana-promethus/helm/kube-prometheus-stack/
+                helm_values_path: helm-example/grafana-promethus/helm/kube-prometheus-stack/values.yaml
+                helm_values_set_var: grafana.adminPassword=$$GRAFANA_PASSWORD,grafana.service.loadBalancerIP=$$GRAFANA_EXTERNAL_IP
+                namespace: monitor
+                region: us-central1
+        env:
+            GRAFANA_EXTERNAL_IP: X.X.X.X
+            GRAFANA_PASSWORD: Grafana@2023
+application:
+    import: app-monitor.yaml
+environment:
+    import: environment-Staging.yaml
