@@ -1,0 +1,12 @@
+id: 04-golang-pgsql
+name: Go Postgres Demo App 04
+env_prefix: VO
+
+compute:
+  use: server_web
+  inputs:
+    port: 3000
+
+dependencies:
+  - id: db
+    use: postgres
