@@ -1,6 +1,5 @@
 id: 04-golang-pgsql
 name: Go Postgres Demo App 04
-env_prefix: VO
 
 compute:
   use: server_web
