@@ -1,0 +1,6 @@
+id: 04-golang-pgsql
+name: Go Postgres Demo App 04
+
+dependencies:
+  - id: db
+    use: postgres
