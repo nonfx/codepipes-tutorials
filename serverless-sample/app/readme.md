@@ -9,7 +9,7 @@ To achieve this, the terraform code in the infra directory can be executed.
 ## Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/cldcvr/codepipes-tutorials.git
+git clone https://github.com/ollionorg/codepipes-tutorials.git
 ```
 
 2. Navigate to the app folder you want to use:

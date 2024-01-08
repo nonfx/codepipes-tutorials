@@ -29,7 +29,7 @@ AWS S3 Bucket https://registry.terraform.io/modules/terraform-aws-modules/s3-buc
 ```sh
 codepipes bundle plan \
   --proj <Code Pipes project id> \
-  --repo https://github.com/cldcvr/codepipes-tutorials \
+  --repo https://github.com/ollionorg/codepipes-tutorials \
   --revision branch:<BRANCH-NAME> \
   --dir /dependency-demo/borat-s3-env-provider/codepipes-bundle
 

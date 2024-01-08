@@ -15,7 +15,7 @@ Make sure you have Docker installed on your system. If not, you can download it 
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/cldcvr/codepipes-tutorials.git
+   git clone https://github.com/ollionorg/codepipes-tutorials.git
    ```
 
 2. Navigate to the project directory:

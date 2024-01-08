@@ -10,6 +10,6 @@ application:
           gitCode:
             type: branch
             identifier: main
-            repo: https://github.com/cldcvr/codepipes-tutorials
+            repo: https://github.com/ollionorg/codepipes-tutorials
             dir: helm-example/loki-stack/values.yaml
             driver: github

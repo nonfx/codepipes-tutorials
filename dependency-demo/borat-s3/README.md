@@ -53,7 +53,7 @@ codepipes dependency resolver create  \
 ```sh
 codepipes bundle plan \
   --proj <Code Pipes project id> \
-  --repo https://github.com/cldcvr/codepipes-tutorials \
+  --repo https://github.com/ollionorg/codepipes-tutorials \
   --revision branch:<BRANCH-NAME> \
   --dir /dependency-demo/borat-s3/codepipes-bundle
 
