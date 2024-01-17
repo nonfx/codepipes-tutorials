@@ -94,8 +94,8 @@ stages:
             sudo chmod +x /usr/local/bin/docker-compose
             cat .env.tests
             go env -w GO111MODULE=on
-            go env -w GOPRIVATE=github.com/cldcvr/*
-            git config --global url."https://$GIT_TOKEN@github.com/cldcvr".insteadOf "https://github.com/cldcvr"
+            go env -w GOPRIVATE=github.com/ollionorg/*
+            git config --global url."https://$GIT_TOKEN@github.com/ollionorg".insteadOf "https://github.com/ollionorg"
             set -o pipefail; TEST_VERSION=$(TEST_VERSION_STAGING) TEST_REGEX=${{ parameters.TEST_REGEX }} TEST_ENV=${{ parameters.TEST_ENV }} TEST_USER=${{ parameters.TEST_USER }} TEST_PASSWORD=${{ parameters.TEST_PASSWORD }} TEST_AZURE_BUILD_BRANCH=$(Build.SourceBranch) TEST_AZURE_BUILD_URL='$(System.CollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)&_a=summary' make ${{ parameters.TEST_COMMAND }}
           env:
             PM_GIT_TOKEN: $(PM_GIT_TOKEN)
@@ -159,8 +159,8 @@ stages:
                 sudo chmod +x /usr/local/bin/docker-compose
                 cat .env.tests
                 go env -w GO111MODULE=on
-                go env -w GOPRIVATE=github.com/cldcvr/*
-                git config --global url."https://$GIT_TOKEN@github.com/cldcvr".insteadOf "https://github.com/cldcvr"
+                go env -w GOPRIVATE=github.com/ollionorg/*
+                git config --global url."https://$GIT_TOKEN@github.com/ollionorg".insteadOf "https://github.com/ollionorg"
                 TEST_VERSION=$(TEST_VERSION_STAGING) TEST_ENV=${{ parameters.TEST_ENV }} TEST_USER=${{ parameters.TEST_USER }} TEST_PASSWORD=${{ parameters.TEST_PASSWORD }} TEST_CLEANUP_ALL=false make test-docker-cleanup
               env:
                 PM_GIT_TOKEN: $(PM_GIT_TOKEN)

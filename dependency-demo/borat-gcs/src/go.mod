@@ -1,4 +1,4 @@
-module github.com/cldcvr/codepipes-tutorials/dependency-demo
+module github.com/ollionorg/codepipes-tutorials/dependency-demo
 
 go 1.16
 

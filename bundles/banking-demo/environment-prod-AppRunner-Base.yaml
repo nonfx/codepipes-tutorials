@@ -5,7 +5,7 @@ environment:
     revision:
         type: branch
         identifier: main
-        repo: https://github.com/cldcvr/codepipes-tutorials
+        repo: https://github.com/ollionorg/codepipes-tutorials
         dir: /tfs/aws-ecr-apprunner-vpc
         driver: github
     tfVersion: 1.3.7

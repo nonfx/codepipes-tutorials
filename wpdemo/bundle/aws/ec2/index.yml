@@ -8,7 +8,7 @@ environment:
   description: wordpress app infra on AWS ec2
   revision:
     driver: github
-    repo: https://github.com/cldcvr/codepipes-tutorials
+    repo: https://github.com/ollionorg/codepipes-tutorials
     dir: wpdemo/infra/aws/ec2
     identifier: main
     type: branch

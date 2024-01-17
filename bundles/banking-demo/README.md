@@ -19,7 +19,7 @@ The repo (i.e. banking-app) needs to be pre-created in ECR before any of this wo
 Used tools/cust-acct-setup to create CP LZ in each account (doug-test-cust and doug-test1)
 
 ```
-$ codepipes env template create -n AppRunner-Base -r https://github.com/cldcvr/codepipes-tutorials -v branch:main --dir /tfs/aws-ecr-apprunner-vpc --tfversion 1.3.7
+$ codepipes env template create -n AppRunner-Base -r https://github.com/ollionorg/codepipes-tutorials -v branch:main --dir /tfs/aws-ecr-apprunner-vpc --tfversion 1.3.7
 id: f222be09-0bd7-4792-a842-35648a9acd00
 
 # dev env with policy CC-Best (bd04a6ca-9043-4135-9299-d490c42dfe12)
@@ -90,12 +90,12 @@ This should end up creating two environments ( dev & prod ). Inheriting the poli
       - workaround for an unknown bug. the flow should work without this as we are using a public repo.
 
 ###### Application
-Apply bundle from "bundles/banking-demo" repo "github.com/cldcvr/codepipes-tutorials"
+Apply bundle from "bundles/banking-demo" repo "github.com/ollionorg/codepipes-tutorials"
 ```
 $ codepipes bundle plan
 Using config file: /Users/doug/.codepipes.yml
 Processing plan for bundle:
-        Repo: https://github.com/cldcvr/codepipes-tutorials
+        Repo: https://github.com/ollionorg/codepipes-tutorials
         Directory: /bundles/banking-demo
         Bundle File: (default)
         Revision: branch:main

@@ -4,7 +4,7 @@ environment:
     revision:
         type: branch
         identifier: main
-        repo: https://github.com/cldcvr/codepipes-tutorials
+        repo: https://github.com/ollionorg/codepipes-tutorials
         dir: dependency-demo/borat-gcs-redis/infra
         driver: github
     tfVersion: 1.2.5

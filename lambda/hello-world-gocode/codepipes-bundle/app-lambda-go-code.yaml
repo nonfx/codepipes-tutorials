@@ -9,6 +9,6 @@ application:
           gitCode:
             type: branch
             identifier: main
-            repo: https://github.com/cldcvr/codepipes-tutorials
+            repo: https://github.com/ollionorg/codepipes-tutorials
             dir: lambda/hello-world-gocode
             driver: github
