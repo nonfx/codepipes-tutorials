@@ -8,7 +8,7 @@ There are several ways to install and run the app:
 
 ### Option 1: Using Go CLI
 
-1. Clone the repository: `git clone https://github.com/cldcvr/codepipes-tutorials.git`
+1. Clone the repository: `git clone https://github.com/ollionorg/codepipes-tutorials.git`
 
 2. Navigate to the root directory of the app: `cd apps/04-golang-pgsql`
 
@@ -18,7 +18,7 @@ There are several ways to install and run the app:
 
 ### Option 2: Using Docker
 
-1. Clone the repository: `git clone https://github.com/cldcvr/codepipes-tutorials.git`
+1. Clone the repository: `git clone https://github.com/ollionorg/codepipes-tutorials.git`
 
 2. Navigate to the root directory of the app: `cd apps/04-golang-pgsql`
 
@@ -30,7 +30,7 @@ There are several ways to install and run the app:
 
 ### Option 3: Using Docker Compose
 
-1. Clone the repository: `git clone https://github.com/cldcvr/codepipes-tutorials.git`
+1. Clone the repository: `git clone https://github.com/ollionorg/codepipes-tutorials.git`
 
 2. Navigate to the root directory of the app: `cd apps/04-golang-pgsql`
 
@@ -40,7 +40,7 @@ There are several ways to install and run the app:
 
 ### Option 4: Using Make Commands
 
-1. Clone the repository: `git clone https://github.com/cldcvr/codepipes-tutorials.git`
+1. Clone the repository: `git clone https://github.com/ollionorg/codepipes-tutorials.git`
 
 2. Navigate to the root directory of the app: `cd apps/04-golang-pgsql`
 

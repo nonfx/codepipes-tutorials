@@ -7,7 +7,7 @@ application:
           gitCode:
             type: branch
             identifier: main
-            repo: https://github.com/cldcvr/codepipes-tutorials
+            repo: https://github.com/ollionorg/codepipes-tutorials
             dir: /apps/04-golang-pgsql/
             driver: github
         - id: eac84f49-6b31-4c03-85b8-7bf3a07f4627

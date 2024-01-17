@@ -39,7 +39,7 @@ Following are the high-level steps to be covered in the demo
 4. Have a GCP cloud credential created
 5. Assign GCP credentials to the project with cloud and container scope
 6. In case you want to use classifications, have one credential for each classification and assign them to the project.
-7. clone the https://github.com/cldcvr/codepipes-tutorials repo and CD into the repo root for CLI usage.
+7. clone the https://github.com/ollionorg/codepipes-tutorials repo and CD into the repo root for CLI usage.
 
 ## Prepare dependency library for org
 As a DevOps persona, you set up a dependency library for your organization that can be used later by the developers in their apps.
@@ -136,7 +136,7 @@ codepipes classification create -n prod -a <id of staging classification>
 codepipes environment template create \
   -n serverless-network \
   -d "serverless base with network connector" \
-  -r https://github.com/cldcvr/codepipes-tutorials \
+  -r https://github.com/ollionorg/codepipes-tutorials \
   --dir dependency-demo/borat-gcs-redis/infra  \
   -v branch:main \
   --tfversion 1.2.5
@@ -180,7 +180,7 @@ Note: We want to skip the app deployment for now because the app container image
 ```sh
 codepipes bundle plan \
   --proj <Code Pipes project id>
-  --repo https://github.com/cldcvr/codepipes-tutorials
+  --repo https://github.com/ollionorg/codepipes-tutorials
   --revision branch:<BRANCH-NAME>
   --dir /dependency-demo/borat-gcs-redis/codepipes-bundle
 
@@ -195,7 +195,7 @@ codepipes bundle apply --skipPipelines
 4. Select open source
 5. fill in the following details:
 ```
-Repository path: https://github.com/cldcvr/codepipes-tutorials
+Repository path: https://github.com/ollionorg/codepipes-tutorials
 Directory path: /dependency-demo/borat-gcs-redis/codepipes-bundle
 Revision type: branch
 Revision identifier: main
