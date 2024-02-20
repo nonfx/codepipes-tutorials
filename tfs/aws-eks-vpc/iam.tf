@@ -138,6 +138,7 @@ resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
                 "elasticloadbalancing:DescribeTargetGroupAttributes",
                 "elasticloadbalancing:DescribeTargetHealth",
                 "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:AddTags",
                 "route53:ListHostedZones",
                 "route53:ListResourceRecordSets",
                 "route53:ChangeResourceRecordSets"
